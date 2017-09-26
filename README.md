@@ -60,6 +60,7 @@ Hello, world!
 - Clone your fork repo locally
 - Update README.md locally to your teammates names
 - Commit and push initial commit
+- Add your team to https://docs.google.com/spreadsheets/d/1MIkv3X36anTvXKWfXIhG6o9AZBdWg0UT3xaoBDdVnvY/edit?usp=sharing
 ```
 $ git add .
 $ git commit -a -m “…”
@@ -689,3 +690,6 @@ assertMessageEquals("3")
 - PM and Business Customers accept product with six demo sessions
 
 ---
+
+# Reading List
+- https://docs.google.com/document/d/14r58sL0fKwhJBkfS-yYHhVEVH6sTdQ77QOgCu8Y3hsM/edit#
