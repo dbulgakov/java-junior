@@ -14,8 +14,8 @@ public class Logger {
     //region SUM_VARS
     private static byte byteSum=0;
     private static int intSum=0;
-    private static String stringSum="";
-    private static int counterString=0;
+    private static String stringSum=null;
+    private static int counterString=1;
     // endregion
     //region MAX_MIN_VARS
     private static int MaxValueCounterByte=0;
@@ -74,8 +74,12 @@ private static int SumAndCheckMaxValue(int addingNumber,int lastSum, int maxValu
 public static void exit()
 {
     if ( isString ){
-        print(STRING_PREFIX + stringSum);
-        isString = false;
+        if(stringSum != null){
+            printStringAtAll ();
+            isString = false;
+            stringSum = null;
+        }
+
     }
     if ( isInt ){
         printAndClearIntSumAndByteState();
@@ -94,16 +98,46 @@ public static void exit()
 
         if( isInt ){
             printAndClearIntSumAndByteState();
+
         }
         else if( isByte ){
 
             printAndClearByteSumAndIntState();
+
+        }
+        isInt=false;
+        isByte=false;
+        if(stringSum==null){
+            stringSum=message;
+            return;
+        }
+        else{
+            if(stringSum.equals ( message )){
+                counterString++;
+            }
+            else {
+                printStringAtAll ();
+                stringSum=message;
+            }
+
+
         }
 
-
-        print ( STRING_PREFIX + message );
         isString = true;
     }
+
+    private static void printStringAtAll() {
+        if(counterString>1){
+            printStringWithCounter ();
+
+        }
+        else {
+            print(STRING_PREFIX + stringSum);
+
+        }
+    }
+
+
     /**
      * JavaDoc
      * Remember number in first time
@@ -112,6 +146,8 @@ public static void exit()
      */
     public static void log(int message) {
         if( isString ){
+            printStringAtAll ();
+            stringSum=null;
             intSum = message;
             isString=false;
         }
@@ -126,6 +162,8 @@ public static void exit()
     }
     public static void log(byte message) {
         if(isString){
+            printStringAtAll ();
+            stringSum = null;
             byteSum = message;
             isString = false;
         }
@@ -168,6 +206,14 @@ public static void exit()
         isInt = false;
     }
 
+    private static void printStringState() {
+
+        print(STRING_PREFIX + stringSum);
+
+        MaxValueCounterByte=0;
+        byteSum=0;
+        isInt = false;
+    }
     private static void printAndClearIntSumAndByteState() {
 
         print(PRIMITIVE_PREFIX + intSum);
@@ -177,9 +223,27 @@ public static void exit()
         isByte = false;
     }
 
-
+    private static void printStringWithCounter() {
+        print ( STRING_PREFIX + stringSum + " (x" + counterString + ")" );
+        counterString=1;
+    }
     private static void print(String message) {
         System.out.println(message);
+    }
+}
+
+class Main{
+
+    public static void main(String[] args) {
+        Logger.log("str 1");
+        Logger.log("str 2");
+        Logger.log("str 2");
+        Logger.log(0);
+        Logger.log("str 2");
+        Logger.log("str 3");
+        Logger.log("str 3");
+        Logger.log("str 3");
+        Logger.exit ();
     }
 }
 

@@ -69,7 +69,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Logger.log("str 1");
         Logger.log((byte)10);
-        Logger.log((byte)Byte.MAX_VALUE);
+        Logger.log(Byte.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
         Logger.exit();
@@ -95,16 +95,16 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 3");
         Logger.log("str 3");
         Logger.log("str 3");
+        Logger.exit ();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1\n" +
-            "str 2 (x2)\n" +
-            "0\n" +
-            "str 2\n" +
-            "str 3 (x3)\n"
-        );
+        assertSysoutContains ("str 1\n");
+        assertSysoutContains ("str 2 (x2)\n");
+
+        assertSysoutContains ("0\n" );
+        assertSysoutContains (   "str 2\n" + "string: str 3 (x3)\n");
+
         //endregion
     }
 
