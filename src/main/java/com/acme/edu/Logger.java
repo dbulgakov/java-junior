@@ -33,7 +33,7 @@ public class Logger {
 
 
 
-public static int SumAndCheckMaxValue(int addingNumber,int lastSum, int maxValue)
+private static int SumAndCheckMaxValue(int addingNumber,int lastSum, int maxValue)
 {
 
     int sum = addingNumber + lastSum;
@@ -183,11 +183,3 @@ public static void exit()
     }
 }
 
-class Main {
-
-    public static void main(String[] args) {
-        Logger.log('a');
-        Logger.log('b');
-       // System.out.println(factualMessage);
-    }
-}
