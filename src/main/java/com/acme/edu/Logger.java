@@ -1,35 +1,25 @@
 package com.acme.edu;
 
-import java.io.File;
-
-import static com.acme.edu.Logger.*;
-import static java.io.File.separator;
-import java.io.File;
-import static java.lang.Math.abs;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
-
 /**
  * Java Coding Style Convention (PDF)
  */
 public class Logger {
     public static final String MY_SUPER_CONSTANT = "";
     private static final String PRIMITIVE_PREFIX = "primitive: ";
-
-    private static final String REFERENCE_PREFIX = "reference: ";
+    private static final String STRING_PREFIX = "string: ";
     private static final String CHAR_PREFIX = "char: ";
 
-    public static int globalState = 0;
-    public int instanceState = 0;
+
 
     //region SUM_VARS
     private static byte byteSum=0;
     private static int intSum=0;
     private static String stringSum="";
+    private static int counterString=0;
     // endregion
     //region MAX_MIN_VARS
-    private static int MaxValueCounterByte;
-    private static int MaxValueCounterInt;
+    private static int MaxValueCounterByte=0;
+    private static int MaxValueCounterInt = 0;
     private static int MinValueCounterByte;
     private static int MinValueCounterInt;
     // endregion
@@ -40,50 +30,80 @@ public class Logger {
     //endregion
 
 
-    //region CURRENT_VARS
-    private static byte currentByte=0;
-    private static int currentInt=0;
-    private static String  currentString="";
-    // endregion
 
 
-public static int sum=0;
 
-public static  int SumAndCheckIntMaxValue(int addingNumber)
+public static int SumAndCheckMaxValue(int addingNumber,int lastSum, int maxValue)
 {
-    int sum=addingNumber+intSum;
 
-    if(addingNumber>=0&&intSum>=0) {
+    int sum = addingNumber + lastSum;
 
-        if(sum<0)
+    if(addingNumber > 0 && lastSum> 0) {
+
+        if( sum < 0 || sum>maxValue)
         {
-            MaxValueCounterInt++;
-            intSum=Math.abs ( addingNumber-(Integer.MAX_VALUE-sum) );
+            if(maxValue==Integer.MAX_VALUE){
+                MaxValueCounterInt++;
+            }
+            else if(maxValue==Byte.MAX_VALUE){
+                MaxValueCounterByte++;
+            }
+            return Math.abs ( addingNumber-(maxValue-lastSum) );
         }
     }
-    if(addingNumber<=0&&intSum<=0) {
+    else if( addingNumber < 0 && lastSum < 0 ) {
 
-        if(sum>0)
+        if( sum > 0 || sum < maxValue )
         {
+            if(maxValue==Integer.MAX_VALUE){
             MaxValueCounterInt--;
-            intSum =  addingNumber-(Integer.MAX_VALUE-sum);
+            }
+            else if(maxValue==Byte.MAX_VALUE){
+                MaxValueCounterByte--;
+            }
+
+          return addingNumber-(maxValue-lastSum);
         }
     }
-return intSum;
+
+    return sum;
+
+
 }
-public static void Exit()
+
+public static void exit()
 {
     if ( isString ){
-        print(REFERENCE_PREFIX + stringSum);
+        print(STRING_PREFIX + stringSum);
+        isString = false;
     }
     if ( isInt ){
-        System.out.println(PRIMITIVE_PREFIX + intSum);
+        printAndClearIntSumAndByteState();
     }
     if ( isByte ){
-        System.out.println(PRIMITIVE_PREFIX + byteSum);
+        printAndClearByteSumAndIntState();
     }
 
+
+    isByte = false;
+
 }
+
+
+    public static void log(String message) {
+
+        if( isInt ){
+            printAndClearIntSumAndByteState();
+        }
+        else if( isByte ){
+
+            printAndClearByteSumAndIntState();
+        }
+
+
+        print ( STRING_PREFIX + message );
+        isString = true;
+    }
     /**
      * JavaDoc
      * Remember number in first time
@@ -91,45 +111,70 @@ public static void Exit()
      *
      */
     public static void log(int message) {
-    if( isString ){
-        sum = message;
-        isString=false;
-    }
-    else
-        if( isInt ){
-            sum+=message;
-
+        if( isString ){
+            intSum = message;
+            isString=false;
         }
-    isInt=true;
-
-       // print(PRIMITIVE_PREFIX+message );
-
-    }
-
-    public static void log(String message) {
-
-        if( isInt ){
-            print ( PRIMITIVE_PREFIX+sum );
-            sum=0;
-            isInt=false;
-
+        else if ( isByte ) {
+            printAndClearByteSumAndIntState();
         }
-        print ( REFERENCE_PREFIX + message );
-        isString = true;
+        else{
+            intSum=SumAndCheckMaxValue(message, intSum,Integer.MAX_VALUE);
+        }
+        isInt=true;
+
     }
+    public static void log(byte message) {
+        if(isString){
+            byteSum = message;
+            isString = false;
+        }
+        else if ( isInt ) {
+            printAndClearIntSumAndByteState();
+        }
+        else{
+            byteSum=(byte)SumAndCheckMaxValue(message, byteSum, Byte.MAX_VALUE);
+        }
+        isByte=true;
+
+    }
+
+
 
     public static void log(char message) {
-       // print(CHAR_PREFIX + message);
+        print(CHAR_PREFIX + message);
     }
+
+    //
     /**
      * JavaDoc
      * <bold>kfdfgjkhdgjfdhg</bold>
      *
      */
+    private static void printMaxValue(int maxValue, int counter) {
+        for (int i = 0; i < counter; i++) {
+            print ( PRIMITIVE_PREFIX + maxValue);
+        }
 
-    public static void log(byte message) {
+    }
 
-        //print(PRIMITIVE_PREFIX + message);
+
+    private static void printAndClearByteSumAndIntState() {
+
+        print(PRIMITIVE_PREFIX + byteSum);
+        printMaxValue ( Byte.MAX_VALUE, MaxValueCounterByte );
+        MaxValueCounterByte=0;
+        byteSum=0;
+        isInt = false;
+    }
+
+    private static void printAndClearIntSumAndByteState() {
+
+        print(PRIMITIVE_PREFIX + intSum);
+        printMaxValue (Integer.MAX_VALUE, MaxValueCounterInt);
+        MaxValueCounterInt = 0;
+        intSum = 0;
+        isByte = false;
     }
 
 
@@ -141,10 +186,8 @@ public static void Exit()
 class Main {
 
     public static void main(String[] args) {
-        Logger.log(1);
-        Logger.log(0);
-        Logger.log(-1);
-        Exit();
+        Logger.log('a');
+        Logger.log('b');
        // System.out.println(factualMessage);
     }
 }

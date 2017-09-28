@@ -35,7 +35,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 2");
         Logger.log(0);
         //endregion
-        Logger.Exit();
+        Logger.exit();
         //region then
         assertSysoutContains ("str\n" );
         assertSysoutContains ("3\n" );
@@ -52,16 +52,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(Integer.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
+        Logger.exit ();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Integer.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
-        );
+        assertSysoutContains( "str 1\n");
+        assertSysoutContains("10\n" );
+        assertSysoutContains(Integer.MAX_VALUE + "\n") ;
+        assertSysoutContains("str 2\n");
+        assertSysoutContains("0\n");
         //endregion
     }
 
@@ -73,16 +72,15 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log((byte)Byte.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
+        Logger.exit();
         //endregion
 
         //region then
-        assertSysoutEquals(
-            "str 1\n" +
-            "10\n" +
-            Byte.MAX_VALUE + "\n" +
-            "str 2\n" +
-            "0\n"
-        );
+        assertSysoutContains("str 1\n");
+        assertSysoutContains("10\n" );
+        assertSysoutContains(Byte.MAX_VALUE + "\n" );
+        assertSysoutContains("str 2\n");
+        assertSysoutContains("0\n");
         //endregion
     }
 
