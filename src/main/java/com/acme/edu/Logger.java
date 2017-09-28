@@ -15,6 +15,8 @@ import static java.lang.Math.sin;
 public class Logger {
     public static final String MY_SUPER_CONSTANT = "";
     private static final String PRIMITIVE_PREFIX = "primitive: ";
+
+    private static final String REFERENCE_PREFIX = "reference: ";
     private static final String CHAR_PREFIX = "char: ";
 
     public static int globalState = 0;
@@ -45,9 +47,9 @@ public class Logger {
     // endregion
 
 
+public static int sum=0;
 
-
-public static  void checkIntMaxValue(int addingNumber)
+public static  int SumAndCheckIntMaxValue(int addingNumber)
 {
     int sum=addingNumber+intSum;
 
@@ -67,115 +69,69 @@ public static  void checkIntMaxValue(int addingNumber)
             intSum =  addingNumber-(Integer.MAX_VALUE-sum);
         }
     }
-
+return intSum;
 }
 public static void Exit()
 {
-    if(isString)System.out.println(stringSum);
-    if(isInt)System.out.println(intSum);
-    if(isByte)System.out.println(byteSum);
+    if ( isString ){
+        print(REFERENCE_PREFIX + stringSum);
+    }
+    if ( isInt ){
+        System.out.println(PRIMITIVE_PREFIX + intSum);
+    }
+    if ( isByte ){
+        System.out.println(PRIMITIVE_PREFIX + byteSum);
+    }
 
 }
+    /**
+     * JavaDoc
+     * Remember number in first time
+     * Add number to sum another time
+     *
+     */
     public static void log(int message) {
+    if( isString ){
+        sum = message;
+        isString=false;
+    }
+    else
+        if( isInt ){
+            sum+=message;
 
-        //если были байты а теперь инты просто все сбрасываем
-        if(isByte&!isString)//cбрасываем байты и
-        {
-            System.out.println(byteSum);
-            isString=false;
-            isByte=false;
         }
-        else{
-            //если была строка и не было инта запоминаем инт
-            if(isString&!isInt){
-            currentInt=message;
-            }
-            //если была строка и был инт сбрасываем строку и начинаем суммирвать инты
-            if(isString&isInt)
-            {
-                System.out.println(stringSum);
-                stringSum="";
-                intSum+=currentInt+message;
-                currentInt=0;
-                isString=false;
-            }
-        }
-        isInt=true;
+    isInt=true;
 
-       //пока ничего не делаем
        // print(PRIMITIVE_PREFIX+message );
 
+    }
+
+    public static void log(String message) {
+
+        if( isInt ){
+            print ( PRIMITIVE_PREFIX+sum );
+            sum=0;
+            isInt=false;
+
+        }
+        print ( REFERENCE_PREFIX + message );
+        isString = true;
+    }
+
+    public static void log(char message) {
+       // print(CHAR_PREFIX + message);
     }
     /**
      * JavaDoc
      * <bold>kfdfgjkhdgjfdhg</bold>
      *
      */
+
     public static void log(byte message) {
-        if(isInt&!isString){
-            System.out.println(intSum);
-            isInt=false;
-        }
-        else{
-            if(isString&!isByte)
-            {
-                currentByte=message;
-
-            }
-            if ( isString & isByte ) {
-                System.out.println ( stringSum );
-                stringSum = "";
-                byteSum += currentByte + message;
-                currentByte = 0;
-                isString = false;
-
-            }
-        }
-        isByte=true;
 
         //print(PRIMITIVE_PREFIX + message);
     }
 
-    /**
-     * public API
-     */
-    public static void log(String message) {
-
-    if(!isString)
-    {
-        isString=true;
-        if(isByte){
-            isByte=false;
-            System.out.println(byteSum);
-            byteSum=0;
-        }
-        if(isInt) {
-            isInt=false;
-            System.out.println(intSum);
-            intSum=0;
-        }
-    }
-
-        stringSum+=message;
-        isString=true;
-
-
-
-       // print(PRIMITIVE_PREFIX + message);
-    }
-
-    public static void log(char message) {
-       // print(CHAR_PREFIX + message);
-    }
-
-
-    public static void main(String... args) {
-        int local = 0;
-        //kdjfhgkjfgh
-        log(1);
-//        Main.main();
-//        Main.counter = 1;
-    }
 
     private static void print(String message) {
         System.out.println(message);
@@ -183,28 +139,12 @@ public static void Exit()
 }
 
 class Main {
-    public static int counter = 0;
 
-    static {
-        System.out.println("Hello!");
-        counter = 1;
-    }
-
-    public void m() {
-
-    }
-
-    /**
-     * java -Xss2m -Xms4G -Xmx4G
-     */
     public static void main(String[] args) {
-
-Logger.log("str");
-log(1);
-log(2);
-        Logger.log("str");
+        Logger.log(1);
         Logger.log(0);
-Exit();
+        Logger.log(-1);
+        Exit();
        // System.out.println(factualMessage);
     }
 }

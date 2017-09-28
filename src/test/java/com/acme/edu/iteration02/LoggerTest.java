@@ -29,21 +29,18 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        Logger.log("str 1");
+        Logger.log("str");
         Logger.log(1);
         Logger.log(2);
-
         Logger.log("str 2");
         Logger.log(0);
         //endregion
         Logger.Exit();
         //region then
-        assertSysoutEquals(
-            "str 1\n" +
-            "3\n" +
-            "str 2\n" +
-           "0\n"
-        );
+        assertSysoutContains ("str\n" );
+        assertSysoutContains ("3\n" );
+        assertSysoutContains ("str 2\n");
+        assertSysoutContains ("0\n");
         //endregion
     }
 
