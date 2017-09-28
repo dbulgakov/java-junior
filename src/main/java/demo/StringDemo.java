@@ -19,6 +19,10 @@ public class StringDemo {
         new StringBuilder("a").append("b").append("c");
 
         StringBuilder sbb = new StringBuilder("a");
-        StringBuffer sbf;
+        String sbf=null;
+        StringDemo sd = new StringDemo();
+        
+
+
     }
 }
