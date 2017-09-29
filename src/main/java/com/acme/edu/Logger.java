@@ -25,7 +25,7 @@ public class Logger {
     public static void log(int message) {
         printPreviousStringLogMessageIfExist();
         if (previousNumber != null) {
-            logNumber(message, isOverflow(previousNumber, message));
+            logNumber(message, isSumOverflow(previousNumber, message));
             previousNumber = null;
         } else {
             previousNumber = message;
@@ -35,7 +35,7 @@ public class Logger {
     public static void log(byte message) {
         printPreviousStringLogMessageIfExist();
         if (previousNumber != null) {
-            logNumber(message, isOverflow(previousNumber.byteValue(), message));
+            logNumber(message, isSumOverflow(previousNumber.byteValue(), message));
         } else {
             previousNumber = (int) message;
         }
@@ -93,12 +93,12 @@ public class Logger {
         }
     }
 
-    private static boolean isOverflow(byte a, byte b) {
+    private static boolean isSumOverflow(byte a, byte b) {
         long result = (long) a + b;
         return !(result == (byte) result);
     }
 
-    private static boolean isOverflow(int a, int b) {
+    private static boolean isSumOverflow(int a, int b) {
         long result = (long) a + b;
         return !(result == (int) result);
     }
