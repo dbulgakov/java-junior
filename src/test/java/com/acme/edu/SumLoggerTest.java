@@ -4,7 +4,7 @@ import ooaddemo.*;
 import ooaddemo.Logger;
 import org.junit.Test;
 
-public class LoggerTest {
+public class SumLoggerTest {
     @Test
     public void testScenario1() {
 
