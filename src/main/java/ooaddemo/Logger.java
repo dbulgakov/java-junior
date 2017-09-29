@@ -1,28 +1,5 @@
 package ooaddemo;
 
-
-<<<<<<< HEAD
-public class Logger {
-//    //Creator
-//    private LoggerFilter filter = new MessageContentLoggerFilter();
-//    @Autowired
-//    private LoggerSaver saver;
-//
-//    //Dependency Injection: constructor | setter
-//    public Logger(LoggerSaver saver) {
-//        this.saver = saver;
-//    }
-//
-//    /**
-//     * OCP: Open Closed Principle
-//     * DIP: Dependency Inversion Principle
-//     */
-//    public void log(String message) {
-//        if (!filter.filter(message)) {
-//            saver.save(message);
-//        }
-//    }
-=======
 final public class Logger {
     //Creator
     private final LoggerFilter filter = new MessageContentLoggerFilter();
@@ -44,7 +21,6 @@ final public class Logger {
             Color2.B.getColorCode();
         }
     }
->>>>>>> 96f40c687f7984fa819defb630f0938b102d4fda
 }
 
 final class Color {

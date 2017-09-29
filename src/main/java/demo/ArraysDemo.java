@@ -11,15 +11,15 @@ public class ArraysDemo {
         }
 
         int[] intArray = {1,2,3,4};
-        Cat[] catArray2 = {
-                new Cat(0),
-                new Cat(1)
-        };
-
-        loveAllCats(new Cat[] {
-                new Cat(0),
-                new Cat(1)
-        });
+//        Cat[] catArray2 = {
+//                new Cat(0),
+//                new Cat(1)
+//        };
+//
+//        loveAllCats(new Cat[] {
+//                new Cat(0),
+//                new Cat(1)
+//        });
         //m(new int[] {1,2,3});
 
 
@@ -36,7 +36,7 @@ public class ArraysDemo {
         int[] nullarray = null;
         //nullarray.length; //NPE
 
-        loveAllCats(new Cat(1), new Cat(2));
+//        loveAllCats(new Cat(1), new Cat(2));
 
         loveAllInts(1,2,3);
     }
