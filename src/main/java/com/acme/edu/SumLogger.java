@@ -7,7 +7,7 @@ package com.acme.edu;
 public class SumLogger implements Logger {
     private Integer previousNumber;
     private String previousString;
-    private int samePreviousStringSequenceCounter;
+    private int previousStringOccuranceNumber;
 
     private final Printer printer;
     private final Formatter formatter;
@@ -45,7 +45,7 @@ public class SumLogger implements Logger {
         if (!message.equals(previousString)) {
             printPreviousStringLogMessageIfExist();
         } else {
-            samePreviousStringSequenceCounter += 1;
+            previousStringOccuranceNumber += 1;
         }
 
         previousString = message;
@@ -107,13 +107,13 @@ public class SumLogger implements Logger {
     }
 
     private void printPreviousStringLogMessageIfExist() {
-        String previousStringMessage = formatter.formatStringSequence(previousString, samePreviousStringSequenceCounter + 1);
+        String previousStringMessage = formatter.formatStringSequence(previousString, previousStringOccuranceNumber + 1);
 
         if (previousStringMessage != null) {
             printer.print(previousStringMessage);
         }
 
         previousString = null;
-        samePreviousStringSequenceCounter = 0;
+        previousStringOccuranceNumber = 0;
     }
 }
