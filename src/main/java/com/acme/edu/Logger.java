@@ -26,6 +26,7 @@ public class Logger {
         printPreviousStringLogMessageIfExist();
         if (previousNumber != null) {
             logNumber(message, isOverflow(previousNumber, message));
+            previousNumber = null;
         } else {
             previousNumber = message;
         }
@@ -137,9 +138,5 @@ public class Logger {
 
     private static void print(String message) {
         System.out.println(message);
-    }
-
-    public static void main(String[] args) {
-        Logger.log("str1", "string 2", "str 3");
     }
 }

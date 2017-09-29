@@ -33,7 +33,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: 0\nprimitive: -1\n");
+        assertSysoutEquals("primitive: 1\nprimitive: -1\n");
         //endregion
     }
 
@@ -43,7 +43,6 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log((byte)0);
         Logger.log((byte)-1);
         Logger.stopLogging();
-        assertSysoutEquals("primitive: 0\nprimitive: -1\n");
         //endregion
 
         //region then
