@@ -34,7 +34,7 @@ public class ArraysDemo {
         };
 
         int[] nullarray = null;
-        nullarray.length; //NPE
+        //nullarray.length; //NPE
 
         loveAllCats(new Cat(1), new Cat(2));
 
