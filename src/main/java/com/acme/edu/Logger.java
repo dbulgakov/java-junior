@@ -10,114 +10,100 @@ public class Logger {
     private static final String CHAR_PREFIX = "char: ";
 
 
-
     //region SUM_VARS
-    private static byte byteSum=0;
-    private static int intSum=0;
-    private static String stringSum=null;
-    private static int counterString=1;
+    private static byte byteSum = 0;
+    private static int intSum = 0;
+    private static String stringSum = null;
+    private static int counterString = 1;
     // endregion
     //region MAX_MIN_VARS
-    private static int MaxValueCounterByte=0;
+    private static int MaxValueCounterByte = 0;
     private static int MaxValueCounterInt = 0;
     private static int MinValueCounterByte;
     private static int MinValueCounterInt;
     // endregion
     //region STATES_FOR_LAST_CALLING_METHOD
-    private  static boolean isString;
-    private  static boolean isInt;
-    private  static boolean isByte;
+    private static boolean isString;
+    private static boolean isInt;
+    private static boolean isByte;
     //endregion
 
 
+    private static int SumAndCheckMaxValue(int addingNumber, int lastSum, int maxValue) {
 
+        int sum = addingNumber + lastSum;
 
+        if ( addingNumber > 0 && lastSum > 0 ) {
 
-private static int SumAndCheckMaxValue(int addingNumber,int lastSum, int maxValue)
-{
-
-    int sum = addingNumber + lastSum;
-
-    if(addingNumber > 0 && lastSum> 0) {
-
-        if( sum < 0 || sum>maxValue)
-        {
-            if(maxValue==Integer.MAX_VALUE){
-                MaxValueCounterInt++;
+            if ( sum < 0 || sum > maxValue ) {
+                if ( maxValue == Integer.MAX_VALUE ) {
+                    MaxValueCounterInt++;
+                } else if ( maxValue == Byte.MAX_VALUE ) {
+                    MaxValueCounterByte++;
+                }
+                return Math.abs ( addingNumber - (maxValue - lastSum) );
             }
-            else if(maxValue==Byte.MAX_VALUE){
-                MaxValueCounterByte++;
+        } else if ( addingNumber < 0 && lastSum < 0 ) {
+
+            if ( sum > 0 || sum < maxValue ) {
+                if ( maxValue == Integer.MAX_VALUE ) {
+                    MaxValueCounterInt--;
+                } else if ( maxValue == Byte.MAX_VALUE ) {
+                    MaxValueCounterByte--;
+                }
+
+                return addingNumber - (maxValue - lastSum);
             }
-            return Math.abs ( addingNumber-(maxValue-lastSum) );
-        }
-    }
-    else if( addingNumber < 0 && lastSum < 0 ) {
-
-        if( sum > 0 || sum < maxValue )
-        {
-            if(maxValue==Integer.MAX_VALUE){
-            MaxValueCounterInt--;
-            }
-            else if(maxValue==Byte.MAX_VALUE){
-                MaxValueCounterByte--;
-            }
-
-          return addingNumber-(maxValue-lastSum);
-        }
-    }
-
-    return sum;
-
-
-}
-
-public static void exit()
-{
-    if ( isString ){
-        if(stringSum != null){
-            printStringAtAll ();
-            isString = false;
-            stringSum = null;
         }
 
-    }
-    if ( isInt ){
-        printAndClearIntSumAndByteState();
-    }
-    if ( isByte ){
-        printAndClearByteSumAndIntState();
-    }
+        return sum;
 
 
-    isByte = false;
+    }
 
-}
+    public static void exit() {
+        if ( isString ) {
+            if ( stringSum != null ) {
+                printStringAtAll ();
+                isString = false;
+                stringSum = null;
+            }
+
+        }
+        if ( isInt ) {
+            printAndClearIntSumAndByteState ();
+        }
+        if ( isByte ) {
+            printAndClearByteSumAndIntState ();
+        }
+
+
+        isByte = false;
+
+    }
 
 
     public static void log(String message) {
 
-        if( isInt ){
-            printAndClearIntSumAndByteState();
+        if ( isInt ) {
+            printAndClearIntSumAndByteState ();
+
+        } else if ( isByte ) {
+
+            printAndClearByteSumAndIntState ();
 
         }
-        else if( isByte ){
-
-            printAndClearByteSumAndIntState();
-
-        }
-        isInt=false;
-        isByte=false;
-        if(stringSum==null){
-            stringSum=message;
+        isInt = false;
+        isByte = false;
+        if ( stringSum == null ) {
+            stringSum = message;
             return;
-        }
-        else{
-            if(stringSum.equals ( message )){
+        } else {
+            if ( stringSum.equals ( message ) ) {
                 counterString++;
-            }
-            else {
+            } else {
                 printStringAtAll ();
-                stringSum=message;
+                stringSum = message;
             }
 
 
@@ -127,12 +113,11 @@ public static void exit()
     }
 
     private static void printStringAtAll() {
-        if(counterString>1){
+        if ( counterString > 1 ) {
             printStringWithCounter ();
 
-        }
-        else {
-            print(STRING_PREFIX + stringSum);
+        } else {
+            print ( STRING_PREFIX + stringSum );
 
         }
     }
@@ -142,56 +127,51 @@ public static void exit()
      * JavaDoc
      * Remember number in first time
      * Add number to sum another time
-     *
      */
     public static void log(int message) {
-        if( isString ){
+        if ( isString ) {
             printStringAtAll ();
-            stringSum=null;
+            stringSum = null;
             intSum = message;
-            isString=false;
+            isString = false;
+        } else if ( isByte ) {
+            printAndClearByteSumAndIntState ();
+        } else {
+            intSum = SumAndCheckMaxValue ( message, intSum, Integer.MAX_VALUE );
         }
-        else if ( isByte ) {
-            printAndClearByteSumAndIntState();
-        }
-        else{
-            intSum=SumAndCheckMaxValue(message, intSum,Integer.MAX_VALUE);
-        }
-        isInt=true;
+        isInt = true;
 
     }
+
     public static void log(byte message) {
-        if(isString){
+        if ( isString ) {
             printStringAtAll ();
             stringSum = null;
             byteSum = message;
             isString = false;
+        } else if ( isInt ) {
+            printAndClearIntSumAndByteState ();
+        } else {
+            byteSum = (byte) SumAndCheckMaxValue ( message, byteSum, Byte.MAX_VALUE );
         }
-        else if ( isInt ) {
-            printAndClearIntSumAndByteState();
-        }
-        else{
-            byteSum=(byte)SumAndCheckMaxValue(message, byteSum, Byte.MAX_VALUE);
-        }
-        isByte=true;
+        isByte = true;
 
     }
-
 
 
     public static void log(char message) {
-        print(CHAR_PREFIX + message);
+        print ( CHAR_PREFIX + message );
     }
 
     //
+
     /**
      * JavaDoc
      * <bold>kfdfgjkhdgjfdhg</bold>
-     *
      */
     private static void printMaxValue(int maxValue, int counter) {
         for (int i = 0; i < counter; i++) {
-            print ( PRIMITIVE_PREFIX + maxValue);
+            print ( PRIMITIVE_PREFIX + maxValue );
         }
 
     }
@@ -199,25 +179,26 @@ public static void exit()
 
     private static void printAndClearByteSumAndIntState() {
 
-        print(PRIMITIVE_PREFIX + byteSum);
+        print ( PRIMITIVE_PREFIX + byteSum );
         printMaxValue ( Byte.MAX_VALUE, MaxValueCounterByte );
-        MaxValueCounterByte=0;
-        byteSum=0;
+        MaxValueCounterByte = 0;
+        byteSum = 0;
         isInt = false;
     }
 
     private static void printStringState() {
 
-        print(STRING_PREFIX + stringSum);
+        print ( STRING_PREFIX + stringSum );
 
-        MaxValueCounterByte=0;
-        byteSum=0;
+        MaxValueCounterByte = 0;
+        byteSum = 0;
         isInt = false;
     }
+
     private static void printAndClearIntSumAndByteState() {
 
-        print(PRIMITIVE_PREFIX + intSum);
-        printMaxValue (Integer.MAX_VALUE, MaxValueCounterInt);
+        print ( PRIMITIVE_PREFIX + intSum );
+        printMaxValue ( Integer.MAX_VALUE, MaxValueCounterInt );
         MaxValueCounterInt = 0;
         intSum = 0;
         isByte = false;
@@ -225,10 +206,11 @@ public static void exit()
 
     private static void printStringWithCounter() {
         print ( STRING_PREFIX + stringSum + " (x" + counterString + ")" );
-        counterString=1;
+        counterString = 1;
     }
+
     private static void print(String message) {
-        System.out.println(message);
+        System.out.println ( message );
     }
 }
 
