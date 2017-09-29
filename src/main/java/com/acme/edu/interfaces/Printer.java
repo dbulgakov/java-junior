@@ -1,4 +1,4 @@
-package com.acme.edu;
+package com.acme.edu.interfaces;
 
 public interface Printer {
     void print(String message);

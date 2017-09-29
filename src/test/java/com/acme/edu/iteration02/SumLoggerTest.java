@@ -1,9 +1,9 @@
 package com.acme.edu.iteration02;
 
-import com.acme.edu.ConsolePrinter;
-import com.acme.edu.SumLogger;
+import com.acme.edu.implementations.ConsolePrinter;
+import com.acme.edu.implementations.SumLogger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
-import com.acme.edu.TypedFormatter;
+import com.acme.edu.implementations.TypedFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,9 @@
-package com.acme.edu;
+package com.acme.edu.implementations;
 
+
+import com.acme.edu.interfaces.Formatter;
+import com.acme.edu.interfaces.Logger;
+import com.acme.edu.interfaces.Printer;
 
 /**
  * Java Coding Style Convention (PDF)

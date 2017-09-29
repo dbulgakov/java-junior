@@ -1,4 +1,6 @@
-package com.acme.edu;
+package com.acme.edu.implementations;
+
+import com.acme.edu.interfaces.Formatter;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package com.acme.edu;
+package com.acme.edu.interfaces;
 
 public interface Formatter {
     String formatChar(char charToFormat);
