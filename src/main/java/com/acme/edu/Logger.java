@@ -95,53 +95,45 @@ public class Logger {
 
     }
 
+
+    //region Loggers
     /**
      * JavaDoc
      * Вычисляется сумма или остаток от суммы при переполнении
      * и изменяется счетчик переполнений
      * @param message - число, которое хотим добавить
      */
+
+
     public static void log(String message) {
 
         if ( isInt ) {
-            printAndClearIntSumAndByteState ();
+        printAndClearIntSumAndByteState ();
 
-        } else if ( isByte ) {
+    } else if ( isByte ) {
 
-            printAndClearByteSumAndIntState ();
+        printAndClearByteSumAndIntState ();
 
-        }
-        isInt = false;
-        isByte = false;
+    }
+    isInt = false;
+    isByte = false;
         if ( stringSum == null ) {
+        stringSum = message;
+        return;
+    } else {
+        if ( stringSum.equals ( message ) ) {
+            stringCounter++;
+        } else {
+            printStringAtAll ();
             stringSum = message;
-            return;
-        } else {
-            if ( stringSum.equals ( message ) ) {
-                stringCounter++;
-            } else {
-                printStringAtAll ();
-                stringSum = message;
-            }
-
-
         }
 
-        isString = true;
-    }
-    /**
-     * JavaDoc
-     * Выводит строку или строку и счетчик строк
-     */
-    private static void printStringAtAll() {
-        if ( stringCounter > 1 ) {
-            printStringWithCounter ();
 
-        } else {
-            print ( STRING_PREFIX + stringSum );
-
-        }
     }
+
+    isString = true;
+}
+
 
 
     /**
@@ -194,8 +186,9 @@ public class Logger {
     public static void log(char message) {
         print ( CHAR_PREFIX + message );
     }
+    //endregion
 
-    //
+    //region Printers
 
     /**
      * JavaDoc
@@ -243,10 +236,24 @@ public class Logger {
         stringCounter = 1;
     }
 
+    /**
+     * JavaDoc
+     * Выводит строку или строку и счетчик строк
+     */
+    private static void printStringAtAll() {
+        if ( stringCounter > 1 ) {
+            printStringWithCounter ();
+
+        } else {
+            print ( STRING_PREFIX + stringSum );
+
+        }
+    }
     private static void print(String message) {
 
         System.out.println ( message );
     }
+    //endregion
 }
 
 
