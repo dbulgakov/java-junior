@@ -14,14 +14,14 @@ public class Logger {
     private static byte byteSum = 0;
     private static int intSum = 0;
     private static String stringSum = null;
-    private static int counterString = 1;
+    private static int stringCounter = 1;
     // endregion
+
     //region MAX_MIN_VARS
-    private static int MaxValueCounterByte = 0;
-    private static int MaxValueCounterInt = 0;
-    private static int MinValueCounterByte;
-    private static int MinValueCounterInt;
+    private static int byteMaxValueCounter = 0;
+    private static int intMaxValueCounter = 0;
     // endregion
+
     //region STATES_FOR_LAST_CALLING_METHOD
     private static boolean isString;
     private static boolean isInt;
@@ -29,6 +29,15 @@ public class Logger {
     //endregion
 
 
+    /**
+     * JavaDoc
+     * Вычисляется сумма или остаток от суммы при переполнении
+     * и изменяется счетчик переполнений
+     * @param addingNumber - число, которое хотим добавить
+     * @param  lastSum - текущая сумма
+     * @param maxValue число, после которого будет переполнение суммы
+     * @return  Сумму или остаток от переполнения
+     */
     private static int SumAndCheckMaxValue(int addingNumber, int lastSum, int maxValue) {
 
         int sum = addingNumber + lastSum;
@@ -37,9 +46,9 @@ public class Logger {
 
             if ( sum < 0 || sum > maxValue ) {
                 if ( maxValue == Integer.MAX_VALUE ) {
-                    MaxValueCounterInt++;
+                    intMaxValueCounter++;
                 } else if ( maxValue == Byte.MAX_VALUE ) {
-                    MaxValueCounterByte++;
+                    byteMaxValueCounter++;
                 }
                 return Math.abs ( addingNumber - (maxValue - lastSum) );
             }
@@ -47,9 +56,9 @@ public class Logger {
 
             if ( sum > 0 || sum < maxValue ) {
                 if ( maxValue == Integer.MAX_VALUE ) {
-                    MaxValueCounterInt--;
+                    intMaxValueCounter--;
                 } else if ( maxValue == Byte.MAX_VALUE ) {
-                    MaxValueCounterByte--;
+                    byteMaxValueCounter--;
                 }
 
                 return addingNumber - (maxValue - lastSum);
@@ -100,7 +109,7 @@ public class Logger {
             return;
         } else {
             if ( stringSum.equals ( message ) ) {
-                counterString++;
+                stringCounter++;
             } else {
                 printStringAtAll ();
                 stringSum = message;
@@ -113,7 +122,7 @@ public class Logger {
     }
 
     private static void printStringAtAll() {
-        if ( counterString > 1 ) {
+        if ( stringCounter > 1 ) {
             printStringWithCounter ();
 
         } else {
@@ -180,8 +189,8 @@ public class Logger {
     private static void printAndClearByteSumAndIntState() {
 
         print ( PRIMITIVE_PREFIX + byteSum );
-        printMaxValue ( Byte.MAX_VALUE, MaxValueCounterByte );
-        MaxValueCounterByte = 0;
+        printMaxValue ( Byte.MAX_VALUE, byteMaxValueCounter );
+        byteMaxValueCounter = 0;
         byteSum = 0;
         isInt = false;
     }
@@ -190,7 +199,7 @@ public class Logger {
 
         print ( STRING_PREFIX + stringSum );
 
-        MaxValueCounterByte = 0;
+        byteMaxValueCounter = 0;
         byteSum = 0;
         isInt = false;
     }
@@ -198,15 +207,15 @@ public class Logger {
     private static void printAndClearIntSumAndByteState() {
 
         print ( PRIMITIVE_PREFIX + intSum );
-        printMaxValue ( Integer.MAX_VALUE, MaxValueCounterInt );
-        MaxValueCounterInt = 0;
+        printMaxValue ( Integer.MAX_VALUE, intMaxValueCounter );
+        intMaxValueCounter = 0;
         intSum = 0;
         isByte = false;
     }
 
     private static void printStringWithCounter() {
-        print ( STRING_PREFIX + stringSum + " (x" + counterString + ")" );
-        counterString = 1;
+        print ( STRING_PREFIX + stringSum + " (x" + stringCounter + ")" );
+        stringCounter = 1;
     }
 
     private static void print(String message) {
