@@ -95,7 +95,12 @@ public class Logger {
 
     }
 
-
+    /**
+     * JavaDoc
+     * Вычисляется сумма или остаток от суммы при переполнении
+     * и изменяется счетчик переполнений
+     * @param message - число, которое хотим добавить
+     */
     public static void log(String message) {
 
         if ( isInt ) {
@@ -124,7 +129,10 @@ public class Logger {
 
         isString = true;
     }
-
+    /**
+     * JavaDoc
+     * Выводит строку или строку и счетчик строк
+     */
     private static void printStringAtAll() {
         if ( stringCounter > 1 ) {
             printStringWithCounter ();
@@ -140,6 +148,7 @@ public class Logger {
      * JavaDoc
      * Remember number in first time
      * Add number to sum another time
+     * @param message обрабатывает интовое сообщение
      */
     public static void log(int message) {
         if ( isString ) {
@@ -155,7 +164,12 @@ public class Logger {
         isInt = true;
 
     }
-
+    /**
+     * JavaDoc
+     * Remember number in first time
+     * Add number to sum another time
+     * @param message обрабатывает байтовое сообщение
+     */
     public static void log(byte message) {
         if ( isString ) {
             printStringAtAll ();
@@ -171,7 +185,12 @@ public class Logger {
 
     }
 
-
+    /**
+     * JavaDoc
+     * Remember number in first time
+     * Add number to sum another time
+     * @param message обрабатывает символьное сообщение
+     */
     public static void log(char message) {
         print ( CHAR_PREFIX + message );
     }
@@ -180,7 +199,9 @@ public class Logger {
 
     /**
      * JavaDoc
-     * <bold>kfdfgjkhdgjfdhg</bold>
+     * Выводит на консоль переполнения
+     * @param maxValue - максимально значение до переполнения
+     * @param counter - счетчик максимального значения
      */
     private static void printMaxValue(int maxValue, int counter) {
         for (int i = 0; i < counter; i++) {
@@ -223,6 +244,7 @@ public class Logger {
     }
 
     private static void print(String message) {
+
         System.out.println ( message );
     }
 }
