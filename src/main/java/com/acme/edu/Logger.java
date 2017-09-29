@@ -67,9 +67,13 @@ public class Logger {
 
         return sum;
 
-
     }
 
+    /**
+     * JavaDoc
+     * После выполнения этой функции
+     * обнуляются поля Logger и он перестает ждать сообщения
+     */
     public static void exit() {
         if ( isString ) {
             if ( stringSum != null ) {
