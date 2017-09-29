@@ -187,7 +187,6 @@ public class Logger {
         print ( CHAR_PREFIX + message );
     }
     //endregion
-
     //region Printers
 
     /**
