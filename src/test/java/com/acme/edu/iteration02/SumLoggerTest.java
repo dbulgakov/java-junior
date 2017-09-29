@@ -1,6 +1,6 @@
 package com.acme.edu.iteration02;
 
-import com.acme.edu.implementations.ConsolePrinter;
+import com.acme.edu.implementations.ConsoleSaver;
 import com.acme.edu.implementations.SumLogger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.implementations.TypedFormatter;
@@ -30,7 +30,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsolePrinter(), new TypedFormatter());
+        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
 
         sumLogger.log("str 1");
         sumLogger.log(1);
@@ -51,7 +51,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsolePrinter(), new TypedFormatter());
+        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
 
         sumLogger.log("str 1");
         sumLogger.log(10);
@@ -72,7 +72,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsolePrinter(), new TypedFormatter());
+        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
 
         sumLogger.log("str 1");
         sumLogger.log((byte)10);
@@ -93,7 +93,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsolePrinter(), new TypedFormatter());
+        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
 
         sumLogger.log("str 1");
         sumLogger.log("str 2");

@@ -3,7 +3,7 @@ package com.acme.edu.implementations;
 
 import com.acme.edu.interfaces.Formatter;
 import com.acme.edu.interfaces.Logger;
-import com.acme.edu.interfaces.Printer;
+import com.acme.edu.interfaces.Saver;
 
 /**
  * Java Coding Style Convention (PDF)
@@ -13,11 +13,11 @@ public class SumLogger implements Logger {
     private String previousString;
     private int previousStringOccuranceNumber;
 
-    private final Printer printer;
+    private final Saver saver;
     private final Formatter formatter;
 
-    public SumLogger(Printer printer, Formatter formatter) {
-        this.printer = printer;
+    public SumLogger(Saver saver, Formatter formatter) {
+        this.saver = saver;
         this.formatter = formatter;
     }
 
@@ -57,22 +57,22 @@ public class SumLogger implements Logger {
 
     @Override
     public void log(char message) {
-        printer.print(formatter.formatChar(message));
+        saver.print(formatter.formatChar(message));
     }
 
     @Override
     public void log(String... messages) {
-        printer.print(formatter.formatStringArray(messages));
+        saver.print(formatter.formatStringArray(messages));
     }
 
     @Override
     public void log(int... messages) {
-        printer.print(formatter.formatIntArray(messages));
+        saver.print(formatter.formatIntArray(messages));
     }
 
     @Override
     public void log(int[][] ints) {
-        printer.print(formatter.formatIntMatrix(ints));
+        saver.print(formatter.formatIntMatrix(ints));
     }
 
     @Override
@@ -84,10 +84,10 @@ public class SumLogger implements Logger {
     private void logNumber(int message, boolean isOverflow) {
         if (previousNumber != null) {
             if (!isOverflow) {
-                printer.print(formatter.formatInt(message + previousNumber));
+                saver.print(formatter.formatInt(message + previousNumber));
             } else {
-                printer.print(formatter.formatInt(previousNumber));
-                printer.print(formatter.formatInt(message));
+                saver.print(formatter.formatInt(previousNumber));
+                saver.print(formatter.formatInt(message));
             }
         }
     }
@@ -104,7 +104,7 @@ public class SumLogger implements Logger {
 
     private void printPreviousNumberIfExist() {
         if (previousNumber != null) {
-            printer.print(formatter.formatInt(previousNumber));
+            saver.print(formatter.formatInt(previousNumber));
         }
 
         previousNumber = null;
@@ -114,7 +114,7 @@ public class SumLogger implements Logger {
         String previousStringMessage = formatter.formatStringSequence(previousString, previousStringOccuranceNumber + 1);
 
         if (previousStringMessage != null) {
-            printer.print(previousStringMessage);
+            saver.print(previousStringMessage);
         }
 
         previousString = null;

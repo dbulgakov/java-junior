@@ -1,8 +1,8 @@
 package com.acme.edu.implementations;
 
-import com.acme.edu.interfaces.Printer;
+import com.acme.edu.interfaces.Saver;
 
-public class ConsolePrinter implements Printer {
+public class ConsoleSaver implements Saver {
 
     @Override
     public void print(String message) {

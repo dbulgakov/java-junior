@@ -1,5 +1,5 @@
 package com.acme.edu.interfaces;
 
-public interface Printer {
+public interface Saver {
     void print(String message);
 }
