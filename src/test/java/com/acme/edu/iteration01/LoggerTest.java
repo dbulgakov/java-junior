@@ -28,33 +28,26 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(1);
         Logger.log(0);
         Logger.log(-1);
-        Logger.Exit();
+        Logger.stopLogging();
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 0\n");
+        assertSysoutEquals("primitive: 1\nprimitive: -1\n");
         //endregion
     }
 
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        Logger.log("ggg");
-
         Logger.log((byte)0);
         Logger.log((byte)-1);
-
-        assertSysoutEquals(
-        "primitive: 0\nprimitive: 1\nprimitive: -1"
-        );
+        Logger.stopLogging();
         //endregion
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutContains("1");
-//        assertSysoutContains("0");
-//        assertSysoutContains("-1");
+        assertSysoutContains("-1");
 
         //endregion
     }

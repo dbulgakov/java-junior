@@ -22,8 +22,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
     //endregion
 
-    /*
-    TODO: implement Logger solution to match specification as tests
+
+    //TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogIntegersArray() throws IOException {
@@ -55,22 +55,22 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    @Test
-    public void shouldLogIntegersMulitidimentionalArray() throws IOException {
-        //region when
-        Logger.log(new int[][][][] {{{{0}}}});
-        //endregion
-
-        //region then
-        assertSysoutEquals(
-            "primitives multimatrix: {\n" +
-                "{\n" + "{\n" + "{\n" +
-                    "0\n" +
-                "}\n" + "}\n" + "}\n" +
-            "}\n"
-        );
-        //endregion
-    }
+//    @Test
+//    public void shouldLogIntegersMulitidimentionalArray() throws IOException {
+//        //region when
+//        Logger.log(new int[][][][] {{{{0}}}});
+//        //endregion
+//
+//        //region then
+//        assertSysoutEquals(
+//            "primitives multimatrix: {\n" +
+//                "{\n" + "{\n" + "{\n" +
+//                    "0\n" +
+//                "}\n" + "}\n" + "}\n" +
+//            "}\n"
+//        );
+//        //endregion
+//    }
 
     @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
@@ -104,12 +104,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
 
         //region then
-        assertSysoutContains(1);
+        assertSysoutContains("1");
         assertSysoutContains("str");
-        assertSysoutContains(Integer.MAX_VALUE - 10);
-        assertSysoutContains(11);
+        assertSysoutContains(String.valueOf(Integer.MAX_VALUE - 10));
+        assertSysoutContains("11");
         //endregion
     }
-
-    */
 }

@@ -1,150 +1,142 @@
 package com.acme.edu;
 
-import java.io.File;
 
-import static com.acme.edu.Logger.*;
-import static java.io.File.separator;
-import java.io.File;
-import static java.lang.Math.abs;
-import static java.lang.Math.cos;
-import static java.lang.Math.sin;
+import java.util.Arrays;
 
 /**
  * Java Coding Style Convention (PDF)
  */
 public class Logger {
-    public static final String MY_SUPER_CONSTANT = "";
-    private static final String PRIMITIVE_PREFIX = "primitive: ";
+    private static final String STRING_LOG_OUTPUT_FORMAT = "%s (x%d)";
+    private static final String SIMPLE_LOG_OUTPUT_FORMAT = "%s: %s";
+    private static final String MATRIX_LOG_OUTPUT_FORMAT = "%s: {\n%s}";
 
-    private static final String REFERENCE_PREFIX = "reference: ";
-    private static final String CHAR_PREFIX = "char: ";
+    private static final String PRIMITIVE_DESCRIPTION_STRING = "primitive";
+    private static final String PRIMITIVE_ARRAY_DESCRIPTION_STRING = "primitives array";
+    private static final String PRIMITIVE_MATRIX_DESCRIPTION_STRING = "primitives matrix";
+    private static final String PRIMITIVE_MULTIMATRIX_DESCRIPTION_STRING = "primitives multimatrix";
+    private static final String CHAR_DESCRIPTION_STRING = "char";
 
-    public static int globalState = 0;
-    public int instanceState = 0;
-
-    //region SUM_VARS
-    private static byte byteSum=0;
-    private static int intSum=0;
-    private static String stringSum="";
-    // endregion
-    //region MAX_MIN_VARS
-    private static int MaxValueCounterByte;
-    private static int MaxValueCounterInt;
-    private static int MinValueCounterByte;
-    private static int MinValueCounterInt;
-    // endregion
-    //region STATES_FOR_LAST_CALLING_METHOD
-    private  static boolean isString;
-    private  static boolean isInt;
-    private  static boolean isByte;
-    //endregion
+    private static Integer previousNumber;
+    private static String previousString;
+    private static int samePreviousStringSequenceCounter;
 
 
-    //region CURRENT_VARS
-    private static byte currentByte=0;
-    private static int currentInt=0;
-    private static String  currentString="";
-    // endregion
-
-
-public static int sum=0;
-
-public static  int SumAndCheckIntMaxValue(int addingNumber)
-{
-    int sum=addingNumber+intSum;
-
-    if(addingNumber>=0&&intSum>=0) {
-
-        if(sum<0)
-        {
-            MaxValueCounterInt++;
-            intSum=Math.abs ( addingNumber-(Integer.MAX_VALUE-sum) );
-        }
-    }
-    if(addingNumber<=0&&intSum<=0) {
-
-        if(sum>0)
-        {
-            MaxValueCounterInt--;
-            intSum =  addingNumber-(Integer.MAX_VALUE-sum);
-        }
-    }
-return intSum;
-}
-public static void Exit()
-{
-    if ( isString ){
-        print(REFERENCE_PREFIX + stringSum);
-    }
-    if ( isInt ){
-        System.out.println(PRIMITIVE_PREFIX + intSum);
-    }
-    if ( isByte ){
-        System.out.println(PRIMITIVE_PREFIX + byteSum);
-    }
-
-}
-    /**
-     * JavaDoc
-     * Remember number in first time
-     * Add number to sum another time
-     *
-     */
     public static void log(int message) {
-    if( isString ){
-        sum = message;
-        isString=false;
-    }
-    else
-        if( isInt ){
-            sum+=message;
-
+        printPreviousStringLogMessageIfExist();
+        if (previousNumber != null) {
+            logNumber(message, isSumOverflow(previousNumber, message));
+            previousNumber = null;
+        } else {
+            previousNumber = message;
         }
-    isInt=true;
+    }
 
-       // print(PRIMITIVE_PREFIX+message );
-
+    public static void log(byte message) {
+        printPreviousStringLogMessageIfExist();
+        if (previousNumber != null) {
+            logNumber(message, isSumOverflow(previousNumber.byteValue(), message));
+        } else {
+            previousNumber = (int) message;
+        }
     }
 
     public static void log(String message) {
+        printPreviousNumberIfExist();
 
-        if( isInt ){
-            print ( PRIMITIVE_PREFIX+sum );
-            sum=0;
-            isInt=false;
-
+        if (!message.equals(previousString)) {
+            printPreviousStringLogMessageIfExist();
+        } else {
+            samePreviousStringSequenceCounter += 1;
         }
-        print ( REFERENCE_PREFIX + message );
-        isString = true;
+
+        previousString = message;
     }
+
 
     public static void log(char message) {
-       // print(CHAR_PREFIX + message);
-    }
-    /**
-     * JavaDoc
-     * <bold>kfdfgjkhdgjfdhg</bold>
-     *
-     */
-
-    public static void log(byte message) {
-
-        //print(PRIMITIVE_PREFIX + message);
+        print(String.format(SIMPLE_LOG_OUTPUT_FORMAT, CHAR_DESCRIPTION_STRING, message));
     }
 
+    public static void log(String... messages) {
+        print(Arrays.toString(messages).replace(", ", "\n").replace("[", "").replace("]", ""));
+    }
+
+    public static void log(int... messages) {
+        print(String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_ARRAY_DESCRIPTION_STRING, getFromattedArrayString(messages)));
+    }
+
+    public static void log(int[][] ints) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int[] innerArray : ints) {
+            sb.append(String.format("%s\n", getFromattedArrayString(innerArray)));
+        }
+
+        print(String.format(MATRIX_LOG_OUTPUT_FORMAT, PRIMITIVE_MATRIX_DESCRIPTION_STRING, sb.toString()));
+    }
+
+
+    public static void stopLogging() {
+        printPreviousNumberIfExist();
+        printPreviousStringLogMessageIfExist();
+    }
+
+    private static void logNumber(int message, boolean isOverflow) {
+        if (previousNumber != null) {
+            if (!isOverflow) {
+                print(String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, message + previousNumber));
+            } else {
+                print(String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousNumber));
+                print(String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, message));
+            }
+        }
+    }
+
+    private static boolean isSumOverflow(byte a, byte b) {
+        long result = (long) a + b;
+        return !(result == (byte) result);
+    }
+
+    private static boolean isSumOverflow(int a, int b) {
+        long result = (long) a + b;
+        return !(result == (int) result);
+    }
+
+    private static void printPreviousNumberIfExist() {
+        if (previousNumber != null) {
+            print(String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousNumber));
+        }
+
+        previousNumber = null;
+    }
+
+    private static void printPreviousStringLogMessageIfExist() {
+        String previousStringMessage = getPreviousStringLogMessage();
+
+        if (previousStringMessage != null) {
+            print(previousStringMessage);
+        }
+
+        previousString = null;
+        samePreviousStringSequenceCounter = 0;
+    }
+
+    private static String getPreviousStringLogMessage() {
+        if (previousString != null && samePreviousStringSequenceCounter >= 1) {
+            return String.format(STRING_LOG_OUTPUT_FORMAT, previousString, samePreviousStringSequenceCounter + 1);
+        } else {
+            return previousString;
+        }
+    }
+
+    private static String getFromattedArrayString(int[] array) {
+        return Arrays.toString(array)
+                .replace("[", "{")
+                .replace("]", "}");
+    }
 
     private static void print(String message) {
         System.out.println(message);
-    }
-}
-
-class Main {
-
-    public static void main(String[] args) {
-        Logger.log(1);
-        Logger.log(0);
-        Logger.log(-1);
-        Exit();
-       // System.out.println(factualMessage);
     }
 }
