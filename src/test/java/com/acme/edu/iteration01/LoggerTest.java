@@ -28,7 +28,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(1);
         Logger.log(0);
         Logger.log(-1);
-        Logger.exit();
+        Logger.stopLogging ();
         //endregion
 
         //region then
@@ -42,7 +42,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         Logger.log((byte)0);
         Logger.log((byte)-1);
-        Logger.exit ();
+        Logger.stopLogging ();
 
         //endregion
 
@@ -69,13 +69,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("b");
         //endregion
     }
-    /*
+
 
     @Test
     public void shouldLogString() throws IOException {
         //region when
         Logger.log("test string 1");
         Logger.log("other str");
+        Logger.stopLogging ();
         //endregion
 
         //region then
@@ -84,7 +85,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
-
+/*
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when

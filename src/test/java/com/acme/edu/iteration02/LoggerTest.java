@@ -35,7 +35,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 2");
         Logger.log(0);
         //endregion
-        Logger.exit();
+        Logger.stopLogging ();
         //region then
         assertSysoutContains ("str\n" );
         assertSysoutContains ("3\n" );
@@ -52,7 +52,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(Integer.MIN_VALUE);
         Logger.log("str 2");
         Logger.log(0);
-        Logger.exit ();
+        Logger.stopLogging ();
         //endregion
 
         //region then
@@ -72,7 +72,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log(Byte.MAX_VALUE);
         Logger.log("str 2");
         Logger.log(0);
-        Logger.exit();
+        Logger.stopLogging ();
         //endregion
 
         //region then
@@ -95,7 +95,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         Logger.log("str 3");
         Logger.log("str 3");
         Logger.log("str 3");
-        Logger.exit ();
+        Logger.stopLogging ();
         //endregion
 
         //region then

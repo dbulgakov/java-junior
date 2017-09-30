@@ -1,258 +1,251 @@
 package com.acme.edu;
 
+
+import org.omg.CORBA.INTERNAL;
+
+import java.util.Arrays;
+
 /**
  * Java Coding Style Convention (PDF)
  */
 public class Logger {
-    public static final String MY_SUPER_CONSTANT = "";
-    private static final String PRIMITIVE_PREFIX = "primitive: ";
-    private static final String STRING_PREFIX = "string: ";
-    private static final String CHAR_PREFIX = "char: ";
 
-
-    //region SUM_VARS
-    private static byte byteSum = 0;
-    private static int intSum = 0;
-    private static String stringSum = null;
-    private static int stringCounter = 1;
-    // endregion
-
-    //region MAX_MIN_VARS
-    private static int byteMaxValueCounter = 0;
-    private static int intMaxValueCounter = 0;
-    // endregion
-
-    //region STATES_FOR_LAST_CALLING_METHOD
-    private static boolean isString;
-    private static boolean isInt;
-    private static boolean isByte;
+    //region format
+    private static final String STRING_LOG_OUTPUT_FORMAT = "%s (x%d)";
+    private static final String SIMPLE_LOG_OUTPUT_FORMAT = "%s: %s";
+    private static final String MATRIX_LOG_OUTPUT_FORMAT = "%s: {\n%s}";
     //endregion
 
+    //region PREFIX CONSTANT
+    private static final String STRING_DESCRIPTION_STRING = "string";
+    private static final String PRIMITIVE_DESCRIPTION_STRING = "primitive";
+    //private static final String PRIMITIVE_ARRAY_DESCRIPTION_STRING = "primitives array";
+    //private static final String PRIMITIVE_MATRIX_DESCRIPTION_STRING = "primitives matrix";
+    //private static final String PRIMITIVE_MULTIMATRIX_DESCRIPTION_STRING = "primitives multimatrix";
+    private static final String CHAR_DESCRIPTION_STRING = "char";
+    //endregion
 
-    /**
-     * JavaDoc
-     * Вычисляется сумма или остаток от суммы при переполнении
-     * и изменяется счетчик переполнений
-     * @param addingNumber - число, которое хотим добавить
-     * @param  lastSum - текущая сумма
-     * @param maxValue число, после которого будет переполнение суммы
-     * @return  Сумму или остаток от переполнения
-     */
-    private static int SumAndCheckMaxValue(int addingNumber, int lastSum, int maxValue) {
+    private enum State {previousInt, previousByte, previousString}
+    private static State state;
+    private static int overFlowCounter;
+    //region Summators
+    private static Integer previousIntegerSum;
+    private static byte previousByteSum;
+    private static String previousString;
+    private static int samePreviousStringSequenceCounter;
+    //endregion
 
-        int sum = addingNumber + lastSum;
-
-        if ( addingNumber > 0 && lastSum > 0 ) {
-
-            if ( sum < 0 || sum > maxValue ) {
-                if ( maxValue == Integer.MAX_VALUE ) {
-                    intMaxValueCounter++;
-                } else if ( maxValue == Byte.MAX_VALUE ) {
-                    byteMaxValueCounter++;
-                }
-                return Math.abs ( addingNumber - (maxValue - lastSum) );
-            }
-        } else if ( addingNumber < 0 && lastSum < 0 ) {
-
-            if ( sum > 0 || sum < maxValue ) {
-                if ( maxValue == Integer.MAX_VALUE ) {
-                    intMaxValueCounter--;
-                } else if ( maxValue == Byte.MAX_VALUE ) {
-                    byteMaxValueCounter--;
-                }
-
-                return addingNumber - (maxValue - lastSum);
-            }
-        }
-
-        return sum;
-
+    private static void clearSumAndCounterValues() {
+        previousByteSum = 0;
+        previousString = null;
+        previousIntegerSum = 0;
+        samePreviousStringSequenceCounter = 0;
+        overFlowCounter = 0;
     }
 
-    /**
-     * JavaDoc
-     * После выполнения этой функции
-     * обнуляются поля Logger и он перестает ждать сообщения
-     */
-    public static void exit() {
-        if ( isString ) {
-            if ( stringSum != null ) {
-                printStringAtAll ();
-                isString = false;
-                stringSum = null;
+    //region logs
+    public static void log(int message) {
+
+        if ( !(state == State.previousInt) ) {
+            //если байт - печатаем байтовую сумму
+            if ( state == State.previousByte ) {
+                print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousByteSum ) );
             }
+            //если строка - строковую сумму
+            else if ( state == State.previousString ) {
+                print(getPreviousStringLogMessage ());
 
+            }
+            //обнуляем все предыдущие сообщения и счетчики
+            clearSumAndCounterValues();
         }
-        if ( isInt ) {
-            printAndClearIntSumAndByteState ();
-        }
-        if ( isByte ) {
-            printAndClearByteSumAndIntState ();
-        }
-
-
-        isByte = false;
+        previousIntegerSum = (int) isSumOverflowNew ( message, previousIntegerSum, Integer.MAX_VALUE, Integer.MIN_VALUE );
+        state = State.previousInt;
 
     }
 
 
-    //region Loggers
-    /**
-     * JavaDoc
-     * Вычисляется сумма или остаток от суммы при переполнении
-     * и изменяется счетчик переполнений
-     * @param message - число, которое хотим добавить
-     */
+    public static void log(byte message) {
 
+        if ( !(state == State.previousByte) ) {
+            //если байт - печатаем байтовую сумму
+            if ( state == State.previousInt ) {
+
+                printOverFlowsIfExist ( Integer.MAX_VALUE );
+                print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousIntegerSum ) );
+
+            }
+            //если строка - строковую сумму
+            else if ( state == State.previousString ) {
+                print ( getPreviousStringLogMessage () );
+            }
+            //обнуляем все предыдущие сообщения и счетчики
+            clearSumAndCounterValues ();
+        }
+        previousByteSum = (byte) isSumOverflowNew ( message, previousByteSum, Byte.MAX_VALUE, Byte.MIN_VALUE );
+        state = State.previousByte;
+    }
 
     public static void log(String message) {
 
-        if ( isInt ) {
-        printAndClearIntSumAndByteState ();
-
-    } else if ( isByte ) {
-
-        printAndClearByteSumAndIntState ();
-
-    }
-    isInt = false;
-    isByte = false;
-        if ( stringSum == null ) {
-        stringSum = message;
-        return;
-    } else {
-        if ( stringSum.equals ( message ) ) {
-            stringCounter++;
-        } else {
-            printStringAtAll ();
-            stringSum = message;
+        if ( !(state == State.previousString) ) {
+            if ( state == State.previousInt ) {
+                printOverFlowsIfExist ( Integer.MAX_VALUE );
+                print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousIntegerSum ) );
+            }
+            if ( state == State.previousByte ) {
+                printOverFlowsIfExist ( Byte.MAX_VALUE );
+                print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousByteSum ) );
+            }
+            clearSumAndCounterValues ();
         }
-
-
-    }
-
-    isString = true;
-}
-
-
-
-    /**
-     * JavaDoc
-     * Remember number in first time
-     * Add number to sum another time
-     * @param message обрабатывает интовое сообщение
-     */
-    public static void log(int message) {
-        if ( isString ) {
-            printStringAtAll ();
-            stringSum = null;
-            intSum = message;
-            isString = false;
-        } else if ( isByte ) {
-            printAndClearByteSumAndIntState ();
-        } else {
-            intSum = SumAndCheckMaxValue ( message, intSum, Integer.MAX_VALUE );
+        if(previousString==null){
+            previousString=message;
         }
-        isInt = true;
+        else {
+            if ( previousString.equals( message ) ) {
+                samePreviousStringSequenceCounter++;
+            }
+            else {
+                print(getPreviousStringLogMessage ());
+                previousString = message;
+            }
 
-    }
-    /**
-     * JavaDoc
-     * Remember number in first time
-     * Add number to sum another time
-     * @param message обрабатывает байтовое сообщение
-     */
-    public static void log(byte message) {
-        if ( isString ) {
-            printStringAtAll ();
-            stringSum = null;
-            byteSum = message;
-            isString = false;
-        } else if ( isInt ) {
-            printAndClearIntSumAndByteState ();
-        } else {
-            byteSum = (byte) SumAndCheckMaxValue ( message, byteSum, Byte.MAX_VALUE );
         }
-        isByte = true;
-
+        state = State.previousString;
     }
 
-    /**
-     * JavaDoc
-     * Remember number in first time
-     * Add number to sum another time
-     * @param message обрабатывает символьное сообщение
-     */
+
     public static void log(char message) {
-        print ( CHAR_PREFIX + message );
+        print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, CHAR_DESCRIPTION_STRING, message ) );
     }
+
+    /*
+    public static void log(String... messages) {
+        print ( Arrays.toString ( messages ).replace ( ", ", "\n" ).replace ( "[", "" ).replace ( "]", "" ) );
+    }
+
+    public static void log(int... messages) {
+        print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_ARRAY_DESCRIPTION_STRING, getFromattedArrayString ( messages ) ) );
+    }
+
+    public static void log(int[][] ints) {
+        StringBuilder sb = new StringBuilder ();
+
+        for (int[] innerArray : ints) {
+            sb.append ( String.format ( "%s\n", getFromattedArrayString ( innerArray ) ) );
+        }
+
+        print ( String.format ( MATRIX_LOG_OUTPUT_FORMAT, PRIMITIVE_MATRIX_DESCRIPTION_STRING, sb.toString () ) );
+    }
+
+*/
     //endregion
-    //region Printers
 
-    /**
-     * JavaDoc
-     * Выводит на консоль переполнения
-     * @param maxValue - максимально значение до переполнения
-     * @param counter - счетчик максимального значения
-     */
-    private static void printMaxValue(int maxValue, int counter) {
-        for (int i = 0; i < counter; i++) {
-            print ( PRIMITIVE_PREFIX + maxValue );
+    public static void stopLogging() {
+        switch (state) {
+            case previousByte:
+                printOverFlowsIfExist ( Byte.MAX_VALUE );
+                print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousByteSum ) );
+                break;
+            case previousInt:
+                printOverFlowsIfExist ( Integer.MAX_VALUE );
+                print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, previousIntegerSum ) );
+                break;
+            case previousString:
+                print(String.format ( SIMPLE_LOG_OUTPUT_FORMAT, STRING_DESCRIPTION_STRING, previousString ));
+                break;
+
         }
+        clearSumAndCounterValues ();
+    }
 
+    //region Maths
+    private static long isSumOverflowNew(int value, long sum, long maxValue, long minValue) {
+        long guardian = 0;
+
+//region если положительное переполнение, то увеличиваем счетчик
+        if ( value > 0 & sum >= 0 ) {
+            guardian = maxValue;
+
+//если выполняется - переполнение
+            if ( guardian - sum <= value ) {
+                if ( overFlowCounter >= 0 ) {
+                    overFlowCounter++;
+                } else {
+                    overFlowCounter++;
+                    sum -= 1;//пока считаем, что тут нет переполнения
+                }
+            } else {
+                guardian = 0;
+            }
+        }
+//endregion
+//region если отрицательное переполнение, то уменьшаем счетчик
+        else if ( value < 0 & sum <= 0 ) {
+            guardian = minValue;
+            if ( guardian - sum >= value ) {
+                if ( overFlowCounter > 0 ) {
+                    overFlowCounter--;
+                    sum -= 1;
+                } else {
+                    overFlowCounter--;
+
+                }
+            } else {
+                guardian = 0;
+            }
+        }
+//endregion
+        sum += value - guardian;
+        if ( sum > 0 & overFlowCounter < 0 ) {
+            sum = minValue + sum;
+            overFlowCounter++;
+        } else if ( sum < 0 & overFlowCounter > 0 ) {
+            sum = maxValue + sum;
+            overFlowCounter--;
+        }
+        return sum;
+    }
+//endregion
+
+    private static void printOverFlowsIfExist(int maxValue) {
+        if ( overFlowCounter < 0 ) maxValue = -1 - maxValue;
+        for (int i = 0; i < Math.abs ( overFlowCounter ); i++) {
+            print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, maxValue ) );
+        }
     }
 
 
-    private static void printAndClearByteSumAndIntState() {
 
-        print ( PRIMITIVE_PREFIX + byteSum );
-        printMaxValue ( Byte.MAX_VALUE, byteMaxValueCounter );
-        byteMaxValueCounter = 0;
-        byteSum = 0;
-        isInt = false;
-    }
 
-    private static void printStringState() {
-
-        print ( STRING_PREFIX + stringSum );
-
-        byteMaxValueCounter = 0;
-        byteSum = 0;
-        isInt = false;
-    }
-
-    private static void printAndClearIntSumAndByteState() {
-
-        print ( PRIMITIVE_PREFIX + intSum );
-        printMaxValue ( Integer.MAX_VALUE, intMaxValueCounter );
-        intMaxValueCounter = 0;
-        intSum = 0;
-        isByte = false;
-    }
-
-    private static void printStringWithCounter() {
-        print ( STRING_PREFIX + stringSum + " (x" + stringCounter + ")" );
-        stringCounter = 1;
-    }
-
-    /**
-     * JavaDoc
-     * Выводит строку или строку и счетчик строк
-     */
-    private static void printStringAtAll() {
-        if ( stringCounter > 1 ) {
-            printStringWithCounter ();
-
+    private static String getPreviousStringLogMessage() {
+        if ( previousString != null && samePreviousStringSequenceCounter >0 ) {
+            return String.format ( STRING_LOG_OUTPUT_FORMAT, previousString, samePreviousStringSequenceCounter + 1 );
         } else {
-            print ( STRING_PREFIX + stringSum );
-
+            return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, STRING_DESCRIPTION_STRING, previousString );
         }
     }
-    private static void print(String message) {
 
+    private static void print(String message) {
         System.out.println ( message );
     }
-    //endregion
+
+    private static String getFromattedArrayString(int[] array) {
+        return Arrays.toString ( array )
+                .replace ( "[", "{" )
+                .replace ( "]", "}" );
+    }
+
 }
 
-
+class Main {
+    public static void main(String[] args) {
+        Logger.log("str 1");
+        Logger.log((byte)10);
+        Logger.log(Byte.MAX_VALUE);
+        Logger.log("str 2");
+        Logger.log(0);
+        Logger.stopLogging ();
+    }
+}
