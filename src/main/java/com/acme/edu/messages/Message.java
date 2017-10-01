@@ -4,7 +4,7 @@ import com.acme.edu.formatter.HasPrefix;
 import com.acme.edu.formatter.MessageFormatter;
 import com.acme.edu.saver.DataSaver;
 
-public abstract class Message implements HasPrefix{
+public abstract class Message implements HasPrefix {
     private Message previousMessage;
 
     private MessageFormatter messageFormatter;
@@ -18,11 +18,10 @@ public abstract class Message implements HasPrefix{
         getDataSaver().save(getFormatter().format(this));
     }
 
-    public Message process() {
+    public void process() {
         if (previousMessage != null) {
             processNewMessageInternal();
         }
-        return this;
     }
 
     protected abstract void processNewMessageInternal();
