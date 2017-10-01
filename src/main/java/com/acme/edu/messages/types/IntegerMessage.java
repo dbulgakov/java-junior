@@ -17,12 +17,14 @@ public class IntegerMessage extends DataMessage<Integer> {
     @Override
     protected void processNewMessageInternal() {
         Message previousMessage = getPreviousMessage();
-        if (previousMessage.getType() == MessageType.INTEGER) {
-            calculatedSum = getCalculatedSum(previousMessage);
-            setCalculatedValue(new IntegerMessage(calculatedSum));
-        } else {
-            previousMessage.save();
-            calculatedSum = null;
+        if (isPreviousMessageExist()) {
+            if (previousMessage.getType() == MessageType.INTEGER) {
+                calculatedSum = getCalculatedSum(previousMessage);
+                setCalculatedValue(new IntegerMessage(calculatedSum));
+            } else {
+                previousMessage.save();
+                calculatedSum = null;
+            }
         }
     }
 

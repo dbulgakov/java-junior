@@ -16,12 +16,14 @@ public class StringMessage extends DataMessage<String> {
 
     @Override
     protected void processNewMessageInternal() {
-        if (isStringMessageSequence()) {
-            sequenceCounter = getStringMessageSequenceLength() + 1;
-            setCalculatedValue(new IntegerMessage(sequenceCounter));
-        } else {
-            getPreviousMessage().save();
-            sequenceCounter = 0;
+        if (isPreviousMessageExist()) {
+            if (isStringMessageSequence()) {
+                sequenceCounter = getStringMessageSequenceLength() + 1;
+                setCalculatedValue(new IntegerMessage(sequenceCounter));
+            } else {
+                getPreviousMessage().save();
+                sequenceCounter = 0;
+            }
         }
     }
 

@@ -19,9 +19,7 @@ public abstract class Message implements HasPrefix {
     }
 
     public void process() {
-        if (previousMessage != null) {
-            processNewMessageInternal();
-        }
+        processNewMessageInternal();
     }
 
     protected abstract void processNewMessageInternal();
@@ -55,4 +53,8 @@ public abstract class Message implements HasPrefix {
     }
 
     // endregion
+
+    protected boolean isPreviousMessageExist() {
+        return getPreviousMessage() != null;
+    }
 }
