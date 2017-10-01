@@ -43,9 +43,11 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
         LoggerFacade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
+
         assertSysoutEquals(
             "primitives matrix: {\n" +
                 "{-1, 0, 1}\n" +
@@ -104,6 +106,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         LoggerFacade.log("str");
         LoggerFacade.log(Integer.MAX_VALUE - 10);
         LoggerFacade.log(11);
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then

@@ -8,6 +8,9 @@ import com.acme.edu.saver.ConsoleDataSaver;
 
 import java.util.Arrays;
 
+import static com.acme.edu.utils.BoxingUtils.boxArray;
+import static com.acme.edu.utils.BoxingUtils.boxMatrix;
+
 public class LoggerFacade {
     private static final LoggerController loggerController = new SequenceLoggerController(new PrefixMessageFormatter(), new ConsoleDataSaver());
 
@@ -32,13 +35,11 @@ public class LoggerFacade {
     }
 
     public static void log(int... message) {
-        Integer[] boxedArray = Arrays.stream(message).boxed().toArray(Integer[]::new);
-        loggerController.logMessage(new IntegerArrayMessage(boxedArray));
+        loggerController.logMessage(new IntegerArrayMessage(boxArray(message)));
     }
 
     public static void log(int[][] message) {
-        Integer[][] boxedMatrix = Arrays.stream(message).toArray(Integer[][]::new);
-        loggerController.logMessage(new IntegerMatrixMessage(boxedMatrix));
+        loggerController.logMessage(new IntegerMatrixMessage(boxMatrix(message)));
     }
 
     public static void stopLogging() {
