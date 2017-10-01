@@ -1,8 +1,9 @@
 package com.acme.edu.iteration03;
 
+import com.acme.edu.LoggerFacade;
+import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.implementations.ConsoleSaver;
 import com.acme.edu.implementations.SumLogger;
-import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.implementations.TypedFormatter;
 import org.junit.After;
 import org.junit.Before;
@@ -10,7 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
+public class SumLoggerFacadeTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -30,9 +31,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log(new int[] {-1, 0, 1});
+        LoggerFacade.log(new int[] {-1, 0, 1});
         //endregion
 
         //region then
@@ -45,9 +44,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        LoggerFacade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
         //endregion
 
         //region then
@@ -81,9 +78,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log("str1", "string 2", "str 3");
+        LoggerFacade.log("str1", "string 2", "str 3");
         //endregion
 
         //region then
@@ -94,9 +89,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersWithOneMethodCall() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log(-1, 0, 1, 3);
+        LoggerFacade.log(-1, 0, 1, 3);
         //endregion
 
         //region then
@@ -107,12 +100,10 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log(1);
-        sumLogger.log("str");
-        sumLogger.log(Integer.MAX_VALUE - 10);
-        sumLogger.log(11);
+        LoggerFacade.log(1);
+        LoggerFacade.log("str");
+        LoggerFacade.log(Integer.MAX_VALUE - 10);
+        LoggerFacade.log(11);
         //endregion
 
         //region then

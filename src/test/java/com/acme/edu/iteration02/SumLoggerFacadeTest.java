@@ -1,16 +1,14 @@
 package com.acme.edu.iteration02;
 
-import com.acme.edu.implementations.ConsoleSaver;
-import com.acme.edu.implementations.SumLogger;
+import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
-import com.acme.edu.implementations.TypedFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
-public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
+public class SumLoggerFacadeTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -30,14 +28,12 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSequentIntegersAsSum() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log("str 1");
-        sumLogger.log(1);
-        sumLogger.log(2);
-        sumLogger.log("str 2");
-        sumLogger.log(0);
-        sumLogger.stopLogging();
+        LoggerFacade.log("str 1");
+        LoggerFacade.log(1);
+        LoggerFacade.log(2);
+        LoggerFacade.log("str 2");
+        LoggerFacade.log(0);
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -51,13 +47,11 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log("str 1");
-        sumLogger.log(10);
-        sumLogger.log(Integer.MAX_VALUE);
-        sumLogger.log("str 2");
-        sumLogger.log(0);
+        LoggerFacade.log("str 1");
+        LoggerFacade.log(10);
+        LoggerFacade.log(Integer.MAX_VALUE);
+        LoggerFacade.log("str 2");
+        LoggerFacade.log(0);
         //endregion
 
         //region then
@@ -72,13 +66,11 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log("str 1");
-        sumLogger.log((byte)10);
-        sumLogger.log(Byte.MAX_VALUE);
-        sumLogger.log("str 2");
-        sumLogger.log(0);
+        LoggerFacade.log("str 1");
+        LoggerFacade.log((byte)10);
+        LoggerFacade.log(Byte.MAX_VALUE);
+        LoggerFacade.log("str 2");
+        LoggerFacade.log(0);
         //endregion
 
         //region then
@@ -93,17 +85,15 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log("str 1");
-        sumLogger.log("str 2");
-        sumLogger.log("str 2");
-        sumLogger.log(0);
-        sumLogger.log("str 2");
-        sumLogger.log("str 3");
-        sumLogger.log("str 3");
-        sumLogger.log("str 3");
-        sumLogger.stopLogging();
+        LoggerFacade.log("str 1");
+        LoggerFacade.log("str 2");
+        LoggerFacade.log("str 2");
+        LoggerFacade.log(0);
+        LoggerFacade.log("str 2");
+        LoggerFacade.log("str 3");
+        LoggerFacade.log("str 3");
+        LoggerFacade.log("str 3");
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then

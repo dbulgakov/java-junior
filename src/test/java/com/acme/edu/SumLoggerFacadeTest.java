@@ -1,10 +1,8 @@
 package com.acme.edu;
 
-import ooaddemo.*;
-import ooaddemo.Logger;
 import org.junit.Test;
 
-public class SumLoggerTest {
+public class SumLoggerFacadeTest {
     @Test
     public void testScenario1() {
 

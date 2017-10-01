@@ -1,16 +1,14 @@
 package com.acme.edu.iteration01;
 
-import com.acme.edu.implementations.ConsoleSaver;
-import com.acme.edu.implementations.SumLogger;
+import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
-import com.acme.edu.implementations.TypedFormatter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.IOException;
 
-public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
+public class SumLoggerFacadeTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -27,13 +25,10 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log(1);
-        sumLogger.log(0);
-        sumLogger.log(-1);
-        sumLogger.stopLogging();
-
+        LoggerFacade.log(1);
+        LoggerFacade.log(0);
+        LoggerFacade.log(-1);
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -45,11 +40,9 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log((byte)0);
-        sumLogger.log((byte)-1);
-        sumLogger.stopLogging();
+        LoggerFacade.log((byte)0);
+        LoggerFacade.log((byte)-1);
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -64,10 +57,8 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogChar() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log('a');
-        sumLogger.log('b');
+        LoggerFacade.log('a');
+        LoggerFacade.log('b');
         //endregion
 
         //region then
