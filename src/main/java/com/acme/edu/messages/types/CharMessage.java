@@ -12,7 +12,7 @@ public class CharMessage extends DataMessage<Character> {
 
     @Override
     protected void processNewMessageInternal() {
-        // nothing done here for this type
+        save();
     }
 
     @Override

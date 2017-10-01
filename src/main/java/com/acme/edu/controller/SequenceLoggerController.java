@@ -21,7 +21,7 @@ public class SequenceLoggerController implements LoggerController {
         messageToLog.setDataSaver(dataSaver);
         messageToLog.setFormatter(messageFormatter);
 
-        messageToLog.process().save();
+        messageToLog.process();
 
         previousMessage = messageToLog;
     }
