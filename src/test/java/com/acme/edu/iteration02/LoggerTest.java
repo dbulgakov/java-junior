@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class SumLoggerFacadeTest implements SysoutCaptureAndAssertionAbility {
+public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
     public void setUpSystemOut() throws IOException {

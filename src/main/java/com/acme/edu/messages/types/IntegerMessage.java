@@ -1,0 +1,32 @@
+package com.acme.edu.messages.types;
+
+import com.acme.edu.messages.DataMessage;
+import com.acme.edu.messages.MessageType;
+
+public class IntegerMessage extends DataMessage<Integer>{
+    private static final String TYPE_PREFIX = "primitive";
+
+    public IntegerMessage(Integer messageValue) {
+        super(messageValue);
+    }
+
+    @Override
+    protected void processNewMessageInternal() {
+
+    }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public MessageType getType() {
+        return MessageType.INTEGER;
+    }
+
+    @Override
+    public String getTypePrefixName() {
+        return TYPE_PREFIX;
+    }
+}
