@@ -30,4 +30,9 @@ public class IntegerArrayMessage extends DataMessage<Integer[]> {
     public String getPrefix() {
         return TYPE_PREFIX;
     }
+
+    @Override
+    public String toString() {
+        return calculatedValue;
+    }
 }
