@@ -17,8 +17,10 @@ public class StringMessage extends DataMessage<String> {
     @Override
     protected void processNewMessageInternal() {
         if (isStringMessageSequence()) {
-            sequenceCounter += 1;
+            sequenceCounter = getStringMessageSequenceLength() + 1;
+            setCalculatedValue(new IntegerMessage(sequenceCounter));
         } else {
+            getPreviousMessage().save();
             sequenceCounter = 0;
         }
     }
@@ -33,9 +35,19 @@ public class StringMessage extends DataMessage<String> {
         return TYPE_PREFIX;
     }
 
+    private Integer getStringMessageSequenceLength() {
+        Message previousMessage = getPreviousMessage();
+        DataMessage previousDataMessage = (DataMessage) previousMessage;
+        if (previousDataMessage.getCalculatedValue() != null) {
+            return (Integer) previousDataMessage.getCalculatedValue().getMessageValue();
+        } else {
+            return 0;
+        }
+    }
+
     private boolean isStringMessageSequence() {
         Message previousMessage = getPreviousMessage();
-        if (previousMessage != null && previousMessage.getType() == MessageType.STRING) {
+        if (previousMessage.getType() == MessageType.STRING) {
             DataMessage previousDataMessage = (DataMessage) previousMessage;
             return previousDataMessage.getMessageValue().equals(getMessageValue());
         } else {
@@ -48,7 +60,7 @@ public class StringMessage extends DataMessage<String> {
         if (sequenceCounter == 0) {
             return getMessageValue();
         } else {
-            return String.format(SEQUENCE_FORMAT, getMessageValue(), sequenceCounter);
+            return String.format(SEQUENCE_FORMAT, getMessageValue(), sequenceCounter + 1);
         }
     }
 }
