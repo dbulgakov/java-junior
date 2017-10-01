@@ -6,7 +6,7 @@ import com.acme.edu.messages.MessageType;
 import java.util.Arrays;
 
 public class IntegerArrayMessage extends DataMessage<Integer[]> {
-    private static final String TYPE_PREFIX = "primitives array";
+    public static final String TYPE_PREFIX = "primitives array";
 
     private String calculatedValue;
 

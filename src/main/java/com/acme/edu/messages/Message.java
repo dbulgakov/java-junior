@@ -10,9 +10,6 @@ public abstract class Message implements HasPrefix{
     private MessageFormatter messageFormatter;
     private DataSaver dataSaver;
 
-
-    protected abstract void processNewMessageInternal();
-
     public void save() {
         if (getDataSaver() == null || getFormatter() == null) {
             throw new IllegalStateException("Saver and formatter are required to be setup!");
@@ -21,14 +18,18 @@ public abstract class Message implements HasPrefix{
         getDataSaver().save(getFormatter().format(this));
     }
 
-    public abstract MessageType getType();
-
     public Message process() {
         if (previousMessage != null) {
             processNewMessageInternal();
         }
         return this;
     }
+
+    protected abstract void processNewMessageInternal();
+
+    public abstract MessageType getType();
+
+    // region saver and formatter
 
     public Message getPreviousMessage() {
         return previousMessage;
@@ -53,4 +54,6 @@ public abstract class Message implements HasPrefix{
     public void setDataSaver(DataSaver dataSaver) {
         this.dataSaver = dataSaver;
     }
+
+    // endregion
 }

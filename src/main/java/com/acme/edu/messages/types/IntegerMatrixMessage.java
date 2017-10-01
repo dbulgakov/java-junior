@@ -4,7 +4,7 @@ import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.MessageType;
 
 public class IntegerMatrixMessage extends DataMessage<Integer[][]> {
-    private static final String TYPE_PREFIX = "primitives matrix";
+    public static final String TYPE_PREFIX = "primitives matrix";
 
     private String calculatedValue;
 
@@ -20,7 +20,7 @@ public class IntegerMatrixMessage extends DataMessage<Integer[][]> {
 //            sb.append(String.format("%s\n", getFromattedArrayString(innerArray)));
         }
 
-//        calculatedValue =  String.format(MATRIX_LOG_OUTPUT_FORMAT, PRIMITIVE_MATRIX_DESCRIPTION_STRING, sb.toString());
+        calculatedValue =  sb.toString();
     }
 
     @Override
@@ -31,5 +31,10 @@ public class IntegerMatrixMessage extends DataMessage<Integer[][]> {
     @Override
     public String getPrefix() {
         return TYPE_PREFIX;
+    }
+
+    @Override
+    public String toString() {
+        return calculatedValue;
     }
 }

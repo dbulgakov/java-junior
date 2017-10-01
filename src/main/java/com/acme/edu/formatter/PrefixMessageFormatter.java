@@ -13,4 +13,9 @@ public class PrefixMessageFormatter implements MessageFormatter {
             return dataToFormat.toString();
         }
     }
+
+    @Override
+    public String format(HasPrefix dataToFormat, String pattern) {
+        return String.format(pattern, dataToFormat);
+    }
 }

@@ -1,7 +1,6 @@
 package com.acme.edu.implementations;
 
 public class TypedFormatter {
-    private static final String STRING_LOG_OUTPUT_FORMAT = "%s (x%d)";
     private static final String SIMPLE_LOG_OUTPUT_FORMAT = "%s: %s";
     private static final String MATRIX_LOG_OUTPUT_FORMAT = "%s: {\n%s}";
 

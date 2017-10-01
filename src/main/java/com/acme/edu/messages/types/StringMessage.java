@@ -5,7 +5,8 @@ import com.acme.edu.messages.Message;
 import com.acme.edu.messages.MessageType;
 
 public class StringMessage extends DataMessage<String> {
-    private static final String TYPE_PREFIX = "string";
+    public static final String TYPE_PREFIX = null;
+    public static final String SEQUENCE_FORMAT = "%s (x%d)";
 
     private int sequenceCounter;
 
@@ -39,6 +40,15 @@ public class StringMessage extends DataMessage<String> {
             return previousDataMessage.getMessageValue().equals(getMessageValue());
         } else {
             return false;
+        }
+    }
+
+    @Override
+    public String toString() {
+        if (sequenceCounter == 0) {
+            return getMessageValue();
+        } else {
+            return String.format(SEQUENCE_FORMAT, getMessageValue(), sequenceCounter);
         }
     }
 }

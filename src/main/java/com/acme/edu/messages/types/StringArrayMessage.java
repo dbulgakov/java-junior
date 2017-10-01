@@ -6,7 +6,7 @@ import com.acme.edu.messages.MessageType;
 import java.util.Arrays;
 
 public class StringArrayMessage extends DataMessage<String[]> {
-    private static final String TYPE_PREFIX = null;
+    public static final String TYPE_PREFIX = null;
 
     private String calculatedValue;
 
@@ -30,5 +30,10 @@ public class StringArrayMessage extends DataMessage<String[]> {
     @Override
     public String getPrefix() {
         return TYPE_PREFIX;
+    }
+
+    @Override
+    public String toString() {
+        return calculatedValue;
     }
 }

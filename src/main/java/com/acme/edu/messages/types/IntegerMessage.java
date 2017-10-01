@@ -4,7 +4,7 @@ import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.MessageType;
 
 public class IntegerMessage extends DataMessage<Integer>{
-    private static final String TYPE_PREFIX = "primitive";
+    public static final String TYPE_PREFIX = "primitive";
 
     public IntegerMessage(Integer messageValue) {
         super(messageValue);
