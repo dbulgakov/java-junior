@@ -16,17 +16,12 @@ public class CharMessage extends DataMessage<Character> {
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
     public MessageType getType() {
         return MessageType.CHAR;
     }
 
     @Override
-    public String getTypePrefixName() {
+    public String getPrefix() {
         return TYPE_PREFIX;
     }
 }

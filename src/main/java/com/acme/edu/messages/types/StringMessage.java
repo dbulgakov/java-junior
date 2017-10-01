@@ -5,7 +5,7 @@ import com.acme.edu.messages.Message;
 import com.acme.edu.messages.MessageType;
 
 public class StringMessage extends DataMessage<String> {
-    private static final String TYPE_PREFIX = "";
+    private static final String TYPE_PREFIX = "string";
 
     private int sequenceCounter;
 
@@ -23,17 +23,12 @@ public class StringMessage extends DataMessage<String> {
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
     public MessageType getType() {
         return MessageType.STRING;
     }
 
     @Override
-    public String getTypePrefixName() {
+    public String getPrefix() {
         return TYPE_PREFIX;
     }
 

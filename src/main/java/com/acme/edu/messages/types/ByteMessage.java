@@ -16,17 +16,12 @@ public class ByteMessage extends DataMessage<Byte>{
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
     public MessageType getType() {
         return MessageType.BYTE;
     }
 
     @Override
-    public String getTypePrefixName() {
+    public String getPrefix() {
         return TYPE_PREFIX;
     }
 }

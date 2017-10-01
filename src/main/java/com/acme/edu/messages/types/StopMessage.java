@@ -12,17 +12,12 @@ public class StopMessage extends Message {
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
     public MessageType getType() {
         return MessageType.STOP;
     }
 
     @Override
-    public String getTypePrefixName() {
+    public String getPrefix() {
         return TYPE_PREFIX;
     }
 }

@@ -1,9 +1,10 @@
 package com.acme.edu.messages;
 
+import com.acme.edu.formatter.HasPrefix;
 import com.acme.edu.formatter.MessageFormatter;
 import com.acme.edu.saver.DataSaver;
 
-public abstract class Message {
+public abstract class Message implements HasPrefix{
     private Message previousMessage;
 
     private MessageFormatter messageFormatter;
@@ -12,11 +13,15 @@ public abstract class Message {
 
     protected abstract void processNewMessageInternal();
 
-    public abstract void save();
+    public void save() {
+        if (getDataSaver() == null || getFormatter() == null) {
+            throw new IllegalStateException("Saver and formatter are required to be setup!");
+        }
+
+        getDataSaver().save(getFormatter().format(this));
+    }
 
     public abstract MessageType getType();
-
-    public abstract String getTypePrefixName();
 
     public Message process() {
         if (previousMessage != null) {

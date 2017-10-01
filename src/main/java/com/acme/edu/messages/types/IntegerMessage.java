@@ -16,17 +16,12 @@ public class IntegerMessage extends DataMessage<Integer>{
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
     public MessageType getType() {
         return MessageType.INTEGER;
     }
 
     @Override
-    public String getTypePrefixName() {
+    public String getPrefix() {
         return TYPE_PREFIX;
     }
 }

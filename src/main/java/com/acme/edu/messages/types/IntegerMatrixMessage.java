@@ -24,17 +24,12 @@ public class IntegerMatrixMessage extends DataMessage<Integer[][]> {
     }
 
     @Override
-    public void save() {
-
-    }
-
-    @Override
     public MessageType getType() {
         return MessageType.INTEGER_MATRIX;
     }
 
     @Override
-    public String getTypePrefixName() {
+    public String getPrefix() {
         return TYPE_PREFIX;
     }
 }
