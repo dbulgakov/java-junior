@@ -2,13 +2,15 @@ package com.acme.edu.implementations;
 
 
 import com.acme.edu.interfaces.Formatter;
-import com.acme.edu.interfaces.Logger;
+import com.acme.edu.interfaces.LoggerOOP;
 import com.acme.edu.interfaces.Saver;
+
+import java.util.Arrays;
 
 /**
  * Java Coding Style Convention (PDF)
  */
-public class SumLogger implements Logger {
+public class LoggerController implements LoggerOOP {
     private  Integer previousIntegerSum;
     private byte previousByteSum;
     private String previousString;
@@ -19,7 +21,7 @@ public class SumLogger implements Logger {
     private final Saver saver;
     private final Formatter formatter;
 
-    public SumLogger(Saver saver, Formatter formatter) {
+    LoggerController(Saver saver, Formatter formatter) {
         this.saver = saver;
         this.formatter = formatter;
     }
@@ -109,42 +111,26 @@ public class SumLogger implements Logger {
         saver.print ( formatter.formatChar ( message ));
     }
 
+
+
+
+
     @Override
     public void log(String... messages) {
-
+        saver.print ( Arrays.toString ( messages ).replace ( ", ", "\n" ).replace ( "[", "" ).replace ( "]", "" ) );
     }
 
     @Override
-    public void log(int... messages) {
-
+    public  void log(int... messages) {
+        saver.print ( formatter.formatIntArray ( messages ) );
     }
 
     @Override
     public void log(int[][] ints) {
-
+        saver.print ( formatter.formatIntMatrix(ints));
     }
 
 
-    /*
-    public static void log(String... messages) {
-        print ( Arrays.toString ( messages ).replace ( ", ", "\n" ).replace ( "[", "" ).replace ( "]", "" ) );
-    }
-
-    public static void log(int... messages) {
-        print ( String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_ARRAY_DESCRIPTION_STRING, getFromattedArrayString ( messages ) ) );
-    }
-
-    public static void log(int[][] ints) {
-        StringBuilder sb = new StringBuilder ();
-
-        for (int[] innerArray : ints) {
-            sb.append ( String.format ( "%s\n", getFromattedArrayString ( innerArray ) ) );
-        }
-
-        print ( String.format ( MATRIX_LOG_OUTPUT_FORMAT, PRIMITIVE_MATRIX_DESCRIPTION_STRING, sb.toString () ) );
-    }
-
-*/
     @Override
     public void stopLogging() {
         switch (state) {

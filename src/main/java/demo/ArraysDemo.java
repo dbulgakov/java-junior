@@ -1,6 +1,7 @@
 package demo;
-
+/*
 public class ArraysDemo {
+
     public static void main(String... args) {
         Cat[] catArray = new Cat[5];
 //        catArray[0] = 0;
@@ -52,3 +53,4 @@ public class ArraysDemo {
         }
     }
 }
+*/

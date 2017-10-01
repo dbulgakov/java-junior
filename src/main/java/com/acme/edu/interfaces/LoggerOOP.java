@@ -1,6 +1,6 @@
 package com.acme.edu.interfaces;
 
-public interface Logger {
+public interface LoggerOOP {
     void log(int message);
 
     void log(byte message);

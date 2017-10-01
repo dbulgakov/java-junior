@@ -1,7 +1,7 @@
 package com.acme.edu.iteration01;
 
 import com.acme.edu.implementations.ConsoleSaver;
-import com.acme.edu.implementations.SumLogger;
+import com.acme.edu.implementations.Logger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.implementations.TypedFormatter;
 import org.junit.After;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.io.*;
 
-public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
+public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
     public void setUpSystemOut() throws IOException {
@@ -27,12 +27,10 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogInteger() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log(1);
-        sumLogger.log(0);
-        sumLogger.log(-1);
-        sumLogger.stopLogging();
+        Logger.log(1);
+        Logger.log(0);
+        Logger.log(-1);
+        Logger.stopLogging();
 
         //endregion
 
@@ -45,11 +43,9 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log((byte)0);
-        sumLogger.log((byte)-1);
-        sumLogger.stopLogging();
+        Logger.log((byte)0);
+        Logger.log((byte)-1);
+        Logger.stopLogging();
         //endregion
 
         //region then
@@ -59,15 +55,13 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-//    TODO: implement SumLogger solution to match specification as tests
+//    TODO: implement Logger solution to match specification as tests
 
     @Test
     public void shouldLogChar() throws IOException {
         //region when
-        SumLogger sumLogger = new SumLogger(new ConsoleSaver(), new TypedFormatter());
-
-        sumLogger.log('a');
-        sumLogger.log('b');
+        Logger.log('a');
+        Logger.log('b');
         //endregion
 
         //region then
@@ -76,13 +70,14 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("b");
         //endregion
     }
-    /*
+
 
     @Test
     public void shouldLogString() throws IOException {
         //region when
-        SumLogger.log("test string 1");
-        SumLogger.log("other str");
+        Logger.log("test string 1");
+        Logger.log("other str");
+        Logger.stopLogging ();
         //endregion
 
         //region then
@@ -91,12 +86,12 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
-
+ /*
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-        SumLogger.log(true);
-        SumLogger.log(false);
+        Logger.log(true);
+        Logger.log(false);
         //endregion
 
         //region then
@@ -109,7 +104,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-        SumLogger.log(new Object());
+        Logger.log(new Object());
         //endregion
 
         //region then
