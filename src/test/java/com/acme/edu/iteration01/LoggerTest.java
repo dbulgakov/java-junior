@@ -58,6 +58,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region when
         LoggerFacade.log('a');
         LoggerFacade.log('b');
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then

@@ -29,6 +29,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersArray() throws IOException {
         //region when
         LoggerFacade.log(new int[] {-1, 0, 1});
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -76,6 +77,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogStringsWithOneMethodCall() throws IOException {
         //region when
         LoggerFacade.log("str1", "string 2", "str 3");
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -87,6 +89,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     public void shouldLogIntegersWithOneMethodCall() throws IOException {
         //region when
         LoggerFacade.log(-1, 0, 1, 3);
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
