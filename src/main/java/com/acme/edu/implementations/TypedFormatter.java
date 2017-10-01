@@ -10,6 +10,7 @@ public class TypedFormatter implements Formatter {
     private static final String MATRIX_LOG_OUTPUT_FORMAT = "%s: {\n%s}";
 
     private static final String PRIMITIVE_DESCRIPTION_STRING = "primitive";
+    private static final String STRING_DESCRIPTION_STRING = "string";
     private static final String PRIMITIVE_ARRAY_DESCRIPTION_STRING = "primitives array";
     private static final String PRIMITIVE_MATRIX_DESCRIPTION_STRING = "primitives matrix";
     private static final String PRIMITIVE_MULTIMATRIX_DESCRIPTION_STRING = "primitives multimatrix";
@@ -49,10 +50,10 @@ public class TypedFormatter implements Formatter {
 
     @Override
     public String formatStringSequence(String stringToFormat, int stringOccuranceNumber) {
-        if (stringToFormat != null && stringOccuranceNumber >= 2) {
+        if (stringToFormat != null && stringOccuranceNumber >1) {
             return String.format(STRING_LOG_OUTPUT_FORMAT, stringToFormat, stringOccuranceNumber);
         } else {
-            return stringToFormat;
+            return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, STRING_DESCRIPTION_STRING, stringToFormat );
         }
     }
 

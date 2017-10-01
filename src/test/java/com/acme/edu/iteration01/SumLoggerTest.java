@@ -38,7 +38,7 @@ public class SumLoggerTest implements SysoutCaptureAndAssertionAbility {
 
         //region then
         assertSysoutContains("primitive: ");
-        assertSysoutEquals("primitive: 1\nprimitive: -1\n");
+        assertSysoutEquals("primitive: 0\n");
         //endregion
     }
 
