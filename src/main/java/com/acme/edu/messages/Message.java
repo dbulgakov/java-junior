@@ -1,5 +1,6 @@
 package com.acme.edu.messages;
 
+import com.acme.edu.encoder.StringEncoder;
 import com.acme.edu.formatter.HasPrefix;
 import com.acme.edu.formatter.StringFormatter;
 import com.acme.edu.saver.DataSaver;
@@ -9,13 +10,20 @@ public abstract class Message implements HasPrefix {
 
     private StringFormatter stringFormatter;
     private DataSaver dataSaver;
+    private StringEncoder encoder;
 
     public void save() {
         if (getDataSaver() == null || getFormatter() == null) {
             throw new IllegalStateException("Saver and formatter are required to be setup!");
         }
 
-        getDataSaver().save(getFormatter().format(this));
+        String resultString = getFormatter().format(this);
+
+        if (encoder != null) {
+            resultString = getEncoder().encode(resultString);
+        }
+
+        getDataSaver().save(resultString);
     }
 
     public void process() {
@@ -48,6 +56,14 @@ public abstract class Message implements HasPrefix {
 
     public void setDataSaver(DataSaver dataSaver) {
         this.dataSaver = dataSaver;
+    }
+
+    public StringEncoder getEncoder() {
+        return encoder;
+    }
+
+    public void setEncoder(StringEncoder encoder) {
+        this.encoder = encoder;
     }
 
     // endregion

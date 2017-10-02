@@ -2,6 +2,7 @@ package com.acme.edu;
 
 import com.acme.edu.controller.LoggerController;
 import com.acme.edu.controller.SequenceLoggerController;
+import com.acme.edu.encoder.ShaStringEncoder;
 import com.acme.edu.formatter.PrefixFormatter;
 import com.acme.edu.messages.types.*;
 import com.acme.edu.saver.ConsoleDataSaver;
@@ -10,7 +11,7 @@ import static com.acme.edu.utils.BoxingUtils.boxArray;
 import static com.acme.edu.utils.BoxingUtils.boxMatrix;
 
 public class LoggerFacade {
-    private static final LoggerController loggerController = new SequenceLoggerController(new PrefixFormatter(), new ConsoleDataSaver());
+    private static final LoggerController loggerController = new SequenceLoggerController(new PrefixFormatter(), new ConsoleDataSaver(), new ShaStringEncoder());
 
     public static void log(int message) {
         loggerController.logMessage(new IntegerMessage(message));

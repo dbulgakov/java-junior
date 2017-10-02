@@ -1,5 +1,6 @@
 package com.acme.edu.controller;
 
+import com.acme.edu.encoder.StringEncoder;
 import com.acme.edu.formatter.StringFormatter;
 import com.acme.edu.messages.Message;
 import com.acme.edu.saver.DataSaver;
@@ -9,10 +10,12 @@ public class SequenceLoggerController implements LoggerController {
 
     private final StringFormatter stringFormatter;
     private final DataSaver dataSaver;
+    private final StringEncoder encoder;
 
-    public SequenceLoggerController(StringFormatter stringFormatter, DataSaver dataSaver) {
+    public SequenceLoggerController(StringFormatter stringFormatter, DataSaver dataSaver, StringEncoder encoder) {
         this.stringFormatter = stringFormatter;
         this.dataSaver = dataSaver;
+        this.encoder = encoder;
     }
 
     @Override
