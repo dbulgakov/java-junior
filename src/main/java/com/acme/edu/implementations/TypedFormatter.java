@@ -18,7 +18,7 @@ public class TypedFormatter implements Formatter {
 
 
     @Override
-    public String formatChar(char charToFormat) {
+    public String formatChar(String charToFormat) {
         return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, CHAR_DESCRIPTION_STRING, charToFormat );
     }
 
@@ -50,11 +50,13 @@ public class TypedFormatter implements Formatter {
     }
 
     @Override
-    public String formatStringSequence(String stringToFormat) {
-
-
+    public String formatString(String stringToFormat) {
         return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, STRING_DESCRIPTION_STRING, stringToFormat );
+    }
 
+    @Override
+    public String formatStringSequence(String stringToFormat, int counter) {
+        return String.format ( STRING_LOG_OUTPUT_FORMAT, stringToFormat, counter );
     }
 
     private String getFromattedArrayString(int[] array) {

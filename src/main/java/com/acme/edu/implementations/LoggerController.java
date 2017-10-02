@@ -1,6 +1,6 @@
 package com.acme.edu.implementations;
 
-import com.acme.edu.interfaces.Formatter;
+import com.acme.edu.implementations.messages.*;
 import com.acme.edu.interfaces.LoggerOOP;
 import com.acme.edu.interfaces.Saver;
 
@@ -14,35 +14,30 @@ public class LoggerController implements LoggerOOP {
 
     private MegaMessage lastMessage;
     private final Saver saver;
-    private final Formatter formatter;
 
-    LoggerController(Saver saver, Formatter formatter) {
+    LoggerController(Saver saver) {
         this.saver = saver;
-        this.formatter = formatter;
     }
 
 
-    //region logs
     @Override
     public void log(IntMessage message) {
 
         if ( lastMessage != null ) {
             if ( !(lastMessage instanceof IntMessage) ) {
-                //если байт - печатаем байтовую сумму
                 if ( lastMessage instanceof ByteMessage ) {
-                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    saver.print ( lastMessage.getMessage () );
                     lastMessage = null;
-                }
-                //если строка - строковую сумму
-                else if ( lastMessage instanceof StringMessage ) {
-                    saver.print ( formatter.formatStringSequence ( lastMessage.getMessage () ) );
+                } else if ( lastMessage instanceof StringMessage ) {
+                    saver.print ( lastMessage.getMessage () );
                     lastMessage = null;
                 }
             } else {
-                message.setMessage ( lastMessage.message );
+                message.setMessage ( lastMessage.getElementaryMessage (), lastMessage.getOverFlowString (), lastMessage.getOverFlow () );
             }
+        } else {
+            message.setMessage ( 0 + "", 0 + "", 0 );
         }
-        message.setMessage ( 0 + "" );
         lastMessage = message;
     }
 
@@ -52,17 +47,18 @@ public class LoggerController implements LoggerOOP {
         if ( lastMessage != null ) {
             if ( !(lastMessage instanceof ByteMessage) ) {
                 if ( lastMessage instanceof IntMessage ) {
-                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    saver.print ( lastMessage.getMessage () );
                     lastMessage = null;
                 } else if ( lastMessage instanceof StringMessage ) {
-                    saver.print ( formatter.formatStringSequence ( lastMessage.getMessage () ) );
+                    saver.print ( lastMessage.getMessage () );
                     lastMessage = null;
                 }
             } else {
-                message.setMessage ( lastMessage.message );
+                message.setMessage ( lastMessage.getElementaryMessage (), lastMessage.getOverFlowString (), lastMessage.getOverFlow () );
+
             }
         } else {
-            message.setMessage ( 0 + "" );
+            message.setMessage ( 0 + "", 0 + "", 0 );
         }
         lastMessage = message;
     }
@@ -74,29 +70,27 @@ public class LoggerController implements LoggerOOP {
         if ( lastMessage != null ) {
             if ( !(lastMessage instanceof StringMessage) ) {
                 if ( lastMessage instanceof IntMessage ) {
-                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    saver.print ( lastMessage.getMessage () );
                     lastMessage = null;
                 } else if ( lastMessage instanceof ByteMessage ) {
-                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    saver.print ( lastMessage.getMessage () );
                     lastMessage = null;
                 }
 
             } else {
-                message.setMessage ( lastMessage.message );
+                message.setMessage ( lastMessage.getElementaryMessage (), lastMessage.getOverFlowString (), lastMessage.getOverFlow () );
 
             }
         } else {
-            message.setMessage ( "" );
+            message.setMessage ( "", "", 0 );
         }
         lastMessage = message;
     }
 
 
-
-
     @Override
-    public void log(char message) {
-        saver.print ( formatter.formatChar ( message ) );
+    public void log(CharMessage message) {
+        saver.print ( String.valueOf ( message.getMessage () ) );
     }
 
 
@@ -107,38 +101,35 @@ public class LoggerController implements LoggerOOP {
 
     @Override
     public void log(int... messages) {
-        saver.print ( formatter.formatIntArray ( messages ) );
+
+        //saver.print ( formatter.formatIntArray ( messages ) );
     }
 
     @Override
     public void log(int[][] ints) {
-        saver.print ( formatter.formatIntMatrix ( ints ) );
+
+        //saver.print ( formatter.formatIntMatrix ( ints ) );
     }
 
 
     @Override
     public void stopLogging() {
         if ( lastMessage instanceof IntMessage ) {
-            saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+            saver.print ( lastMessage.getMessage () );
         } else if ( lastMessage instanceof ByteMessage ) {
-            saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+            saver.print ( lastMessage.getMessage () );
         } else if ( (lastMessage instanceof StringMessage) ) {
-            saver.print ( formatter.formatStringSequence ( lastMessage.getMessage () ) );
+            saver.print ( lastMessage.getMessage () );
         }
-
         lastMessage = null;
-
     }
-
-
 }
 
 class Main {
     public static void main(String[] args) {
         //region when
-        Logger.log ( "test string 1" );
-        Logger.log ( "other str" );
-        Logger.stopLogging ();
+        Logger.log ( 'a' );
+        Logger.log ( 'b' );
         //endregion
     }
 }

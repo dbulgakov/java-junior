@@ -1,14 +1,18 @@
 package com.acme.edu.implementations;
 
-class MathFunction {
-    int overFlowCounter;
+public class MathFunction {
 
-    MathFunction(int overFlowCounter) {
-        this.overFlowCounter = overFlowCounter;
+    private static int overFlowCounter;
+
+    public static int getOverFlowCounter() {
+        return overFlowCounter;
     }
 
+    public static void setOverFlowCounter(int previousOverFlowCounter) {
+        overFlowCounter = previousOverFlowCounter;
+    }
 
-    long isSumOverflow(int value, long sum, long maxValue, long minValue) {
+    public static long isSumOverflow(int value, long sum, long maxValue, long minValue) {
         long guardian = 0;
         if ( value > 0 & sum >= 0 ) {
             if ( guardian - sum <= value ) {
@@ -38,7 +42,7 @@ class MathFunction {
         return sum;
     }
 
-    int getGuardianValue(int maxValue, int minValue) {
+    public static int getGuardianValue(int maxValue, int minValue) {
         if ( overFlowCounter < 0 ) return minValue;
         else return maxValue;
     }

@@ -1,7 +1,7 @@
 package com.acme.edu.interfaces;
 
 public interface Formatter {
-    String formatChar(char charToFormat);
+    String formatChar(String charToFormat);
 
     String formatInt(String intToFormat);
 
@@ -9,7 +9,9 @@ public interface Formatter {
 
     String formatIntArray(int... arrayToFormat);
 
-    String formatStringSequence(String stringToFormat);
+    String formatString(String stringToFormat);
+
+    String formatStringSequence(String stringToFormat, int counter);
 
     String formatIntMatrix(int[][] ints);
 }

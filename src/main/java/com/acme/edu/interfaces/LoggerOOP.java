@@ -1,8 +1,9 @@
 package com.acme.edu.interfaces;
 
-import com.acme.edu.implementations.ByteMessage;
-import com.acme.edu.implementations.IntMessage;
-import com.acme.edu.implementations.StringMessage;
+import com.acme.edu.implementations.messages.ByteMessage;
+import com.acme.edu.implementations.messages.CharMessage;
+import com.acme.edu.implementations.messages.IntMessage;
+import com.acme.edu.implementations.messages.StringMessage;
 
 public interface LoggerOOP {
     void log(IntMessage message);
@@ -14,7 +15,7 @@ public interface LoggerOOP {
     void log(StringMessage message);
 
 
-    void log(char message);
+    void log(CharMessage message);
 
 
     void log(String... messages);
