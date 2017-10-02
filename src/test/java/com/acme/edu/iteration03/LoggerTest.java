@@ -28,13 +28,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersArray() throws IOException {
         //region when
-        LoggerFacade.log(new int[] {-1, 0, 1});
+        LoggerFacade.log(new int[]{-1, 0, 1});
         LoggerFacade.stopLogging();
         //endregion
 
         //region then
         assertSysoutEquals(
-            "primitives array: {-1, 0, 1}\n"
+                "primitives array: {-1, 0, 1}\n"
         );
         //endregion
     }
@@ -42,18 +42,18 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogIntegersMatrix() throws IOException {
         //region when
-        LoggerFacade.log(new int[][] {{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
+        LoggerFacade.log(new int[][]{{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
         LoggerFacade.stopLogging();
         //endregion
 
         //region then
 
         assertSysoutEquals(
-            "primitives matrix: {\n" +
-                "{-1, 0, 1}\n" +
-                "{1, 2, 3}\n" +
-                "{-1, -2, -3}\n" +
-            "}\n"
+                "primitives matrix: {\n" +
+                        "{-1, 0, 1}\n" +
+                        "{1, 2, 3}\n" +
+                        "{-1, -2, -3}\n" +
+                        "}\n"
         );
         //endregion
     }

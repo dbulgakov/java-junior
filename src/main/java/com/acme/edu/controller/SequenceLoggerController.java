@@ -6,11 +6,10 @@ import com.acme.edu.messages.Message;
 import com.acme.edu.saver.DataSaver;
 
 public class SequenceLoggerController implements LoggerController {
-    private Message previousMessage;
-
     private final StringFormatter stringFormatter;
     private final DataSaver dataSaver;
     private final StringEncoder encoder;
+    private Message previousMessage;
 
     public SequenceLoggerController(StringFormatter stringFormatter, DataSaver dataSaver, StringEncoder encoder) {
         this.stringFormatter = stringFormatter;

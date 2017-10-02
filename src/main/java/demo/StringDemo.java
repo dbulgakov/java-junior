@@ -9,7 +9,7 @@ public class StringDemo {
 
         //interning
         System.out.println(
-            Objects.equals(string1, string2)
+                Objects.equals(string1, string2)
         );
 
         System.out.println("aa".toUpperCase());

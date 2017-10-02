@@ -39,8 +39,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogByte() throws IOException {
         //region when
-        LoggerFacade.log((byte)0);
-        LoggerFacade.log((byte)-1);
+        LoggerFacade.log((byte) 0);
+        LoggerFacade.log((byte) -1);
         LoggerFacade.stopLogging();
         //endregion
 

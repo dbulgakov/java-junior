@@ -1,7 +1,5 @@
 package com.acme.edu.messages;
 
-import javax.xml.crypto.Data;
-
 public abstract class DataMessage<T> extends Message {
 
     private T messageValue;

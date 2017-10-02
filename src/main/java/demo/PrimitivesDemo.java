@@ -37,9 +37,10 @@ public strictfp class PrimitivesDemo {
 
         //region Арифметические
         System.out.println(1 / 1);
-        int counter = 0; counter++;
+        int counter = 0;
+        counter++;
         counter *= 2;
-        System.out.println( 10 % 2 );
+        System.out.println(10 % 2);
         //endregion
 
         //region Bitwise
@@ -55,7 +56,7 @@ public strictfp class PrimitivesDemo {
         System.out.println(1 == 2);  // > = = =
 
 
-        System.out.println( isB1() ? 1 : isB2() ? "1" : 2);
+        System.out.println(isB1() ? 1 : isB2() ? "1" : 2);
 
 //        fopen("cdf") or die()
         //endregion
@@ -76,8 +77,8 @@ public strictfp class PrimitivesDemo {
 
         //region Zero
         //Static Analyzers: PMD, CheckStyle, FindBugs
-        System.out.println(1/0); //ArEx: / by zero
-        System.out.println(2/0.);
+        System.out.println(1 / 0); //ArEx: / by zero
+        System.out.println(2 / 0.);
         //endregion
         //endregion
     }
