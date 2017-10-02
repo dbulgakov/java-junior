@@ -1,12 +1,12 @@
 package com.acme.edu.iteration01;
 
-import com.acme.edu.Logger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.implementations.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.IOException;
 
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given

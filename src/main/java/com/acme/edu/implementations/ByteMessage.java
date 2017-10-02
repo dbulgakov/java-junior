@@ -2,11 +2,15 @@ package com.acme.edu.implementations;
 
 public class ByteMessage extends MegaMessage {
 
-    private final States.State state = States.State.previousByte;
     private MathFunction math = new MathFunction ( lastMessage == null ? 0 : lastMessage.overFlow );
 
     ByteMessage(MegaMessage lastMessage) {
         super ( lastMessage );
+    }
+
+    @Override
+    boolean isTheSameType(MegaMessage megaMessage) {
+        return megaMessage instanceof ByteMessage;
     }
 
     ByteMessage(String message) {
@@ -24,17 +28,12 @@ public class ByteMessage extends MegaMessage {
         int number = Byte.parseByte ( value );
         int previousSum = 0;
         {
-            if ( lastMessage.EqualsStates ( States.State.previousByte ) )
+            if ( lastMessage.isTheSameType ( this ) )
                 previousSum = Integer.parseInt ( lastMessage.message );
         }
         previousSum = (byte) math.isSumOverflowNew ( number, previousSum, Byte.MAX_VALUE, Byte.MIN_VALUE );
         overFlow = math.overFlowCounter;
         message = previousSum + "";
-    }
-
-    @Override
-    public States.State getState() {
-        return state;
     }
 
     @Override

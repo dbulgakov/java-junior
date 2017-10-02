@@ -29,14 +29,14 @@ public class LoggerController implements LoggerOOP {
 
 
         if ( megaMessage != null ) {
-            if ( !(megaMessage.EqualsStates ( States.State.previousInt )) ) {
+            if ( !(megaMessage instanceof IntMessage) ) {
                 //если байт - печатаем байтовую сумму
-                if ( megaMessage.EqualsStates ( States.State.previousByte ) ) {
+                if ( megaMessage instanceof ByteMessage ) {
                     saver.print ( formatter.formatInt ( megaMessage.lastMessage.getMessage () ) );
                     megaMessage = null;
                 }
                 //если строка - строковую сумму
-                else if ( megaMessage.EqualsStates ( States.State.previousString ) ) {
+                else if ( megaMessage instanceof StringMessage ) {
                     saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
                     megaMessage = null;
 
@@ -57,16 +57,16 @@ public class LoggerController implements LoggerOOP {
     public void log(byte message) {
 
         if ( megaMessage != null ) {
-            if ( !megaMessage.EqualsStates ( States.State.previousByte ) ) {
+            if ( !(megaMessage instanceof ByteMessage) ) {
                 //если байт - печатаем байтовую сумму
-                if ( megaMessage.EqualsStates ( States.State.previousInt ) ) {
+                if ( megaMessage instanceof IntMessage ) {
 
                     saver.print ( formatter.formatInt ( megaMessage.lastMessage.getMessage () ) );
                     megaMessage = null;
 
                 }
                 //если строка - строковую сумму
-                else if ( megaMessage.EqualsStates ( States.State.previousString ) ) {
+                else if ( megaMessage instanceof StringMessage ) {
                     saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
                     megaMessage = null;
                 }
@@ -87,11 +87,11 @@ public class LoggerController implements LoggerOOP {
     public void log(String message) {
 
         if ( megaMessage != null ) {
-            if ( !megaMessage.EqualsStates ( States.State.previousString ) ) {
-                if ( megaMessage.EqualsStates ( States.State.previousInt ) ) {
+            if ( !(megaMessage instanceof StringMessage) ) {
+                if ( megaMessage instanceof IntMessage ) {
                     saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
                     megaMessage = null;
-                } else if ( megaMessage.EqualsStates ( States.State.previousByte ) ) {
+                } else if ( megaMessage instanceof ByteMessage ) {
                     saver.print ( formatter.formatInt ( megaMessage.lastMessage.getMessage () ) );
                     megaMessage = null;
                 }
@@ -133,11 +133,11 @@ public class LoggerController implements LoggerOOP {
 
     @Override
     public void stopLogging() {
-        if ( megaMessage.EqualsStates ( States.State.previousInt ) ) {
+        if ( megaMessage instanceof IntMessage ) {
             saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-        } else if ( megaMessage.EqualsStates ( States.State.previousByte ) ) {
+        } else if ( megaMessage instanceof ByteMessage ) {
             saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-        } else if ( megaMessage.EqualsStates ( States.State.previousString ) ) {
+        } else if ( (megaMessage instanceof StringMessage) ) {
             saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
         }
 

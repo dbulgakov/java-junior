@@ -2,12 +2,15 @@ package com.acme.edu.implementations;
 
 public class IntMessage extends MegaMessage {
 
-    private States.State state = States.State.previousInt;
-
     private MathFunction math = new MathFunction ( lastMessage == null ? 0 : lastMessage.overFlow );
 
     IntMessage(MegaMessage lastMessage) {
         super ( lastMessage );
+    }
+
+    @Override
+    boolean isTheSameType(MegaMessage megaMessage) {
+        return megaMessage instanceof IntMessage;
     }
 
     IntMessage(String value) {
@@ -26,16 +29,11 @@ public class IntMessage extends MegaMessage {
     public void setMessage(String value) {
         int number = Integer.parseInt ( value );
         int previousSum = 0;
-        if ( lastMessage.EqualsStates ( States.State.previousInt ) )
+        if ( lastMessage.isTheSameType ( this ) )
             previousSum = Integer.parseInt ( lastMessage.message );
         previousSum = (int) math.isSumOverflowNew ( number, previousSum, Integer.MAX_VALUE, Integer.MIN_VALUE );
         overFlow = math.overFlowCounter;
         message = previousSum + "";
-    }
-
-    @Override
-    public States.State getState() {
-        return state;
     }
 
     public String getOverFlowString() {

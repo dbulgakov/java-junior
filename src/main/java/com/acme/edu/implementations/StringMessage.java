@@ -2,12 +2,16 @@ package com.acme.edu.implementations;
 
 public class StringMessage extends MegaMessage {
 
-    private final States.State state = States.State.previousString;
-
     StringMessage(MegaMessage lastMessage) {
         super ( lastMessage );
 
     }
+
+    @Override
+    boolean isTheSameType(MegaMessage megaMessage) {
+        return megaMessage instanceof StringMessage;
+    }
+
     @Override
     public String getMessage() {
         if ( !lastMessage.overFlowString.equals ( "" ) ) lastMessage.overFlowString += System.lineSeparator ();
@@ -32,13 +36,9 @@ public class StringMessage extends MegaMessage {
             message = value;
         }
     }
+
     StringMessage(String message) {
         super ( message );
-    }
-
-    @Override
-    public States.State getState() {
-        return state;
     }
 
     @Override
