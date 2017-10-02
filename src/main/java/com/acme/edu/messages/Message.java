@@ -75,4 +75,15 @@ public abstract class Message implements HasPrefix {
     protected boolean isSameType(Message messageToCompare) {
         return this.getClass().isInstance(messageToCompare);
     }
+
+    protected void clearPrevious() {
+        setPreviousMessage(null);
+    }
+
+    protected void savePreviousIfExists() {
+        if (isPreviousMessageExist()) {
+            getPreviousMessage().save();
+            clearPrevious();
+        }
+    }
 }

@@ -10,12 +10,17 @@ public class StopMessage extends Message {
         if (isPreviousMessageExist() && isSameType(getPreviousMessage())) {
             throw new IllegalStateException("Already stopped!");
         } else {
-            getPreviousMessage().save();
+            savePreviousIfExists();
         }
     }
 
     @Override
     public String getPrefix() {
         return TYPE_PREFIX;
+    }
+
+    @Override
+    public void save() {
+        // stop message is not saved anywhere
     }
 }

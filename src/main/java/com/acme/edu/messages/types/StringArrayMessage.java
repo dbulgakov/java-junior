@@ -15,6 +15,7 @@ public class StringArrayMessage extends DataMessage<String[]> {
 
     @Override
     protected void processNewMessageInternal() {
+        savePreviousIfExists();
         calculatedValue = Arrays.toString(getMessageValue())
                 .replace(", ", "\n")
                 .replace("[", "")

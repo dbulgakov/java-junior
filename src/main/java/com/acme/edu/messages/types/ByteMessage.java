@@ -11,7 +11,7 @@ public class ByteMessage extends DataMessage<Byte> {
 
     @Override
     protected void processNewMessageInternal() {
-
+        savePreviousIfExists();
     }
 
     @Override

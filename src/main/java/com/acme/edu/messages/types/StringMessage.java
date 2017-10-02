@@ -20,7 +20,7 @@ public class StringMessage extends DataMessage<String> {
                 sequenceCounter = getStringMessageSequenceLength() + 1;
                 setCalculatedValue(new IntegerMessage(sequenceCounter));
             } else {
-                getPreviousMessage().save();
+                savePreviousIfExists();
                 sequenceCounter = 0;
             }
         }

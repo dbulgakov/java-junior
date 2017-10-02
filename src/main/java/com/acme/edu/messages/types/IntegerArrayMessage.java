@@ -15,6 +15,7 @@ public class IntegerArrayMessage extends DataMessage<Integer[]> {
 
     @Override
     protected void processNewMessageInternal() {
+        savePreviousIfExists();
         calculatedValue = Arrays.toString(getMessageValue())
                 .replace("[", "{")
                 .replace("]", "}");

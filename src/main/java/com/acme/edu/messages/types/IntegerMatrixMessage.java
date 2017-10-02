@@ -16,6 +16,8 @@ public class IntegerMatrixMessage extends DataMessage<Integer[][]> {
 
     @Override
     protected void processNewMessageInternal() {
+        savePreviousIfExists();
+
         StringBuilder sb = new StringBuilder();
 
         for (Integer[] innerArray : getMessageValue()) {

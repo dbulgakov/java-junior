@@ -11,7 +11,7 @@ public class CharMessage extends DataMessage<Character> {
 
     @Override
     protected void processNewMessageInternal() {
-        save();
+        savePreviousIfExists();
     }
 
     @Override
