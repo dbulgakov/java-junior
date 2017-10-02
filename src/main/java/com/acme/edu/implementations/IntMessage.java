@@ -24,7 +24,6 @@ public class IntMessage extends MegaMessage {
         return message + getOverFlowString ();
     }
 
-
     @Override
     public void setMessage(String value) {
         int number = Integer.parseInt ( value );

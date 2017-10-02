@@ -32,7 +32,7 @@ public class LoggerController implements LoggerOOP {
             if ( !(megaMessage instanceof IntMessage) ) {
                 //если байт - печатаем байтовую сумму
                 if ( megaMessage instanceof ByteMessage ) {
-                    saver.print ( formatter.formatInt ( megaMessage.lastMessage.getMessage () ) );
+                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
                     megaMessage = null;
                 }
                 //если строка - строковую сумму
@@ -61,7 +61,7 @@ public class LoggerController implements LoggerOOP {
                 //если байт - печатаем байтовую сумму
                 if ( megaMessage instanceof IntMessage ) {
 
-                    saver.print ( formatter.formatInt ( megaMessage.lastMessage.getMessage () ) );
+                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
                     megaMessage = null;
 
                 }
@@ -92,7 +92,7 @@ public class LoggerController implements LoggerOOP {
                     saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
                     megaMessage = null;
                 } else if ( megaMessage instanceof ByteMessage ) {
-                    saver.print ( formatter.formatInt ( megaMessage.lastMessage.getMessage () ) );
+                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
                     megaMessage = null;
                 }
 
@@ -151,16 +151,15 @@ public class LoggerController implements LoggerOOP {
 class Main {
     public static void main(String[] args) {
         //region when
-        Logger.log ( 10 );
-        Logger.log ( Integer.MAX_VALUE );
-        Logger.log ( Integer.MAX_VALUE );
-        Logger.log ( Integer.MIN_VALUE );
-        Logger.log ( "str " );
         Logger.log ( "str 1" );
-        Logger.log ( "str 1" );
-
-
+        Logger.log ( "str 2" );
+        Logger.log ( "str 2" );
         Logger.log ( 0 );
+        Logger.log ( "str 2" );
+        Logger.log ( "str 3" );
+        Logger.log ( "str 3" );
+        Logger.log ( "str 3" );
         Logger.stopLogging ();
+        //endregion
     }
 }

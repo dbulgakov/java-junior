@@ -20,17 +20,15 @@ public class ByteMessage extends MegaMessage {
     @Override
     public String getMessage() {
 
-        return message + System.lineSeparator () + getOverFlowString ();
+        return message + getOverFlowString ();
     }
 
     @Override
     public void setMessage(String value) {
         int number = Byte.parseByte ( value );
         int previousSum = 0;
-        {
-            if ( lastMessage.isTheSameType ( this ) )
-                previousSum = Integer.parseInt ( lastMessage.message );
-        }
+        if ( lastMessage.isTheSameType ( this ) )
+            previousSum = Byte.parseByte ( lastMessage.message );
         previousSum = (byte) math.isSumOverflowNew ( number, previousSum, Byte.MAX_VALUE, Byte.MIN_VALUE );
         overFlow = math.overFlowCounter;
         message = previousSum + "";
@@ -39,8 +37,8 @@ public class ByteMessage extends MegaMessage {
     @Override
     public String getOverFlowString() {
         String overFlowString = "";
-        for (int i = 0; i < Math.abs ( math.overFlowCounter ); i++) {
-            overFlowString += math.getGuardianValue ( Byte.MAX_VALUE, Byte.MIN_VALUE ) + System.lineSeparator ();
+        for (int i = 0; i < Math.abs ( overFlow ); i++) {
+            overFlowString += System.lineSeparator () + math.getGuardianValue ( Byte.MAX_VALUE, Byte.MIN_VALUE );
         }
         return overFlowString;
     }

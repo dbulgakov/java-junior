@@ -14,34 +14,31 @@ class MathFunction {
 
 //region если положительное переполнение, то увеличиваем счетчик
         if ( value > 0 & sum >= 0 ) {
-            guardian = maxValue;
+
 
 //если выполняется - переполнение
             if ( guardian - sum <= value ) {
+                guardian = maxValue;
                 if ( overFlowCounter >= 0 ) {
                     overFlowCounter++;
                 } else {
                     overFlowCounter++;
                     sum -= 1;//пока считаем, что тут нет переполнения
                 }
-            } else {
-                guardian = 0;
             }
         }
 //endregion
 //region если отрицательное переполнение, то уменьшаем счетчик
         else if ( value < 0 & sum <= 0 ) {
-            guardian = minValue;
+
             if ( guardian - sum >= value ) {
+                guardian = minValue;
                 if ( overFlowCounter > 0 ) {
                     overFlowCounter--;
                     sum -= 1;
                 } else {
                     overFlowCounter--;
-
                 }
-            } else {
-                guardian = 0;
             }
         }
 //endregion

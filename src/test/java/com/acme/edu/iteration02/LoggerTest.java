@@ -1,7 +1,7 @@
 package com.acme.edu.iteration02;
 
-import com.acme.edu.implementations.Logger;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.implementations.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -103,8 +103,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains ("str 2 (x2)\n");
 
         assertSysoutContains ("0\n" );
-        assertSysoutContains (   "str 2\n" + "string: str 3 (x3)\n");
-
+        assertSysoutContains ( "string: str 2\n" );
+        assertSysoutContains ( "str 3 (x3)\n" );
         //endregion
     }
 
