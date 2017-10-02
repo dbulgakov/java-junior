@@ -2,9 +2,11 @@ package com.acme.edu.implementations;
 
 public class StringMessage extends MegaMessage {
 
-    StringMessage(MegaMessage lastMessage) {
-        super ( lastMessage );
+    int overFLow;
 
+    StringMessage(String message) {
+        super ( message );
+        this.message = message;
     }
 
     @Override
@@ -13,32 +15,34 @@ public class StringMessage extends MegaMessage {
     }
 
     @Override
-    public String getMessage() {
-        if ( !lastMessage.overFlowString.equals ( "" ) ) lastMessage.overFlowString += System.lineSeparator ();
-        return lastMessage.overFlowString + getSequence ();
-
+    public void setMessage(String message) {
+        
     }
 
     @Override
-    public void setMessage(String value) {
-        if ( lastMessage.message != null ) {
-            overFlowString = lastMessage.overFlowString;
-            if ( lastMessage.message.equals ( value ) ) {
-                overFlow = lastMessage.overFlow + 1;
-                message = value;
-            } else {
-                overFlowString += getSequence ();
-                message = value;
-                overFlow = 0;
-            }
+    public String getMessage() {
+        //  if ( !lastMessage.overFlowString.equals ( "" ) ) lastMessage.overFlowString += System.lineSeparator ();
+        //return lastMessage.overFlowString + getSequence ();
+        return overFlowString;
+    }
+
+    public void setOverFlow(int _overFLow, String value, String _overFlowString) {
+
+        if ( value == message ) {
+            overFlow = _overFLow + 1;
         } else {
-            overFlowString = value;
-            message = value;
+            overFlowString += getSequence ( value );
+            overFlow = 0;
         }
     }
 
-    StringMessage(String message) {
-        super ( message );
+    @Override
+    public void setMessage(String value, String _overFlowString, int _overFlow) {
+
+        if ( value != "" )
+            setOverFlow ( overFLow, value, _overFlowString );
+
+
     }
 
     @Override
@@ -46,9 +50,9 @@ public class StringMessage extends MegaMessage {
         return overFlowString;
     }
 
-    private String getSequence() {
-        if ( lastMessage.overFlow > 0 )
-            return lastMessage.message + " (x" + (lastMessage.overFlow + 1) + ")";
-        else return lastMessage.message;
+    private String getSequence(String value) {
+        if ( overFlow > 0 )
+            return value + " (x" + (lastMessage.overFlow + 1) + ")";
+        else return value;
     }
 }

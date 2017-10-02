@@ -13,7 +13,11 @@ public class IntMessage extends MegaMessage {
         return megaMessage instanceof IntMessage;
     }
 
-    IntMessage(String value) {
+    public IntMessage() {
+        super ();
+    }
+
+    public IntMessage(String value) {
         super ( value );
 
     }
@@ -26,14 +30,14 @@ public class IntMessage extends MegaMessage {
 
     @Override
     public void setMessage(String value) {
-        int number = Integer.parseInt ( value );
+        int number = Integer.parseInt ( message );
         int previousSum = 0;
-        if ( lastMessage.isTheSameType ( this ) )
-            previousSum = Integer.parseInt ( lastMessage.message );
-        previousSum = (int) math.isSumOverflowNew ( number, previousSum, Integer.MAX_VALUE, Integer.MIN_VALUE );
+        previousSum = Integer.parseInt ( value );
+        previousSum = (int) math.isSumOverflow ( number, previousSum, Integer.MAX_VALUE, Integer.MIN_VALUE );
         overFlow = math.overFlowCounter;
         message = previousSum + "";
     }
+
 
     public String getOverFlowString() {
         String overFlowString = "";

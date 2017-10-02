@@ -25,11 +25,10 @@ public class ByteMessage extends MegaMessage {
 
     @Override
     public void setMessage(String value) {
-        int number = Byte.parseByte ( value );
+        byte number = Byte.parseByte ( message );
         int previousSum = 0;
-        if ( lastMessage.isTheSameType ( this ) )
-            previousSum = Byte.parseByte ( lastMessage.message );
-        previousSum = (byte) math.isSumOverflowNew ( number, previousSum, Byte.MAX_VALUE, Byte.MIN_VALUE );
+        previousSum = Byte.parseByte ( value );
+        previousSum = (byte) math.isSumOverflow ( number, previousSum, Integer.MAX_VALUE, Integer.MIN_VALUE );
         overFlow = math.overFlowCounter;
         message = previousSum + "";
     }

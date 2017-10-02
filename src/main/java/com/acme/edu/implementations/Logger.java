@@ -5,15 +5,18 @@ public class Logger {
     private final static LoggerController loggerController = new LoggerController ( new ConsoleSaver (), new TypedFormatter () );
 
     public static void log(int message) {
-        loggerController.log ( message );
+        IntMessage megaMessage = new IntMessage ( String.valueOf ( message ) );
+        loggerController.log ( megaMessage );
     }
 
     public static void log(byte message) {
-        loggerController.log ( message );
+        ByteMessage megaMessage = new ByteMessage ( String.valueOf ( message ) );
+        loggerController.log ( megaMessage );
     }
 
     public static void log(String message) {
-        loggerController.log ( message );
+        StringMessage megaMessage = new StringMessage ( message );
+        loggerController.log ( megaMessage );
     }
 
     public static void log(char message) {

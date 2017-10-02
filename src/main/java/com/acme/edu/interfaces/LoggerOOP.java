@@ -1,13 +1,17 @@
 package com.acme.edu.interfaces;
 
+import com.acme.edu.implementations.ByteMessage;
+import com.acme.edu.implementations.IntMessage;
+import com.acme.edu.implementations.StringMessage;
+
 public interface LoggerOOP {
-    void log(int message);
+    void log(IntMessage message);
 
 
-    void log(byte message);
+    void log(ByteMessage message);
 
 
-    void log(String message);
+    void log(StringMessage message);
 
 
     void log(char message);

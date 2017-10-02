@@ -12,8 +12,7 @@ import java.util.Arrays;
  */
 public class LoggerController implements LoggerOOP {
 
-
-    private MegaMessage megaMessage;
+    private MegaMessage lastMessage;
     private final Saver saver;
     private final Formatter formatter;
 
@@ -25,88 +24,74 @@ public class LoggerController implements LoggerOOP {
 
     //region logs
     @Override
-    public void log(int message) {
+    public void log(IntMessage message) {
 
-
-        if ( megaMessage != null ) {
-            if ( !(megaMessage instanceof IntMessage) ) {
+        if ( lastMessage != null ) {
+            if ( !(lastMessage instanceof IntMessage) ) {
                 //если байт - печатаем байтовую сумму
-                if ( megaMessage instanceof ByteMessage ) {
-                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-                    megaMessage = null;
+                if ( lastMessage instanceof ByteMessage ) {
+                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    lastMessage = null;
                 }
                 //если строка - строковую сумму
-                else if ( megaMessage instanceof StringMessage ) {
-                    saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
-                    megaMessage = null;
-
+                else if ( lastMessage instanceof StringMessage ) {
+                    saver.print ( formatter.formatStringSequence ( lastMessage.getMessage () ) );
+                    lastMessage = null;
                 }
-
             } else {
-
-                megaMessage = new IntMessage ( megaMessage );
-                megaMessage.setMessage ( String.valueOf ( message ) );
+                message.setMessage ( lastMessage.message );
             }
         }
-        if ( megaMessage == null ) {
-            megaMessage = new IntMessage ( String.valueOf ( message ) );
-        }
+        message.setMessage ( 0 + "" );
+        lastMessage = message;
     }
 
     @Override
-    public void log(byte message) {
+    public void log(ByteMessage message) {
 
-        if ( megaMessage != null ) {
-            if ( !(megaMessage instanceof ByteMessage) ) {
-                //если байт - печатаем байтовую сумму
-                if ( megaMessage instanceof IntMessage ) {
-
-                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-                    megaMessage = null;
-
+        if ( lastMessage != null ) {
+            if ( !(lastMessage instanceof ByteMessage) ) {
+                if ( lastMessage instanceof IntMessage ) {
+                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    lastMessage = null;
+                } else if ( lastMessage instanceof StringMessage ) {
+                    saver.print ( formatter.formatStringSequence ( lastMessage.getMessage () ) );
+                    lastMessage = null;
                 }
-                //если строка - строковую сумму
-                else if ( megaMessage instanceof StringMessage ) {
-                    saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
-                    megaMessage = null;
-                }
-                //обнуляем все предыдущие сообщения и счетчики
             } else {
-
-
-                megaMessage = new ByteMessage ( megaMessage );
-                megaMessage.setMessage ( String.valueOf ( message ) );
+                message.setMessage ( lastMessage.message );
             }
+        } else {
+            message.setMessage ( 0 + "" );
         }
-        if ( megaMessage == null ) {
-            megaMessage = new ByteMessage ( String.valueOf ( message ) );
-        }
+        lastMessage = message;
     }
+
 
     @Override
-    public void log(String message) {
+    public void log(StringMessage message) {
 
-        if ( megaMessage != null ) {
-            if ( !(megaMessage instanceof StringMessage) ) {
-                if ( megaMessage instanceof IntMessage ) {
-                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-                    megaMessage = null;
-                } else if ( megaMessage instanceof ByteMessage ) {
-                    saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-                    megaMessage = null;
+        if ( lastMessage != null ) {
+            if ( !(lastMessage instanceof StringMessage) ) {
+                if ( lastMessage instanceof IntMessage ) {
+                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    lastMessage = null;
+                } else if ( lastMessage instanceof ByteMessage ) {
+                    saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+                    lastMessage = null;
                 }
 
             } else {
+                message.setMessage ( lastMessage.message );
 
-                megaMessage = new StringMessage ( megaMessage );
-                megaMessage.setMessage ( message );
             }
+        } else {
+            message.setMessage ( "" );
         }
-        if ( megaMessage == null ) {
-            megaMessage = new StringMessage ( message );
-        }
-
+        lastMessage = message;
     }
+
+
 
 
     @Override
@@ -133,15 +118,15 @@ public class LoggerController implements LoggerOOP {
 
     @Override
     public void stopLogging() {
-        if ( megaMessage instanceof IntMessage ) {
-            saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-        } else if ( megaMessage instanceof ByteMessage ) {
-            saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
-        } else if ( (megaMessage instanceof StringMessage) ) {
-            saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
+        if ( lastMessage instanceof IntMessage ) {
+            saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+        } else if ( lastMessage instanceof ByteMessage ) {
+            saver.print ( formatter.formatInt ( lastMessage.getMessage () ) );
+        } else if ( (lastMessage instanceof StringMessage) ) {
+            saver.print ( formatter.formatStringSequence ( lastMessage.getMessage () ) );
         }
 
-        megaMessage = null;
+        lastMessage = null;
 
     }
 
@@ -151,14 +136,8 @@ public class LoggerController implements LoggerOOP {
 class Main {
     public static void main(String[] args) {
         //region when
-        Logger.log ( "str 1" );
-        Logger.log ( "str 2" );
-        Logger.log ( "str 2" );
-        Logger.log ( 0 );
-        Logger.log ( "str 2" );
-        Logger.log ( "str 3" );
-        Logger.log ( "str 3" );
-        Logger.log ( "str 3" );
+        Logger.log ( "test string 1" );
+        Logger.log ( "other str" );
         Logger.stopLogging ();
         //endregion
     }
