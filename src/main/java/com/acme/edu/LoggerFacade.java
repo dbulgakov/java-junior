@@ -2,17 +2,15 @@ package com.acme.edu;
 
 import com.acme.edu.controller.LoggerController;
 import com.acme.edu.controller.SequenceLoggerController;
-import com.acme.edu.formatter.PrefixMessageFormatter;
+import com.acme.edu.formatter.PrefixFormatter;
 import com.acme.edu.messages.types.*;
 import com.acme.edu.saver.ConsoleDataSaver;
-
-import java.util.Arrays;
 
 import static com.acme.edu.utils.BoxingUtils.boxArray;
 import static com.acme.edu.utils.BoxingUtils.boxMatrix;
 
 public class LoggerFacade {
-    private static final LoggerController loggerController = new SequenceLoggerController(new PrefixMessageFormatter(), new ConsoleDataSaver());
+    private static final LoggerController loggerController = new SequenceLoggerController(new PrefixFormatter(), new ConsoleDataSaver());
 
     public static void log(int message) {
         loggerController.logMessage(new IntegerMessage(message));

@@ -1,6 +1,6 @@
 package com.acme.edu.formatter;
 
-public class PrefixMessageFormatter implements MessageFormatter {
+public class PrefixFormatter implements StringFormatter {
 
     private static final String STRING_WITH_PREFIX_FORMAT = "%s: %s";
 

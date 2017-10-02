@@ -1,13 +1,13 @@
 package com.acme.edu.messages;
 
 import com.acme.edu.formatter.HasPrefix;
-import com.acme.edu.formatter.MessageFormatter;
+import com.acme.edu.formatter.StringFormatter;
 import com.acme.edu.saver.DataSaver;
 
 public abstract class Message implements HasPrefix {
     private Message previousMessage;
 
-    private MessageFormatter messageFormatter;
+    private StringFormatter stringFormatter;
     private DataSaver dataSaver;
 
     public void save() {
@@ -34,12 +34,12 @@ public abstract class Message implements HasPrefix {
         this.previousMessage = previousMessage;
     }
 
-    public MessageFormatter getFormatter() {
-        return messageFormatter;
+    public StringFormatter getFormatter() {
+        return stringFormatter;
     }
 
-    public void setFormatter(MessageFormatter messageFormatter) {
-        this.messageFormatter = messageFormatter;
+    public void setFormatter(StringFormatter stringFormatter) {
+        this.stringFormatter = stringFormatter;
     }
 
     public DataSaver getDataSaver() {
