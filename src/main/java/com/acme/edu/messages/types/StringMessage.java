@@ -2,7 +2,6 @@ package com.acme.edu.messages.types;
 
 import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.Message;
-import com.acme.edu.messages.MessageType;
 
 public class StringMessage extends DataMessage<String> {
     public static final String TYPE_PREFIX = null;
@@ -28,11 +27,6 @@ public class StringMessage extends DataMessage<String> {
     }
 
     @Override
-    public MessageType getType() {
-        return MessageType.STRING;
-    }
-
-    @Override
     public String getPrefix() {
         return TYPE_PREFIX;
     }
@@ -49,7 +43,7 @@ public class StringMessage extends DataMessage<String> {
 
     private boolean isStringMessageSequence() {
         Message previousMessage = getPreviousMessage();
-        if (previousMessage.getType() == MessageType.STRING) {
+        if (isSameType(previousMessage)) {
             DataMessage previousDataMessage = (DataMessage) previousMessage;
             return previousDataMessage.getMessageValue().equals(getMessageValue());
         } else {

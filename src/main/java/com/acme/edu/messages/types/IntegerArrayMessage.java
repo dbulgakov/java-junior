@@ -1,7 +1,6 @@
 package com.acme.edu.messages.types;
 
 import com.acme.edu.messages.DataMessage;
-import com.acme.edu.messages.MessageType;
 
 import java.util.Arrays;
 
@@ -19,11 +18,6 @@ public class IntegerArrayMessage extends DataMessage<Integer[]> {
         calculatedValue = Arrays.toString(getMessageValue())
                 .replace("[", "{")
                 .replace("]", "}");
-    }
-
-    @Override
-    public MessageType getType() {
-        return MessageType.INTEGER_ARRAY;
     }
 
     @Override

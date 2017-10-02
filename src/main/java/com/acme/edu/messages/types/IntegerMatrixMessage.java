@@ -1,7 +1,6 @@
 package com.acme.edu.messages.types;
 
 import com.acme.edu.messages.DataMessage;
-import com.acme.edu.messages.MessageType;
 
 import java.util.Arrays;
 
@@ -24,11 +23,6 @@ public class IntegerMatrixMessage extends DataMessage<Integer[][]> {
         }
 
         calculatedValue = sb.toString();
-    }
-
-    @Override
-    public MessageType getType() {
-        return MessageType.INTEGER_MATRIX;
     }
 
     @Override

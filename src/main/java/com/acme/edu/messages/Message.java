@@ -24,8 +24,6 @@ public abstract class Message implements HasPrefix {
 
     protected abstract void processNewMessageInternal();
 
-    public abstract MessageType getType();
-
     // region saver and formatter
 
     public Message getPreviousMessage() {
@@ -56,5 +54,9 @@ public abstract class Message implements HasPrefix {
 
     protected boolean isPreviousMessageExist() {
         return getPreviousMessage() != null;
+    }
+
+    protected boolean isSameType(Message messageToCompare) {
+        return this.getClass().isInstance(messageToCompare);
     }
 }

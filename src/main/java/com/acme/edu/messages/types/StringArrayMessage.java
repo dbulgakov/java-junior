@@ -1,7 +1,6 @@
 package com.acme.edu.messages.types;
 
 import com.acme.edu.messages.DataMessage;
-import com.acme.edu.messages.MessageType;
 
 import java.util.Arrays;
 
@@ -20,11 +19,6 @@ public class StringArrayMessage extends DataMessage<String[]> {
                 .replace(", ", "\n")
                 .replace("[", "")
                 .replace("]", "");
-    }
-
-    @Override
-    public MessageType getType() {
-        return MessageType.STRING_ARRAY;
     }
 
     @Override

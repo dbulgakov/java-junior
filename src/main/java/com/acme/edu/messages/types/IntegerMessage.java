@@ -2,7 +2,6 @@ package com.acme.edu.messages.types;
 
 import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.Message;
-import com.acme.edu.messages.MessageType;
 
 public class IntegerMessage extends DataMessage<Integer> {
     public static final String TYPE_PREFIX = "primitive";
@@ -18,7 +17,7 @@ public class IntegerMessage extends DataMessage<Integer> {
     protected void processNewMessageInternal() {
         Message previousMessage = getPreviousMessage();
         if (isPreviousMessageExist()) {
-            if (previousMessage.getType() == MessageType.INTEGER) {
+            if (isSameType(previousMessage)) {
                 calculatedSum = getCalculatedSum(previousMessage);
                 setCalculatedValue(new IntegerMessage(calculatedSum));
             } else {
@@ -26,11 +25,6 @@ public class IntegerMessage extends DataMessage<Integer> {
                 calculatedSum = null;
             }
         }
-    }
-
-    @Override
-    public MessageType getType() {
-        return MessageType.INTEGER;
     }
 
     @Override
@@ -58,7 +52,7 @@ public class IntegerMessage extends DataMessage<Integer> {
     }
 
     private Integer getPreviousValue(DataMessage previousDataMessage) {
-        if (previousDataMessage.getCalculatedValue() != null && previousDataMessage.getCalculatedValue().getType() == MessageType.INTEGER) {
+        if (previousDataMessage.getCalculatedValue() != null) {
             return (Integer) previousDataMessage.getCalculatedValue().getMessageValue();
         } else {
             return (Integer) previousDataMessage.getMessageValue();
