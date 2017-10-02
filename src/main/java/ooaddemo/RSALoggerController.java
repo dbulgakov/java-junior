@@ -22,7 +22,7 @@ public class RSALoggerController extends LoggerController {
 
     public RSALoggerController() {
         super(null);
-        Repository.register(this);
+//        Repository.register(this);
     }
 
     {
@@ -42,6 +42,7 @@ public class RSALoggerController extends LoggerController {
 class RSAv2LoggerController extends RSALoggerController {
     @Override
     public Integer encode(String message) {
-        return "v2" + super.encode(message);
+//        return "v2" + super.encode(message);
+        return null;
     }
 }

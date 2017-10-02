@@ -23,11 +23,11 @@ abstract class LoggerController {
     /**
      * DP: Template Method vs Strategy
      */
-    public final void log(String message) {
-        if (!this.filter.filter(message)) {
-            this.saver.save(encode(message));
-        }
-    }
+//    public final void log(String message) {
+//        if (!this.filter.filter(message)) {
+//            this.saver.save(encode(message));
+//        }
+//    }
 
     protected abstract Object encode(String message);
 
