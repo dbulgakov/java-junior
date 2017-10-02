@@ -1,21 +1,17 @@
 package com.acme.edu.messages.types;
 
-import com.acme.edu.messages.DataMessage;
-
-public class ByteMessage extends DataMessage<Byte> {
-    public static final String TYPE_PREFIX = "primitive";
-
+public class ByteMessage extends NumericMessage<Byte> {
     public ByteMessage(Byte messageValue) {
         super(messageValue);
     }
 
     @Override
-    protected void processNewMessageInternal() {
-        savePreviousIfExists();
+    long getMaxValue() {
+        return Byte.MAX_VALUE;
     }
 
     @Override
-    public String getPrefix() {
-        return TYPE_PREFIX;
+    long getMinValue() {
+        return Byte.MIN_VALUE;
     }
 }

@@ -67,13 +67,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("b");
         //endregion
     }
-    /*
+
 
     @Test
     public void shouldLogString() throws IOException {
         //region when
-        SumLogger.log("test string 1");
-        SumLogger.log("other str");
+        LoggerFacade.log("test string 1");
+        LoggerFacade.log("other str");
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -83,11 +84,14 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
+
+
     @Test
     public void shouldLogBoolean() throws IOException {
         //region when
-        SumLogger.log(true);
-        SumLogger.log(false);
+        LoggerFacade.log(true);
+        LoggerFacade.log(false);
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -100,7 +104,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     @Test
     public void shouldLogReference() throws IOException {
         //region when
-        SumLogger.log(new Object());
+        LoggerFacade.log(new Object());
+        LoggerFacade.stopLogging();
         //endregion
 
         //region then
@@ -109,5 +114,4 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //endregion
     }
 
-    */
 }

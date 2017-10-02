@@ -112,8 +112,8 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         //region then
         assertSysoutContains("1");
         assertSysoutContains("str");
-        assertSysoutContains(String.valueOf(Integer.MAX_VALUE - 10));
-        assertSysoutContains("11");
+        assertSysoutContains("1");
+        assertSysoutContains(String.valueOf(Integer.MAX_VALUE));
         //endregion
     }
 }

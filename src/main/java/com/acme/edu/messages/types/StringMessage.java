@@ -4,8 +4,8 @@ import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.Message;
 
 public class StringMessage extends DataMessage<String> {
-    public static final String TYPE_PREFIX = null;
-    public static final String SEQUENCE_FORMAT = "%s (x%d)";
+    public static final String TYPE_PREFIX = "string";
+    private static final String SEQUENCE_FORMAT = "%s (x%d)";
 
     private int sequenceCounter;
 

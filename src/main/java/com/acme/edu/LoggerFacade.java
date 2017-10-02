@@ -29,6 +29,14 @@ public class LoggerFacade {
         loggerController.logMessage(new CharMessage(message));
     }
 
+    public static void log(boolean message) {
+        loggerController.logMessage(new BooleanMessage(message));
+    }
+
+    public static void log(Object message) {
+        loggerController.logMessage(new ObjectMessage(message));
+    }
+
     public static void log(String... message) {
         loggerController.logMessage(new StringArrayMessage(message));
     }
