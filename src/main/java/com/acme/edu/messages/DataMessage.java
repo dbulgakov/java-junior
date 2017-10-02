@@ -1,23 +1,14 @@
 package com.acme.edu.messages;
 
-public abstract class DataMessage<T> extends Message {
+public abstract class DataMessage<MSG_TYPE> extends Message {
 
-    private T messageValue;
-    private DataMessage calculatedValue;
+    private MSG_TYPE messageValue;
 
-    public DataMessage(T messageValue) {
+    public DataMessage(MSG_TYPE messageValue) {
         this.messageValue = messageValue;
     }
 
-    public T getMessageValue() {
+    public MSG_TYPE getMessageValue() {
         return messageValue;
-    }
-
-    public DataMessage getCalculatedValue() {
-        return calculatedValue;
-    }
-
-    public void setCalculatedValue(DataMessage calculatedValue) {
-        this.calculatedValue = calculatedValue;
     }
 }
