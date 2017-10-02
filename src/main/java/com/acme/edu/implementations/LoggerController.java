@@ -3,6 +3,7 @@ package com.acme.edu.implementations;
 import com.acme.edu.interfaces.Formatter;
 import com.acme.edu.interfaces.LoggerOOP;
 import com.acme.edu.interfaces.Saver;
+
 import java.util.Arrays;
 
 
@@ -20,7 +21,6 @@ public class LoggerController implements LoggerOOP {
         this.saver = saver;
         this.formatter = formatter;
     }
-
 
 
     //region logs
@@ -42,16 +42,17 @@ public class LoggerController implements LoggerOOP {
 
                 }
 
-            }else{
+            } else {
 
-            megaMessage = new IntMessage ( megaMessage );
-            megaMessage.setMessage ( String.valueOf ( message ) );
+                megaMessage = new IntMessage ( megaMessage );
+                megaMessage.setMessage ( String.valueOf ( message ) );
             }
         }
         if ( megaMessage == null ) {
             megaMessage = new IntMessage ( String.valueOf ( message ) );
         }
     }
+
     @Override
     public void log(byte message) {
 
@@ -81,8 +82,9 @@ public class LoggerController implements LoggerOOP {
             megaMessage = new ByteMessage ( String.valueOf ( message ) );
         }
     }
+
     @Override
-    public  void log(String message) {
+    public void log(String message) {
 
         if ( megaMessage != null ) {
             if ( !megaMessage.EqualsStates ( States.State.previousString ) ) {
@@ -109,11 +111,8 @@ public class LoggerController implements LoggerOOP {
 
     @Override
     public void log(char message) {
-        saver.print ( formatter.formatChar ( message ));
+        saver.print ( formatter.formatChar ( message ) );
     }
-
-
-
 
 
     @Override
@@ -122,26 +121,24 @@ public class LoggerController implements LoggerOOP {
     }
 
     @Override
-    public  void log(int... messages) {
-        saver.print ( formatter.formatIntArray ( messages) );
+    public void log(int... messages) {
+        saver.print ( formatter.formatIntArray ( messages ) );
     }
 
     @Override
     public void log(int[][] ints) {
-        saver.print ( formatter.formatIntMatrix(ints));
+        saver.print ( formatter.formatIntMatrix ( ints ) );
     }
 
 
     @Override
     public void stopLogging() {
-        if(megaMessage.EqualsStates ( States.State.previousInt )){
-            saver.print ( formatter.formatInt (  megaMessage.getMessage ()));
-        }
-        else if(megaMessage.EqualsStates ( States.State.previousByte)){
-            saver.print ( formatter.formatInt(  megaMessage.getMessage ()));
-        }
-        else if(megaMessage.EqualsStates ( States.State.previousString)){
-            saver.print ( formatter.formatStringSequence (  new StringMessage ( megaMessage).getMessage ()));
+        if ( megaMessage.EqualsStates ( States.State.previousInt ) ) {
+            saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
+        } else if ( megaMessage.EqualsStates ( States.State.previousByte ) ) {
+            saver.print ( formatter.formatInt ( megaMessage.getMessage () ) );
+        } else if ( megaMessage.EqualsStates ( States.State.previousString ) ) {
+            saver.print ( formatter.formatStringSequence ( new StringMessage ( megaMessage ).getMessage () ) );
         }
 
         megaMessage = null;
@@ -151,17 +148,19 @@ public class LoggerController implements LoggerOOP {
 
 }
 
-class Main{
+class Main {
     public static void main(String[] args) {
         //region when
-        Logger.log(-10);
-        Logger.log(Integer.MIN_VALUE);
-        Logger.log("str ");
-        Logger.log("str 1");
-        Logger.log("str 1");
+        Logger.log ( 10 );
+        Logger.log ( Integer.MAX_VALUE );
+        Logger.log ( Integer.MAX_VALUE );
+        Logger.log ( Integer.MIN_VALUE );
+        Logger.log ( "str " );
+        Logger.log ( "str 1" );
+        Logger.log ( "str 1" );
 
 
-        Logger.log(0);
+        Logger.log ( 0 );
         Logger.stopLogging ();
     }
 }

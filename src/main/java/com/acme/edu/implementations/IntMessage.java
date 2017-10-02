@@ -21,13 +21,6 @@ public class IntMessage extends MegaMessage {
         return message + getOverFlowString ();
     }
 
-    public String getOverFlowString() {
-        String overFlowString =  "";
-        for (int i = 0; i < Math.abs ( overFlow ); i++) {
-            overFlowString += System.lineSeparator () +math.getGuardianValue ( Integer.MAX_VALUE, Integer.MIN_VALUE );
-        }
-        return overFlowString;
-    }
 
     @Override
     public void setMessage(String value) {
@@ -45,4 +38,11 @@ public class IntMessage extends MegaMessage {
         return state;
     }
 
+    public String getOverFlowString() {
+        String overFlowString = "";
+        for (int i = 0; i < Math.abs ( overFlow ); i++) {
+            overFlowString += System.lineSeparator () + math.getGuardianValue ( Integer.MAX_VALUE, Integer.MIN_VALUE );
+        }
+        return overFlowString;
+    }
 }

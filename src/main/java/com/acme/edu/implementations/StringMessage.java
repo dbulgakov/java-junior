@@ -8,32 +8,11 @@ public class StringMessage extends MegaMessage {
         super ( lastMessage );
 
     }
-
-    StringMessage(String message) {
-        super ( message );
-    }
-
-    @Override
-    public States.State getState() {
-        return state;
-    }
-
-    @Override
-    public String getOverFlowString() {
-        return overFlowString;
-    }
-
     @Override
     public String getMessage() {
-        if(!lastMessage.overFlowString.equals ("" ))lastMessage.overFlowString+=System.lineSeparator ();
+        if ( !lastMessage.overFlowString.equals ( "" ) ) lastMessage.overFlowString += System.lineSeparator ();
         return lastMessage.overFlowString + getSequence ();
 
-    }
-
-    private String getSequence() {
-        if ( lastMessage.overFlow > 0 )
-            return lastMessage.message + " (x" + (lastMessage.overFlow + 1) + ")" ;
-        else return lastMessage.message;
     }
 
     @Override
@@ -52,5 +31,24 @@ public class StringMessage extends MegaMessage {
             overFlowString = value;
             message = value;
         }
+    }
+    StringMessage(String message) {
+        super ( message );
+    }
+
+    @Override
+    public States.State getState() {
+        return state;
+    }
+
+    @Override
+    public String getOverFlowString() {
+        return overFlowString;
+    }
+
+    private String getSequence() {
+        if ( lastMessage.overFlow > 0 )
+            return lastMessage.message + " (x" + (lastMessage.overFlow + 1) + ")";
+        else return lastMessage.message;
     }
 }

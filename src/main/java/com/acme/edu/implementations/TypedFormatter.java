@@ -19,47 +19,47 @@ public class TypedFormatter implements Formatter {
 
     @Override
     public String formatChar(char charToFormat) {
-        return String.format(SIMPLE_LOG_OUTPUT_FORMAT, CHAR_DESCRIPTION_STRING, charToFormat);
+        return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, CHAR_DESCRIPTION_STRING, charToFormat );
     }
 
     @Override
     public String formatStringArray(String... messages) {
-        return Arrays.toString(messages).replace(", ", "\n").replace("[", "").replace("]", "");
+        return Arrays.toString ( messages ).replace ( ", ", "\n" ).replace ( "[", "" ).replace ( "]", "" );
     }
 
     @Override
     public String formatIntArray(int... arrayToFormat) {
-        return String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_ARRAY_DESCRIPTION_STRING, getFromattedArrayString(arrayToFormat));
+        return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_ARRAY_DESCRIPTION_STRING, getFromattedArrayString ( arrayToFormat ) );
     }
 
 
     @Override
     public String formatIntMatrix(int[][] ints) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder ();
 
         for (int[] innerArray : ints) {
-            sb.append(String.format("%s\n", getFromattedArrayString(innerArray)));
+            sb.append ( String.format ( "%s\n", getFromattedArrayString ( innerArray ) ) );
         }
 
-        return String.format(MATRIX_LOG_OUTPUT_FORMAT, PRIMITIVE_MATRIX_DESCRIPTION_STRING, sb.toString());
+        return String.format ( MATRIX_LOG_OUTPUT_FORMAT, PRIMITIVE_MATRIX_DESCRIPTION_STRING, sb.toString () );
     }
 
     @Override
     public String formatInt(String intToFormat) {
-        return String.format(SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, intToFormat);
+        return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, PRIMITIVE_DESCRIPTION_STRING, intToFormat );
     }
 
     @Override
     public String formatStringSequence(String stringToFormat) {
 
 
-            return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, STRING_DESCRIPTION_STRING, stringToFormat );
+        return String.format ( SIMPLE_LOG_OUTPUT_FORMAT, STRING_DESCRIPTION_STRING, stringToFormat );
 
     }
 
     private String getFromattedArrayString(int[] array) {
-        return Arrays.toString(array)
-                .replace("[", "{")
-                .replace("]", "}");
+        return Arrays.toString ( array )
+                .replace ( "[", "{" )
+                .replace ( "]", "}" );
     }
 }

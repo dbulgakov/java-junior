@@ -7,7 +7,7 @@ class MathFunction {
     }
 
     int overFlowCounter;
-
+//работает позже рефакторинг
     long isSumOverflowNew(int value, long sum, long maxValue, long minValue) {
         long guardian = 0;
 

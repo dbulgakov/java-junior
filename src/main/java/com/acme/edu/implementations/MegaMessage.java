@@ -8,18 +8,15 @@ public abstract class MegaMessage implements Message {
     String overFlowString = "";
     int overFlow = 0;
 
-    MegaMessage(String message) {
-        this.message = message;
-
-    }
+    MegaMessage(String message) { this.message = message; }
 
     MegaMessage(MegaMessage lastMessage) {
         this.lastMessage = lastMessage;
     }
 
-     boolean EqualsStates(States.State state) {
-         return getState () == state;
-     }
+    boolean EqualsStates(States.State state) {
+        return getState () == state;
+    }
 
 
 }
