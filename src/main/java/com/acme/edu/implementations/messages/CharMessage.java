@@ -4,21 +4,28 @@ import com.acme.edu.interfaces.Formatter;
 
 public class CharMessage extends MegaMessage {
     public CharMessage(String message, Formatter formatter) {
-        super ( message, formatter );
+        super(message, formatter);
     }
 
     @Override
     public String getOverFlowString() {
-        return "";
+        return overFlowString;
     }
 
     @Override
     public String getMessage() {
-        return formatter.formatChar ( message );
+        return overFlowString;
     }
 
     @Override
-    public void setMessage(String value, String summary, int overFlow) {
-        message = value;
+    public void setMessage(MegaMessage megaMessage) {
+        if (megaMessage != null)
+            overFlowString += System.lineSeparator() + megaMessage.getOverFlowString();
+        overFlowString += formatter.formatChar(message);
+    }
+
+    @Override
+    public boolean isTheSameType(MegaMessage anotherMessage) {
+        return anotherMessage instanceof CharMessage | anotherMessage == null;
     }
 }

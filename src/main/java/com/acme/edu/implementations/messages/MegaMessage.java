@@ -4,9 +4,9 @@ import com.acme.edu.interfaces.Formatter;
 import com.acme.edu.interfaces.SimpleMessage;
 
 public abstract class MegaMessage implements SimpleMessage {
-    protected String message;
-    protected String overFlowString = "";
-    protected int overFlow = 0;
+    String message;
+    String overFlowString = "";
+    int overFlow = 0;
     Formatter formatter;
 
     protected MegaMessage(String message, Formatter formatter) {
@@ -14,15 +14,15 @@ public abstract class MegaMessage implements SimpleMessage {
         this.formatter = formatter;
     }
 
-    public String getOverFlowString() {
+    protected String getOverFlowString() {
         return overFlowString;
     }
 
-    public String getElementaryMessage() {
+    protected String getElementaryMessage() {
         return message;
     }
 
-    public int getOverFlow() {
+    protected int getOverFlow() {
         return overFlow;
     }
 

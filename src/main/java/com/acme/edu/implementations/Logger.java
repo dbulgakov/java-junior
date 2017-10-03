@@ -33,18 +33,6 @@ public class Logger {
         loggerController.log ( megaMessage );
     }
 
-    public static void log(String... messages) {
-        loggerController.log ( messages );
-    }
-
-    public static void log(int... messages) {
-        loggerController.log ( messages );
-    }
-
-    public static void log(int[][] ints) {
-        loggerController.log ( ints );
-    }
-
     public static void stopLogging() {
         loggerController.stopLogging ();
     }

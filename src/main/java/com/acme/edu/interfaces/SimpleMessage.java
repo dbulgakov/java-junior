@@ -1,9 +1,13 @@
 package com.acme.edu.interfaces;
 
 
+import com.acme.edu.implementations.messages.MegaMessage;
+
 public interface SimpleMessage {
 
     String getMessage();
 
-    void setMessage(String message, String summary, int overFlow);
+    void setMessage(MegaMessage lastMessage);
+
+    boolean isTheSameType(MegaMessage anotherMessage);
 }
