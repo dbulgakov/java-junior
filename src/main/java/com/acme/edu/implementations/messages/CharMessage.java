@@ -7,10 +7,6 @@ public class CharMessage extends MegaMessage {
         super(message, formatter);
     }
 
-    @Override
-    public String getOverFlowString() {
-        return overFlowString;
-    }
 
     @Override
     public String getMessage() {
