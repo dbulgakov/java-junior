@@ -1,26 +1,27 @@
 package com.acme.edu.implementations.messages;
 
 import com.acme.edu.interfaces.Formatter;
+import com.acme.edu.interfaces.Saver;
 
 public class IntMessage extends NumericMessage {
 
-    public IntMessage(String value, Formatter formatter) {
-        super(value, formatter);
+    public IntMessage(String value, Formatter formatter, Saver saver) {
+        super(value, formatter, saver);
     }
 
     @Override
-    public String getMessage() {
-        return formatter.formatInt(message) + getOverFlowString();
+    public void getMessage() {
+        saver.print(formatter.formatInt(message) + getOverFlowString());
     }
 
     @Override
     public void setMessage(MegaMessage lastMessage) {
-        if (lastMessage != null) {
-            int number = Integer.parseInt(message);
-            int previousSum = Integer.parseInt(lastMessage.getElementaryMessage());
-            overFlow = lastMessage.getOverFlow();
-            previousSum = (int) isSumOverflow(number, previousSum, Integer.MAX_VALUE, Integer.MIN_VALUE);
-            message = previousSum + "";
+        if (lastMessage == null) return;
+        if(this.isTheSameType(lastMessage)){
+            calculateSum(lastMessage);
+        }
+        else {
+            lastMessage.getMessage();
         }
     }
 
@@ -37,5 +38,13 @@ public class IntMessage extends NumericMessage {
                     + formatter.formatInt(String.valueOf(getGuardianValue(Integer.MAX_VALUE, Integer.MIN_VALUE)));
         }
         return overFlowString;
+    }
+
+    private void calculateSum(MegaMessage lastMessage) {
+        int number = Integer.parseInt(message);
+        int previousSum = Integer.parseInt(lastMessage.getElementaryMessage());
+        overFlow = lastMessage.getOverFlow();
+        previousSum = (int) isSumOverflow(number, previousSum, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        message = previousSum + "";
     }
 }

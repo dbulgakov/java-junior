@@ -11,25 +11,25 @@ public class Logger {
 
     private static final Formatter formatter = new TypedFormatter ();
     private static final Saver saver = new ConsoleSaver ();
-    private static final LoggerController loggerController = new LoggerController ( saver );
+    private static final LoggerController loggerController = new LoggerController ();
 
     public static void log(int message) {
-        IntMessage megaMessage = new IntMessage ( String.valueOf ( message ), formatter );
+        IntMessage megaMessage = new IntMessage ( String.valueOf ( message ), formatter, saver);
         loggerController.log ( megaMessage );
     }
 
     public static void log(byte message) {
-        ByteMessage megaMessage = new ByteMessage ( String.valueOf ( message ), formatter );
+        ByteMessage megaMessage = new ByteMessage ( String.valueOf ( message ), formatter, saver );
         loggerController.log ( megaMessage );
     }
 
     public static void log(String message) {
-        StringMessage megaMessage = new StringMessage ( message, formatter );
+        StringMessage megaMessage = new StringMessage ( message, formatter, saver );
         loggerController.log ( megaMessage );
     }
 
     public static void log(char message) {
-        CharMessage megaMessage = new CharMessage ( String.valueOf ( message ), formatter );
+        CharMessage megaMessage = new CharMessage ( String.valueOf ( message ), formatter,saver );
         loggerController.log ( megaMessage );
     }
 

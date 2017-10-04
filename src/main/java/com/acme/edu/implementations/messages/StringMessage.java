@@ -1,37 +1,36 @@
 package com.acme.edu.implementations.messages;
 
 import com.acme.edu.interfaces.Formatter;
+import com.acme.edu.interfaces.Saver;
 
 public class StringMessage extends MegaMessage {
 
-    public StringMessage(String message, Formatter formatter) {
-        super(message, formatter);
+    public StringMessage(String message, Formatter formatter, Saver saver) {
+        super(message, formatter, saver);
     }
 
     @Override
-    public String getMessage() {
-        if (overFlowString.equals("")) return getSequence(message);
-        else return overFlowString + System.lineSeparator() + getSequence(message);
+    public void getMessage() {
+       saver.print(getSequence(message));
     }
-
 
     @Override
     public void setMessage(MegaMessage lastMessage) {
-        if (lastMessage != null) {
-            overFlow = lastMessage.getOverFlow();
-            overFlowString = lastMessage.getOverFlowString();
-            String value = lastMessage.getElementaryMessage();
-            if (!value.equals(""))
-                if (value.equals(message)) {
-                    overFlow++;
-                } else {
-                    if (overFlowString.equals("")) {
-                        overFlowString += getSequence(value);
-                    } else {
-                        overFlowString += System.lineSeparator() + getSequence(value);
-                    }
-                    overFlow = 0;
-                }
+        if (lastMessage == null) {
+            return;
+        }
+        overFlow = lastMessage.getOverFlow();
+        String value = lastMessage.getElementaryMessage();
+
+        if (!this.isTheSameType(lastMessage)) {
+            lastMessage.getMessage();
+            return;
+        }
+        if (value.equals(message)) {
+            overFlow++;
+        } else {
+            lastMessage.getMessage();
+            overFlow = 0;
         }
     }
 

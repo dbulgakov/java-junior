@@ -1,12 +1,13 @@
 package com.acme.edu.implementations.messages;
 
 import com.acme.edu.interfaces.Formatter;
+import com.acme.edu.interfaces.Saver;
 
 public abstract class NumericMessage extends MegaMessage {
 
 
-    protected NumericMessage(String message, Formatter formatter) {
-        super(message, formatter);
+    protected NumericMessage(String message, Formatter formatter, Saver saver) {
+        super(message, formatter, saver);
     }
 
     protected long isSumOverflow(int value, long sum, long maxValue, long minValue) {

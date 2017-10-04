@@ -1,22 +1,22 @@
 package com.acme.edu.implementations.messages;
 
 import com.acme.edu.interfaces.Formatter;
+import com.acme.edu.interfaces.Saver;
 
 public class CharMessage extends MegaMessage {
-    public CharMessage(String message, Formatter formatter) {
-        super(message, formatter);
+    public CharMessage(String message, Formatter formatter, Saver saver) {
+        super(message, formatter, saver);
     }
 
 
     @Override
-    public String getMessage() {
-        return overFlowString;
-    }
+    public void getMessage() { saver.print(overFlowString); }
 
     @Override
     public void setMessage(MegaMessage megaMessage) {
-        if (megaMessage != null)
+        if (megaMessage != null){
             overFlowString += System.lineSeparator() + megaMessage.getOverFlowString();
+        }
         overFlowString += formatter.formatChar(message);
     }
 
