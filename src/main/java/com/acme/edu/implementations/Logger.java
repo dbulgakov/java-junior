@@ -14,7 +14,7 @@ public class Logger {
     private static final LoggerController loggerController = new LoggerController ();
 
     public static void log(int message) {
-        IntMessage megaMessage = new IntMessage ( String.valueOf ( message ), formatter, saver);
+        IntMessage megaMessage = new IntMessage ( String.valueOf ( message ), formatter, saver );
         loggerController.log ( megaMessage );
     }
 
@@ -31,7 +31,7 @@ public class Logger {
     }
 
     public static void log(char message) {
-        CharMessage megaMessage = new CharMessage ( String.valueOf ( message ), formatter,saver );
+        CharMessage megaMessage = new CharMessage ( String.valueOf ( message ), formatter, saver );
         loggerController.log ( megaMessage );
     }
 

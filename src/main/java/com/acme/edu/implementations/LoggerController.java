@@ -11,15 +11,14 @@ public class LoggerController {
 
 
     public void log(MegaMessage message) {
-        message.setMessage(lastMessage);
+        message.setMessage ( lastMessage );
         lastMessage = message;
     }
 
     public void stopLogging() {
-        if (lastMessage != null) {
-            lastMessage.getMessage();
+        if ( lastMessage != null ) {
+            lastMessage.getMessage ();
             lastMessage = null;
         }
     }
 }
-

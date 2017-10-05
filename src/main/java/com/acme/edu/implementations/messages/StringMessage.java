@@ -6,30 +6,30 @@ import com.acme.edu.interfaces.Saver;
 public class StringMessage extends MegaMessage {
 
     public StringMessage(String message, Formatter formatter, Saver saver) {
-        super(message, formatter, saver);
+        super ( message, formatter, saver );
     }
 
     @Override
     public void getMessage() {
-       saver.print(getSequence(message));
+        saver.print ( getSequence ( message ) );
     }
 
     @Override
     public void setMessage(MegaMessage lastMessage) {
-        if (lastMessage == null) {
+        if ( lastMessage == null ) {
             return;
         }
-        overFlow = lastMessage.getOverFlow();
-        String value = lastMessage.getElementaryMessage();
+        overFlow = lastMessage.getOverFlow ();
+        String value = lastMessage.getElementaryMessage ();
 
-        if (!this.isTheSameType(lastMessage)) {
-            lastMessage.getMessage();
+        if ( !this.isTheSameType ( lastMessage ) ) {
+            lastMessage.getMessage ();
             return;
         }
-        if (value.equals(message)) {
+        if ( value.equals ( message ) ) {
             overFlow++;
         } else {
-            lastMessage.getMessage();
+            lastMessage.getMessage ();
             overFlow = 0;
         }
     }
@@ -42,9 +42,8 @@ public class StringMessage extends MegaMessage {
 
     private String getSequence(String value) {
         if ( overFlow > 0 ) {
-            return formatter.formatStringSequence(value, (overFlow + 1));
-        }
-        else return formatter.formatString(value);
+            return formatter.formatStringSequence ( value, (overFlow + 1) );
+        } else return formatter.formatString ( value );
     }
 
 }
