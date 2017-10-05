@@ -38,36 +38,36 @@ public abstract class NumericMessage<MSG_TYPE extends Number> extends DataMessag
     }
 
     private long calculateNewSumAndCheckOverflow(int newValue, long previousValue) {
-        long checkerVariable = 0;
+        long checkerValue = getCheckerValue(newValue, previousValue);
 
-        if (newValue > 0 & previousValue >= 0) {
-            if (checkerVariable - previousValue <= newValue) {
-                checkerVariable = getMaxValue();
-                if (overflowNumber < 0) {
-                    previousValue -= 1;
-                }
-                overflowNumber++;
-            }
-        } else if (newValue < 0 & previousValue <= 0) {
-            if (checkerVariable - previousValue >= newValue) {
-                checkerVariable = getMinValue();
-                if (overflowNumber > 0) {
-                    previousValue -= 1;
-                }
-                overflowNumber--;
-            }
+        previousValue += newValue - checkerValue;
+
+        return getFinalCorrectedSum(previousValue);
+    }
+
+    private long getCheckerValue(int newValue, long previousValue) {
+        long checkerValue = 0;
+
+        if (newValue > 0 & previousValue >= 0 && checkerValue - previousValue <= newValue) {
+            checkerValue = getMaxValue();
+            overflowNumber++;
+        } else if (newValue < 0 & previousValue <= 0 && checkerValue - previousValue >= newValue) {
+            checkerValue = getMinValue();
+            overflowNumber--;
         }
 
-        previousValue += newValue - checkerVariable;
+        return checkerValue;
+    }
 
-        if (previousValue > 0 & overflowNumber < 0) {
-            previousValue += getMinValue();
-            overflowNumber += 1;
-        } else if (previousValue < 0 & overflowNumber > 0) {
-            previousValue += getMaxValue();
-            overflowNumber -= 1;
+    private long getFinalCorrectedSum(long unCorrectedSum) {
+        if (unCorrectedSum > 0 & overflowNumber < 0) {
+            unCorrectedSum = getMinValue() + unCorrectedSum;
+            overflowNumber++;
+        } else if (unCorrectedSum < 0 & overflowNumber > 0) {
+            unCorrectedSum = getMaxValue() + unCorrectedSum;
+            overflowNumber--;
         }
-        return previousValue;
+        return unCorrectedSum;
     }
 
     @Override
