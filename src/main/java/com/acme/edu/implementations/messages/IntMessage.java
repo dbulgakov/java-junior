@@ -16,7 +16,9 @@ public class IntMessage extends NumericMessage {
 
     @Override
     public void setMessage(MegaMessage lastMessage) {
-        if (lastMessage == null) return;
+        if ( lastMessage == null ) {
+            return;
+        }
         if(this.isTheSameType(lastMessage)){
             calculateSum(lastMessage);
         }
@@ -27,7 +29,7 @@ public class IntMessage extends NumericMessage {
 
     @Override
     public boolean isTheSameType(MegaMessage anotherMessage) {
-        return anotherMessage instanceof IntMessage | anotherMessage == null;
+        return anotherMessage instanceof IntMessage;
     }
 
     @Override

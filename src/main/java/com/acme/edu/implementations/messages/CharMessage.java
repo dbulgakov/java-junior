@@ -10,7 +10,9 @@ public class CharMessage extends MegaMessage {
 
 
     @Override
-    public void getMessage() { saver.print(overFlowString); }
+    public void getMessage() {
+        saver.print ( overFlowString );
+    }
 
     @Override
     public void setMessage(MegaMessage megaMessage) {
@@ -22,6 +24,6 @@ public class CharMessage extends MegaMessage {
 
     @Override
     public boolean isTheSameType(MegaMessage anotherMessage) {
-        return anotherMessage instanceof CharMessage | anotherMessage == null;
+        return anotherMessage instanceof CharMessage;
     }
 }

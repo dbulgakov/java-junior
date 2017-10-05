@@ -11,12 +11,15 @@ public class ByteMessage extends NumericMessage {
 
     @Override
     public void getMessage() {
+
         saver.print(formatter.formatInt(message) + getOverFlowString());
     }
 
     @Override
     public void setMessage(MegaMessage lastMessage) {
-        if (lastMessage == null) return;
+        if ( lastMessage == null ) {
+            return;
+        }
         if(this.isTheSameType(lastMessage)){
             calculateSum(lastMessage);
         }
@@ -28,7 +31,7 @@ public class ByteMessage extends NumericMessage {
     @Override
     public boolean isTheSameType(MegaMessage anotherMessage) {
 
-        return anotherMessage instanceof ByteMessage | anotherMessage == null;
+        return anotherMessage instanceof ByteMessage;
     }
 
     @Override

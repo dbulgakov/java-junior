@@ -24,8 +24,10 @@ public class Logger {
     }
 
     public static void log(String message) {
-        StringMessage megaMessage = new StringMessage ( message, formatter, saver );
-        loggerController.log ( megaMessage );
+        if ( message != null ) {
+            StringMessage megaMessage = new StringMessage ( message, formatter, saver );
+            loggerController.log ( megaMessage );
+        }
     }
 
     public static void log(char message) {

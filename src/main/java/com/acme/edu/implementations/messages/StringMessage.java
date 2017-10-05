@@ -37,12 +37,13 @@ public class StringMessage extends MegaMessage {
     @Override
     public boolean isTheSameType(MegaMessage anotherMessage) {
 
-        return anotherMessage instanceof StringMessage | anotherMessage == null;
+        return anotherMessage instanceof StringMessage;
     }
 
     private String getSequence(String value) {
-        if (overFlow > 0)
+        if ( overFlow > 0 ) {
             return formatter.formatStringSequence(value, (overFlow + 1));
+        }
         else return formatter.formatString(value);
     }
 

@@ -7,6 +7,7 @@ public abstract class NumericMessage extends MegaMessage {
 
 
     protected NumericMessage(String message, Formatter formatter, Saver saver) {
+
         super(message, formatter, saver);
     }
 
