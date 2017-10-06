@@ -2,6 +2,7 @@ package com.acme.edu.iteration01;
 
 import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.exceptions.IllegalMessageException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import java.io.IOException;
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
-    public void setUpSystemOut() throws IOException {
+    public void setUpSystemOut() throws IOException, IllegalMessageException {
         resetOut();
         captureSysout();
     }
@@ -23,7 +24,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void shouldLogInteger() throws IOException {
+    public void shouldLogInteger() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(1);
         LoggerFacade.log(0);
@@ -37,7 +38,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogByte() throws IOException {
+    public void shouldLogByte() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log((byte) 0);
         LoggerFacade.log((byte) -1);
@@ -54,7 +55,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //    TODO: implement SumLogger solution to match specification as tests
 
     @Test
-    public void shouldLogChar() throws IOException {
+    public void shouldLogChar() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log('a');
         LoggerFacade.log('b');
@@ -70,7 +71,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test
-    public void shouldLogString() throws IOException {
+    public void shouldLogString() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log("test string 1");
         LoggerFacade.log("other str");
@@ -87,7 +88,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test
-    public void shouldLogBoolean() throws IOException {
+    public void shouldLogBoolean() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(true);
         LoggerFacade.log(false);
@@ -102,7 +103,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogReference() throws IOException {
+    public void shouldLogReference() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(new Object());
         LoggerFacade.stopLogging();

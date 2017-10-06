@@ -2,6 +2,7 @@ package com.acme.edu.iteration02;
 
 import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.exceptions.IllegalMessageException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //TODO: implement SumLogger solution to match specification as tests
 
     @Test
-    public void shouldLogSequentIntegersAsSum() throws IOException {
+    public void shouldLogSequentIntegersAsSum() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log(1);
@@ -45,7 +46,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() {
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws IllegalMessageException{
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log(10);
@@ -64,7 +65,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() {
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws IllegalMessageException{
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log((byte) 10);
@@ -83,7 +84,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException {
+    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log("str 2");

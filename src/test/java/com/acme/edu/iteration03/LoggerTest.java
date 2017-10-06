@@ -12,7 +12,7 @@ import java.io.IOException;
 public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //region given
     @Before
-    public void setUpSystemOut() throws IOException {
+    public void setUpSystemOut() throws IOException, IllegalMessageException {
         resetOut();
         captureSysout();
     }
@@ -27,7 +27,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //TODO: implement SumLogger solution to match specification as tests
 
     @Test
-    public void shouldLogIntegersArray() throws IOException {
+    public void shouldLogIntegersArray() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(new int[]{-1, 0, 1});
         LoggerFacade.stopLogging();
@@ -41,7 +41,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntegersMatrix() throws IOException {
+    public void shouldLogIntegersMatrix() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(new int[][]{{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
         LoggerFacade.stopLogging();
@@ -77,7 +77,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //    }
 
     @Test
-    public void shouldLogStringsWithOneMethodCall() throws IOException {
+    public void shouldLogStringsWithOneMethodCall() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log("str1", "string 2", "str 3");
         LoggerFacade.stopLogging();
@@ -89,7 +89,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntegersWithOneMethodCall() throws IOException {
+    public void shouldLogIntegersWithOneMethodCall() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(-1, 0, 1, 3);
         LoggerFacade.stopLogging();
@@ -101,7 +101,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException {
+    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException, IllegalMessageException {
         //region when
         LoggerFacade.log(1);
         LoggerFacade.log("str");
@@ -116,10 +116,5 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("1");
         assertSysoutContains(String.valueOf(Integer.MAX_VALUE));
         //endregion
-    }
-
-    @Test(expected = IllegalMessageException.class)
-    public void shouldThrowExceptionWhenNullMessage() {
-        LoggerFacade.log((Object) null);
     }
 }

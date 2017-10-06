@@ -1,6 +1,6 @@
 package com.acme.edu.exceptions;
 
-public class IllegalMessageException extends RuntimeException {
+public class IllegalMessageException extends Exception {
     public IllegalMessageException() {
         super();
     }
