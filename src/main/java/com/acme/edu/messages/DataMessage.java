@@ -2,15 +2,15 @@ package com.acme.edu.messages;
 
 import com.acme.edu.exceptions.DataSaveException;
 
-public abstract class DataMessage<MSG_TYPE> extends Message {
+public abstract class DataMessage<T> extends Message {
 
-    private MSG_TYPE messageValue;
+    private T messageValue;
 
-    public DataMessage(MSG_TYPE messageValue) {
+    public DataMessage(T messageValue) {
         this.messageValue = messageValue;
     }
 
-    public MSG_TYPE getMessageValue() {
+    public T getMessageValue() {
         return messageValue;
     }
 
