@@ -2,6 +2,7 @@ package com.acme.edu.iteration03;
 
 import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.exceptions.IllegalMessageException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -115,5 +116,10 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("1");
         assertSysoutContains(String.valueOf(Integer.MAX_VALUE));
         //endregion
+    }
+
+    @Test(expected = IllegalMessageException.class)
+    public void shouldThrowExceptionWhenNullMessage() {
+        LoggerFacade.log((Object) null);
     }
 }

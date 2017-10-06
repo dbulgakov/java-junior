@@ -9,6 +9,10 @@ public class DataSaveException extends Exception {
         super(message);
     }
 
+    public DataSaveException(Throwable cause) {
+        super(cause);
+    }
+
     public DataSaveException(String message, Throwable cause) {
         super(message, cause);
     }
