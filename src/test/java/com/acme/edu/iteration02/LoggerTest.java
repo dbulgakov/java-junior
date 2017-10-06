@@ -3,6 +3,7 @@ package com.acme.edu.iteration02;
 import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.exceptions.IllegalMessageException;
+import com.acme.edu.exceptions.LoggingException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //TODO: implement SumLogger solution to match specification as tests
 
     @Test
-    public void shouldLogSequentIntegersAsSum() throws IOException, IllegalMessageException {
+    public void shouldLogSequentIntegersAsSum() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log(1);
@@ -46,7 +47,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws IllegalMessageException{
+    public void shouldLogCorrectlyIntegerOverflowWhenSequentIntegers() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log(10);
@@ -65,7 +66,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws IllegalMessageException{
+    public void shouldLogCorrectlyByteOverflowWhenSequentBytes() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log((byte) 10);
@@ -84,7 +85,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogSameSubsequentStringsWithoutRepeat() throws IOException, IllegalMessageException {
+    public void shouldLogSameSubsequentStringsWithoutRepeat() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log("str 1");
         LoggerFacade.log("str 2");

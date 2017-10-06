@@ -3,6 +3,7 @@ package com.acme.edu.iteration03;
 import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.exceptions.IllegalMessageException;
+import com.acme.edu.exceptions.LoggingException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,9 +28,9 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //TODO: implement SumLogger solution to match specification as tests
 
     @Test
-    public void shouldLogIntegersArray() throws IOException, IllegalMessageException {
+    public void shouldLogIntegersArray() throws LoggingException, IllegalMessageException {
         //region when
-        LoggerFacade.log(new int[]{-1, 0, 1});
+        LoggerFacade.log(-1, 0, 1);
         LoggerFacade.stopLogging();
         //endregion
 
@@ -41,7 +42,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntegersMatrix() throws IOException, IllegalMessageException {
+    public void shouldLogIntegersMatrix() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log(new int[][]{{-1, 0, 1}, {1, 2, 3}, {-1, -2, -3}});
         LoggerFacade.stopLogging();
@@ -77,7 +78,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //    }
 
     @Test
-    public void shouldLogStringsWithOneMethodCall() throws IOException, IllegalMessageException {
+    public void shouldLogStringsWithOneMethodCall() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log("str1", "string 2", "str 3");
         LoggerFacade.stopLogging();
@@ -89,7 +90,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogIntegersWithOneMethodCall() throws IOException, IllegalMessageException {
+    public void shouldLogIntegersWithOneMethodCall() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log(-1, 0, 1, 3);
         LoggerFacade.stopLogging();
@@ -101,7 +102,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws IOException, IllegalMessageException {
+    public void shouldCorrectDealWithIntegerOverflowWhenOneMethodCall() throws LoggingException, IllegalMessageException {
         //region when
         LoggerFacade.log(1);
         LoggerFacade.log("str");
