@@ -3,6 +3,7 @@ package com.acme.edu.iteration02;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.implementations.Logger;
 import com.acme.edu.implementations.exceptions.LoggerException;
+import com.acme.edu.implementations.exceptions.SaverException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -108,6 +109,13 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains ( "str 3 (x3)" );
         //endregion
     }
-
-
+	
+	@Test(expected = LoggerException.class)
+	public void shouldGetExceptionWhenLogOperationAndSavingException() throws LoggerException {
+		Logger.saver = message -> {
+			throw new SaverException ();
+		};
+		Logger.log ( "test message" );
+		Logger.stopLogging ();
+	}
 }
