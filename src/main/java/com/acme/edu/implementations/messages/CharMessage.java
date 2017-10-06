@@ -1,5 +1,6 @@
 package com.acme.edu.implementations.messages;
 
+import com.acme.edu.implementations.exceptions.SaverException;
 import com.acme.edu.interfaces.Formatter;
 import com.acme.edu.interfaces.Saver;
 
@@ -11,7 +12,7 @@ public class CharMessage extends MegaMessage {
 	
 	
 	@Override
-	public void getMessage() {
+	public void getMessage() throws SaverException {
 		saver.print ( overFlowString );
 	}
 	

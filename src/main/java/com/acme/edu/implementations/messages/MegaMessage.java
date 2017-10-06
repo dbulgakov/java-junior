@@ -12,15 +12,6 @@ public abstract class MegaMessage implements SimpleMessage {
 	Saver saver;
 	
 	protected MegaMessage(String message, Formatter formatter, Saver saver) {
-		if ( message == null ) {
-			throw new NullPointerException ( "There is not any message!!" );
-		}
-		if ( formatter == null ) {
-			throw new NullPointerException ( "I can't format by null formatter:(" );
-		}
-		if ( saver == null ) {
-			throw new NullPointerException ( "I don't see any Savers;(" );
-		}
 		this.message = message;
 		this.formatter = formatter;
 		this.saver = saver;
@@ -30,7 +21,7 @@ public abstract class MegaMessage implements SimpleMessage {
 		return overFlowString;
 	}
 	
-	protected String getElementaryMessage() {
+	public String getElementaryMessage() {
 		return message;
 	}
 	

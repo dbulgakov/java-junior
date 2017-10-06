@@ -1,5 +1,6 @@
 package com.acme.edu.implementations.messages;
 
+import com.acme.edu.implementations.exceptions.SaverException;
 import com.acme.edu.interfaces.Formatter;
 import com.acme.edu.interfaces.Saver;
 
@@ -10,13 +11,13 @@ public class ByteMessage extends NumericMessage {
 	}
 	
 	@Override
-	public void getMessage() {
+	public void getMessage() throws SaverException {
 		
 		saver.print ( formatter.formatInt ( message ) + getOverFlowString () );
 	}
 	
 	@Override
-	public void setMessage(MegaMessage lastMessage) {
+	public void setMessage(MegaMessage lastMessage) throws SaverException {
 		if ( lastMessage == null ) {
 			return;
 		}

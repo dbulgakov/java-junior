@@ -2,6 +2,7 @@ package com.acme.edu.iteration01;
 
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
 import com.acme.edu.implementations.Logger;
+import com.acme.edu.implementations.exceptions.LoggerException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test
-    public void shouldLogInteger() throws IOException {
+    public void shouldLogInteger() throws IOException, LoggerException {
         //region when
         Logger.log(1);
         Logger.log(0);
@@ -38,7 +39,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     }
 
     @Test
-    public void shouldLogByte() throws IOException {
+    public void shouldLogByte() throws IOException, LoggerException {
         //region when
         Logger.log((byte)0);
         Logger.log((byte)-1);
@@ -56,7 +57,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 //    TODO: implement Logger solution to match specification as tests
 
     @Test
-    public void shouldLogChar() throws IOException {
+    public void shouldLogChar() throws IOException, LoggerException {
         //region when
         Logger.log('a');
         Logger.log('b');
@@ -72,7 +73,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
 
 
     @Test
-    public void shouldLogString() throws IOException {
+    public void shouldLogString() throws IOException, LoggerException {
         //region when
         Logger.log("test string 1");
         Logger.log("other str");
@@ -85,6 +86,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
         assertSysoutContains("other str");
         //endregion
     }
+    
 /*
     @Test
     public void shouldLogBoolean() throws IOException {

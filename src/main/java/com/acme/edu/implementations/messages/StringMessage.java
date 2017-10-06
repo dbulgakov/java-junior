@@ -1,5 +1,6 @@
 package com.acme.edu.implementations.messages;
 
+import com.acme.edu.implementations.exceptions.SaverException;
 import com.acme.edu.interfaces.Formatter;
 import com.acme.edu.interfaces.Saver;
 
@@ -10,12 +11,12 @@ public class StringMessage extends MegaMessage {
 	}
 	
 	@Override
-	public void getMessage() {
+	public void getMessage() throws SaverException {
 		saver.print ( getSequence ( message ) );
 	}
 	
 	@Override
-	public void setMessage(MegaMessage lastMessage) {
+	public void setMessage(MegaMessage lastMessage) throws SaverException {
 		if ( lastMessage == null ) {
 			return;
 		}
