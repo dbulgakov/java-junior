@@ -30,7 +30,7 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test(expected = IllegalMessageException.class)
-    public void shouldThrowExceptionWhenNullMessage() throws IllegalMessageException {
+    public void shouldThrowMessageExceptionWhenNullMessage() throws IllegalMessageException {
         LoggerFacade.log((Object) null);
     }
 
