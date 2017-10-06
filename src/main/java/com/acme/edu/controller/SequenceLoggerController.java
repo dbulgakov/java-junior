@@ -34,9 +34,7 @@ public class SequenceLoggerController implements LoggerController {
             throw new IllegalMessageException("Illegal message passed as argument", e);
         } catch (DataSaveException | IllegalStateException e) {
             e.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("UNHANDLED ERROR OCCURED");
-            e.printStackTrace();
+            // some logic here when io error
         }
 
         previousMessage = messageToLog;

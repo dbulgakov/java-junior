@@ -2,7 +2,13 @@ package com.acme.edu.iteration04;
 
 import com.acme.edu.LoggerFacade;
 import com.acme.edu.SysoutCaptureAndAssertionAbility;
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.exceptions.IllegalMessageException;
+import com.acme.edu.formatter.PrefixFormatter;
+import com.acme.edu.messages.Message;
+import com.acme.edu.messages.types.IntegerMessage;
+import com.acme.edu.saver.ConsoleDataSaver;
+import com.acme.edu.saver.ThrowDataSaver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +30,29 @@ public class LoggerTest implements SysoutCaptureAndAssertionAbility {
     //endregion
 
     @Test(expected = IllegalMessageException.class)
-    public void shouldThrowExceptionWhenNullMessage() throws IllegalMessageException{
+    public void shouldThrowExceptionWhenNullMessage() throws IllegalMessageException {
         LoggerFacade.log((Object) null);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void shouldCorrectlyManageNoSaverException() throws IllegalMessageException, DataSaveException {
+        Message intMessage = new IntegerMessage(1);
+        intMessage.setFormatter(new PrefixFormatter());
+        intMessage.save();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void shouldCorrectlyManageNoFormatterException() throws IllegalMessageException, DataSaveException {
+        Message intMessage = new IntegerMessage(1);
+        intMessage.setDataSaver(new ConsoleDataSaver());
+        intMessage.save();
+    }
+
+    @Test(expected = DataSaveException.class)
+    public void shouldCorrectlyThrowDataExceptionWhenIoError() throws IllegalMessageException, DataSaveException {
+        Message intMessage = new IntegerMessage(1);
+        intMessage.setDataSaver(new ThrowDataSaver());
+        intMessage.setFormatter(new PrefixFormatter());
+        intMessage.save();
     }
 }
