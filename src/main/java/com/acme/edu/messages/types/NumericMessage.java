@@ -4,14 +4,14 @@ import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.Message;
 
-public abstract class NumericMessage<MSG_TYPE extends Number> extends DataMessage<MSG_TYPE> {
+public abstract class NumericMessage<T extends Number> extends DataMessage<T> {
     public static final String TYPE_PREFIX = "primitive";
 
     private long calculatedSum;
     private long overflowNumber;
 
 
-    public NumericMessage(MSG_TYPE messageValue) {
+    public NumericMessage(T messageValue) {
         super(messageValue);
     }
 
@@ -22,7 +22,7 @@ public abstract class NumericMessage<MSG_TYPE extends Number> extends DataMessag
         if (isPreviousMessageExist()) {
             if (isSameType(previousMessage)) {
 
-                NumericMessage<MSG_TYPE> previousDataMessage = (NumericMessage<MSG_TYPE>) previousMessage;
+                NumericMessage<T> previousDataMessage = (NumericMessage<T>) previousMessage;
                 calculatedSum = previousDataMessage.getCalculatedSum();
                 overflowNumber = previousDataMessage.getOverflowNumber();
 
