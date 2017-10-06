@@ -1,5 +1,6 @@
 package com.acme.edu.messages.types;
 
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.messages.DataMessage;
 
 import java.util.Arrays;
@@ -14,7 +15,7 @@ public class StringArrayMessage extends DataMessage<String[]> {
     }
 
     @Override
-    protected void processNewMessageInternal() {
+    protected void processNewMessageInternal() throws DataSaveException {
         savePreviousIfExists();
         calculatedValue = Arrays.toString(getMessageValue())
                 .replace(", ", "\n")

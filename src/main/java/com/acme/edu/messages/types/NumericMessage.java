@@ -1,5 +1,6 @@
 package com.acme.edu.messages.types;
 
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.Message;
 
@@ -16,7 +17,7 @@ public abstract class NumericMessage<MSG_TYPE extends Number> extends DataMessag
 
     @Override
     @SuppressWarnings("unchecked cast")
-    protected void processNewMessageInternal() {
+    protected void processNewMessageInternal() throws DataSaveException {
         Message previousMessage = getPreviousMessage();
         if (isPreviousMessageExist()) {
             if (isSameType(previousMessage)) {

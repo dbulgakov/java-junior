@@ -1,5 +1,6 @@
 package com.acme.edu.messages.types;
 
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.messages.DataMessage;
 
 public class ObjectMessage extends DataMessage<Object> {
@@ -10,7 +11,7 @@ public class ObjectMessage extends DataMessage<Object> {
     }
 
     @Override
-    protected void processNewMessageInternal() {
+    protected void processNewMessageInternal() throws DataSaveException {
         savePreviousIfExists();
     }
 

@@ -1,9 +1,12 @@
 package com.acme.edu.messages;
 
 import com.acme.edu.encoder.StringEncoder;
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.formatter.HasPrefix;
 import com.acme.edu.formatter.StringFormatter;
 import com.acme.edu.saver.DataSaver;
+
+import java.io.IOException;
 
 public abstract class Message implements HasPrefix {
     private Message previousMessage;
@@ -12,7 +15,7 @@ public abstract class Message implements HasPrefix {
     private DataSaver dataSaver;
     private StringEncoder encoder;
 
-    public void save() {
+    public void save() throws DataSaveException {
         if (getDataSaver() == null || getFormatter() == null) {
             throw new IllegalStateException("Saver and formatter are required to be setup!");
         }
@@ -23,14 +26,18 @@ public abstract class Message implements HasPrefix {
             resultString = getEncoder().encode(resultString);
         }
 
-        getDataSaver().save(resultString);
+        try {
+            getDataSaver().save(resultString);
+        } catch (IOException e) {
+            throw new DataSaveException(e);
+        }
     }
 
-    public void process() {
+    public void process() throws DataSaveException {
         processNewMessageInternal();
     }
 
-    protected abstract void processNewMessageInternal();
+    protected abstract void processNewMessageInternal() throws DataSaveException;
 
     // region saver and formatter
 
@@ -80,7 +87,7 @@ public abstract class Message implements HasPrefix {
         setPreviousMessage(null);
     }
 
-    protected void savePreviousIfExists() {
+    protected void savePreviousIfExists() throws DataSaveException {
         if (isPreviousMessageExist()) {
             getPreviousMessage().save();
             clearPrevious();

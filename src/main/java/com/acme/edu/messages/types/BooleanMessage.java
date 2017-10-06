@@ -1,8 +1,9 @@
 package com.acme.edu.messages.types;
 
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.messages.DataMessage;
 
-public class BooleanMessage extends DataMessage<Boolean>{
+public class BooleanMessage extends DataMessage<Boolean> {
     public static final String TYPE_PREFIX = "primitive";
 
     public BooleanMessage(Boolean messageValue) {
@@ -10,7 +11,7 @@ public class BooleanMessage extends DataMessage<Boolean>{
     }
 
     @Override
-    protected void processNewMessageInternal() {
+    protected void processNewMessageInternal() throws DataSaveException {
         savePreviousIfExists();
     }
 

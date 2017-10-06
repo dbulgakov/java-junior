@@ -1,5 +1,6 @@
 package com.acme.edu.messages.types;
 
+import com.acme.edu.exceptions.DataSaveException;
 import com.acme.edu.messages.DataMessage;
 import com.acme.edu.messages.Message;
 
@@ -14,7 +15,7 @@ public class StringMessage extends DataMessage<String> {
     }
 
     @Override
-    protected void processNewMessageInternal() {
+    protected void processNewMessageInternal() throws DataSaveException {
         if (isPreviousMessageExist()) {
             if (isStringMessageSequence()) {
                 sequenceCounter = getStringMessageSequenceLength() + 1;
